@@ -1,0 +1,34 @@
+{
+  "name": "esri-loader",
+  "version": "0.1.0",
+  "description": "A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "tsc",
+    "build": "tsc",
+    "prepublish": "npm run build",
+    "start": "tsc -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomwayson/esri-loader.git"
+  },
+  "keywords": [
+    "Esri",
+    "ArcGIS",
+    "JavaScript",
+    "module",
+    "loader",
+    "Dojo"
+  ],
+  "author": "Tom Wayson <tom@tomwayson.com> (https://tomwayson.com)",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/tomwayson/esri-loader/issues"
+  },
+  "homepage": "https://github.com/tomwayson/esri-loader#readme",
+  "devDependencies": {
+    "typescript": "^2.0.10"
+  }
+}

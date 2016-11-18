@@ -1,0 +1,7 @@
+{
+  "extends": "tslint:latest",
+  "rules": {
+    "quotemark": ["single"],
+    "no-string-literal": false
+  }
+}
