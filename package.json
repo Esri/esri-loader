@@ -1,9 +1,9 @@
 {
   "name": "esri-loader",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "esri-loader.js",
+  "types": "esri-loader.d.ts",
   "scripts": {
     "test": "tsc",
     "build": "tsc",

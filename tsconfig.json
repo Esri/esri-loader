@@ -3,14 +3,15 @@
     "declaration": true,
     "target": "es5",
     "module": "umd",
-    "moduleResolution": "node",
     "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
-    "noImplicitAny": false,
-    "outDir": "./dist"
+    "noImplicitAny": false
   },
+  "files": [
+    "esri-loader.ts"
+  ],
   "exclude": [
     "node_modules"
   ]
