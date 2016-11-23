@@ -10,7 +10,7 @@
     "noImplicitAny": false
   },
   "files": [
-    "esri-loader.ts"
+    "index.ts"
   ],
   "exclude": [
     "node_modules"
