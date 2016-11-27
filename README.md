@@ -29,7 +29,7 @@ if (!esriLoader.isLoaded()) {
 // create a map on the page
 function createMap() {
   // first, we use Dojo's loader to require the map class
-  esriLoader.dojoRequire(['esri/map'], ([Map]) => {
+  esriLoader.dojoRequire(['esri/map'], (Map) => {
     // create map with the given options at a DOM node w/ id 'mapNode' 
     let map = new Map('mapNode', {
       center: [-118, 34.5],
@@ -41,6 +41,11 @@ function createMap() {
 ```
 
 ## Examples
-Here are some example applications that use this library:
- - https://github.com/tomwayson/esri-angular-cli-example
- - https://github.com/tomwayson/esri-react-router-example
+Here are some applications that use this library:
+
+### Angular 2
+ - [angular2-esri-loader](https://github.com/tomwayson/angular2-esri-loader) - An Angular 2 service that wraps this library to make it easy to bring it into any Angular 2 application
+ - [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - An example angular-cli application that uses angular2-esri-loader
+
+### React
+ - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example reaact-router application that uses this library to lazy load the ArcGIS API
