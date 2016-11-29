@@ -1,5 +1,5 @@
 # esri-loader
-A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications.
+A tiny library to help load [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) modules in non-Dojo applications.
 
 ## Usage
 The code below shows how you can lazy load the ArcGIS API for JavaScript and then create a map.
@@ -40,6 +40,9 @@ function createMap() {
 }
 ```
 
+## Why is this needed?
+[This blog post](tomwayson.com/2016/11/27/using-the-arcgis-api-for-javascript-in-applications-built-with-webpack/) explains how libraries like this provide a workaround to the challenges of loading ArcGIS API for JavaScript modules from bundlers like [webpack](http://webpack.github.io/).
+
 ## Examples
 Here are some applications that use this library:
 
@@ -49,3 +52,4 @@ Here are some applications that use this library:
 
 ### React
  - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example reaact-router application that uses this library to lazy load the ArcGIS API
+ - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses this library to load the ArcGIS API
