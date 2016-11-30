@@ -1,6 +1,11 @@
 # esri-loader
 A tiny library to help load [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) modules in non-Dojo applications.
 
+## Install
+```bash
+npm install esri-loader
+```
+
 ## Usage
 The code below shows how you can lazy load the ArcGIS API for JavaScript and then create a map.
 
