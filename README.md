@@ -24,7 +24,7 @@ if (!esriLoader.isLoaded()) {
     createMap();
   }, {
     // use a specific version instead of latest 4.x
-    url: '//js.arcgis.com/3.18/'
+    url: 'https://js.arcgis.com/3.18/'
   });
 } else {
   // ArcGIS API is already loaded, just create the map
