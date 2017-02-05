@@ -51,9 +51,9 @@ function createMap() {
 ## Examples
 Here are some applications that use this library:
 
-### Angular 2
+### Angular
  - [angular2-esri-loader](https://github.com/tomwayson/angular2-esri-loader) - An Angular 2 service that wraps this library to make it easy to bring it into any Angular 2 application
- - [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - An example angular-cli application that uses angular2-esri-loader
+ - [angular2-esri4-components](https://github.com/kgs916/angular2-esri4-components) - A set of Angular 2 components to work with ArcGIS API for JavaScript v4.x
 
 ### React
  - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example reaact-router application that uses this library to lazy load the ArcGIS API
