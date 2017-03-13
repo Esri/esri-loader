@@ -11,8 +11,8 @@ export function bootstrap(callback: Function, options = <any> {}) {
     options.url = 'https://js.arcgis.com/4.2/';
   }
 
-  // don't reload API if it is already loaded
-  if (isLoaded()) {
+  // don't reload API if it is already loaded or in the process of loading
+  if (document.querySelector('script[data-esri-loader=""]')) {
     callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
     return;
   }
@@ -21,6 +21,7 @@ export function bootstrap(callback: Function, options = <any> {}) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = options.url;
+  script.dataset.esriLoader = '';
 
   // once the script is loaded...
   script.onload = () => {
@@ -37,11 +38,20 @@ export function bootstrap(callback: Function, options = <any> {}) {
   document.body.appendChild(script);
 }
 
-// prevent people from getting require undefined error
 export function dojoRequire(modules: string[], callback: Function) {
-  if (!isLoaded()) {
-    throw new Error('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
-  } else {
+  if (isLoaded()) { 
     window['require'](modules, callback);
+    return;
+  }
+  
+  const script = document.querySelector('script[data-esri-loader=""]');
+  if (script) {
+    // Not yet loaded but script is in the body - use callback after onLoad event
+    script.addEventListener('load', () => {
+      window['require'](modules, callback);
+    });
+  } else {
+    // Not bootstrapped
+    throw new Error('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
   }
 }
