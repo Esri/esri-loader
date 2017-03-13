@@ -58,3 +58,6 @@ Here are some applications that use this library:
 ### React
  - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example reaact-router application that uses this library to lazy load the ArcGIS API
  - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses this library to load the ArcGIS API
+
+### Vue
+ - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
