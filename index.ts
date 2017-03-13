@@ -21,7 +21,7 @@ export function bootstrap(callback: Function, options = <any> {}) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = options.url;
-  script.dataset.esriLoader = '';
+  script.dataset['esriLoader'] = '';
 
   // once the script is loaded...
   script.onload = () => {
