@@ -12,7 +12,7 @@ export function bootstrap(callback: Function, options = {} as any) {
   }
 
   // don't reload API if it is already loaded or in the process of loading
-  if (document.querySelector('script[data-esri-loader=""]')) {
+  if (document.querySelector('script[data-esri-loader="1"]')) {
     callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
     return;
   }
