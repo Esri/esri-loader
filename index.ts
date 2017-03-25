@@ -5,7 +5,7 @@ export function isLoaded() {
 }
 
 // load the ArcGIS API on the page
-export function bootstrap(callback: Function, options = <any> {}) {
+export function bootstrap(callback: Function, options = {} as any) {
   // default options
   if (!options.url) {
     options.url = 'https://js.arcgis.com/4.2/';
@@ -21,7 +21,7 @@ export function bootstrap(callback: Function, options = <any> {}) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = options.url;
-  script.dataset['esriLoader'] = '';
+  script.dataset['esriLoader'] = '1';
 
   // once the script is loaded...
   script.onload = () => {
@@ -29,7 +29,7 @@ export function bootstrap(callback: Function, options = <any> {}) {
     const dojoRequire = window['require'];
 
     // let the caller know that the API has been successfully loaded
-    // and as a convenience, return the require function 
+    // and as a convenience, return the require function
     // in case they want to use it directly
     callback(null, dojoRequire);
   };
@@ -39,12 +39,12 @@ export function bootstrap(callback: Function, options = <any> {}) {
 }
 
 export function dojoRequire(modules: string[], callback: Function) {
-  if (isLoaded()) { 
+  if (isLoaded()) {
     window['require'](modules, callback);
     return;
   }
-  
-  const script = document.querySelector('script[data-esri-loader=""]');
+
+  const script = document.querySelector('script[data-esri-loader="1"]');
   if (script) {
     // Not yet loaded but script is in the body - use callback after onLoad event
     script.addEventListener('load', () => {
