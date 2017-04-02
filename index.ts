@@ -13,7 +13,7 @@ export function isLoaded() {
 export function bootstrap(callback: Function, options = {} as any) {
   // default options
   if (!options.url) {
-    options.url = 'https://js.arcgis.com/4.2/';
+    options.url = 'https://js.arcgis.com/4.3/';
   }
 
   // don't reload API if it is already loaded or in the process of loading

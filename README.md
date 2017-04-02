@@ -24,7 +24,7 @@ if (!esriLoader.isLoaded()) {
     createMap();
   }, {
     // use a specific version instead of latest 4.x
-    url: 'https://js.arcgis.com/3.18/'
+    url: 'https://js.arcgis.com/3.20/'
   });
 } else {
   // ArcGIS API is already loaded, just create the map
@@ -43,6 +43,15 @@ function createMap() {
     });
   });
 }
+```
+
+### Loading Styles
+
+Before you can use the ArcGIS API in your app, you'll need to load the styles, for example by adding something like the following to app/styles/app.css:
+
+```css
+/* esri styles */
+@import url('https://js.arcgis.com/3.20/esri/css/esri.css');
 ```
 
 ## Why is this needed?
