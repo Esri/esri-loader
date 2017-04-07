@@ -37,6 +37,7 @@ jspm_packages
 .node_repl_history
 
 # build output
-*.js
-*.map
-*.d.ts
+esri-loader.js
+src/*.js
+src/*.map
+src/*.d.ts

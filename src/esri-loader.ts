@@ -64,3 +64,9 @@ export function dojoRequire(modules: string[], callback: Function) {
     }
   }
 }
+
+export default {
+  isLoaded,
+  bootstrap,
+  dojoRequire
+}
