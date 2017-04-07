@@ -37,5 +37,5 @@ jspm_packages
 .node_repl_history
 
 # TypeScript source
-*.ts
-!*.d.ts
+src/*.ts
+!src/*.d.ts

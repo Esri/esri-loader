@@ -2,11 +2,12 @@
   "name": "esri-loader",
   "version": "0.2.0",
   "description": "A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications",
-  "main": "index.js",
-  "types": "index.d.ts",
+  "main": "esri-loader.js",
+  "module": "src/esri-loader.js",
+  "types": "src/esri-loader.d.ts",
   "scripts": {
     "test": "tsc",
-    "build": "tsc",
+    "build": "tsc && rollup -c",
     "prepublish": "npm run build",
     "start": "tsc -w"
   },
@@ -29,6 +30,7 @@
   },
   "homepage": "https://github.com/tomwayson/esri-loader#readme",
   "devDependencies": {
+    "rollup": "^0.41.6",
     "typescript": "^2.0.10"
   }
 }
