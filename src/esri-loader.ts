@@ -36,10 +36,12 @@ export function bootstrap(callback: Function, options = {} as any) {
     // we can now use Dojo's require() to load esri and dojo AMD modules
     const dojoRequire = window['require'];
 
-    // let the caller know that the API has been successfully loaded
-    // and as a convenience, return the require function
-    // in case they want to use it directly
-    callback(null, dojoRequire);
+    if (callback) {
+      // let the caller know that the API has been successfully loaded
+      // and as a convenience, return the require function
+      // in case they want to use it directly
+      callback(null, dojoRequire);
+    }
   };
 
   // load the script
