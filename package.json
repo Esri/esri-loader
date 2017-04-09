@@ -6,10 +6,10 @@
   "module": "src/esri-loader.js",
   "types": "src/esri-loader.d.ts",
   "scripts": {
-    "test": "tsc",
+    "test": "npm run build && karma start --single-run=true",
     "build": "tsc && rollup -c",
     "prepublish": "npm run build",
-    "start": "tsc -w"
+    "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\""
   },
   "repository": {
     "type": "git",
@@ -30,6 +30,14 @@
   },
   "homepage": "https://github.com/tomwayson/esri-loader#readme",
   "devDependencies": {
+    "concurrently": "^3.4.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^1.6.0",
+    "karma-chrome-launcher": "^2.0.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-mocha-reporter": "^2.2.3",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "onchange": "^3.2.1",
     "rollup": "^0.41.6",
     "typescript": "^2.0.10"
   }
