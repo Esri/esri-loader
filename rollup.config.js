@@ -1,7 +1,8 @@
 export default {
   entry: 'src/esri-loader.js',
   format: 'umd',
-  dest: 'esri-loader.js',
   moduleName: 'esriLoader',
-  exports: 'named'
+  exports: 'named',
+  dest: 'dist/esri-loader.js',
+  sourceMap: 'dist/esri-loader.js.map'
 };

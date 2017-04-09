@@ -16,7 +16,7 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       // for now testing on the build output
-      'esri-loader.js',
+      'dist/esri-loader.js',
       'test/**/*.js'
     ],
 
