@@ -2,13 +2,15 @@
   "name": "esri-loader",
   "version": "0.3.0",
   "description": "A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications",
-  "main": "esri-loader.js",
+  "main": "dist/esri-loader.js",
   "module": "src/esri-loader.js",
   "types": "src/esri-loader.d.ts",
   "scripts": {
-    "test": "npm run build && karma start --single-run=true",
+    "test": "npm run build:release && karma start --single-run=true",
     "build": "tsc && rollup -c",
-    "prepublish": "npm run build",
+    "uglify": "uglifyjs ./dist/esri-loader.js -m -c -o ./dist/esri-loader.min.js --source-map ./dist/esri-loader.min.js.map",
+    "build:release": "npm run build && npm run uglify",
+    "prepublish": "npm run build:release",
     "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\""
   },
   "repository": {
@@ -39,6 +41,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "onchange": "^3.2.1",
     "rollup": "^0.41.6",
-    "typescript": "^2.0.10"
+    "typescript": "^2.0.10",
+    "uglify-js": "^2.8.22"
   }
 }
