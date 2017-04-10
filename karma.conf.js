@@ -1,6 +1,10 @@
 // Karma configuration
 // Generated on Wed Mar 08 2017 13:05:58 GMT-0800 (PST)
 
+var isTravis = !!process.env.TRAVIS;
+// for now testing on the build output
+var builtFile = isTravis ? 'dist/esri-loader.min.js' : 'dist/esri-loader.js';
+
 module.exports = function(config) {
   var configuration = {
 
@@ -15,8 +19,7 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      // for now testing on the build output
-      'dist/esri-loader.js',
+      builtFile,
       'test/**/*.js'
     ],
 
@@ -70,7 +73,7 @@ module.exports = function(config) {
   };
 
   // test in chrome too locally
-  if (!process.env.TRAVIS) {
+  if (!isTravis) {
     configuration.browsers.push('Chrome');
   }
 
