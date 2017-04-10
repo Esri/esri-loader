@@ -2,6 +2,15 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3.1
+
+### Fixed
+- fixed no callback bug
+
+### Support
+- added unit tests
+- add a minified build and source maps for published releases
+
 ## 0.3.0
 
 ### Added
