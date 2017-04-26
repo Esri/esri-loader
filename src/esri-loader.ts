@@ -6,7 +6,7 @@ function getScript () {
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   // would like to just use window.require, but fucking typescript
-  return typeof window['require'] !== 'undefined';
+  return typeof window['require'] !== 'undefined' && getScript();
 }
 
 // load the ArcGIS API on the page
