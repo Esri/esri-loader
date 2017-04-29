@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.0.0
+
+### Changed
+- `isLoaded()` only returns true if the script has the `esri-loader` attribute
+
 ## 0.3.1
 
 ### Fixed

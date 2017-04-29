@@ -89,7 +89,7 @@ Once you've loaded the API using one of the above methods, you can then load mod
 function createMap() {
   // first, we use Dojo's loader to require the map class
   esriLoader.dojoRequire(['esri/map'], (Map) => {
-    // create map with the given options at a DOM node w/ id 'mapNode' 
+    // create map with the given options at a DOM node w/ id 'mapNode'
     let map = new Map('mapNode', {
       center: [-118, 34.5],
       zoom: 8,
@@ -97,6 +97,15 @@ function createMap() {
     });
   });
 }
+```
+
+### Using your own script tag
+
+It is possible to use this library only to load modules (i.e. not to pre-load or lazy load the ArcGIS API), then you will need to add a `data-esri-loader` attribute to the script tag you use to load the ArcGIS API for JavaScript. Example:
+
+```html
+<!-- index.html -->
+<script src="https://js.arcgis.com/3.20/" data-esri-loader="loaded"></script>
 ```
 
 ## Why is this needed?

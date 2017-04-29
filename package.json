@@ -1,6 +1,6 @@
 {
   "name": "esri-loader",
-  "version": "0.3.1",
+  "version": "1.0.0",
   "description": "A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications",
   "main": "dist/esri-loader.js",
   "module": "src/esri-loader.js",
@@ -11,6 +11,7 @@
     "uglify": "uglifyjs ./dist/esri-loader.js -m -c -o ./dist/esri-loader.min.js --source-map ./dist/esri-loader.min.js.map",
     "build:release": "npm run build && npm run uglify",
     "prepublish": "npm run build:release",
+    "preversion": "npm run test && git add README.md CHANGELOG.md",
     "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\""
   },
   "repository": {
