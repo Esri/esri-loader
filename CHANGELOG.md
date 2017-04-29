@@ -5,7 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## 1.0.0
 
 ### Changed
-- `isLoaded()` only returns true if the script has the `esri-loader` attribute
+- `isLoaded()` only returns true if the script tag has the `data-esri-loader` attribute
 
 ## 0.3.1
 
