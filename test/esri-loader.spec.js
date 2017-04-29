@@ -3,6 +3,8 @@ describe('esri-loader', function () {
     beforeEach(function() {
       // remove previously stubbed require function
       delete window.require;
+      // esri-loader script has not yet been loaded
+      document.querySelector = jasmine.createSpy('querySelector').and.returnValue(null);
     });
     it('isLoaded should be false', function () {
       expect(esriLoader.isLoaded())
@@ -69,6 +71,8 @@ describe('esri-loader', function () {
         actualModuleNames = names;
         callback();
       };
+      var esriLoaderScript = document.createElement('script');
+      document.querySelector = jasmine.createSpy('querySelector').and.returnValue(esriLoaderScript);
       spyOn(context, 'requireCallback');
       esriLoader.dojoRequire(expectedModuleNames, context.requireCallback);
     });
