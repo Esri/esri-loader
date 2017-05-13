@@ -10,9 +10,9 @@ If you want to use the ArcGIS API in an [Angular](#angular), [Ember](#ember), or
 
 Otherwise you'll want to follow the [Install](#install) and [Usage](#usage) instructions below to use this library directly in your application.
 
-**NOTE**: For Angular 1, use [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from.
+See the [Examples](#examples) section below for links to applications that use the above wrappers and/or this library directly.
 
-For links to applications that use the above wrappers and/or this library see the [Examples](#examples) section below.
+**NOTE**: For Angular 1, use [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from.
 
 ## Install
 ```bash
@@ -120,20 +120,26 @@ In addition to solving the above challenges, this library can also help improve 
 
 ![Diagram of framework specfic wrappers of this library and applications that use this library](https://docs.google.com/drawings/d/1we3VFggV78jlUMyaM9eg-YsJlT5J2FfyDcfe6CyMA0k/pub?w=1064&h=581)
 
-Here are some applications that use this library:
+Here are some applications that use this library (presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye:):
 
-### Angular
+### [Angular](https://angular.io/)
 - [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses [angular2-esri-loader](https://github.com/tomwayson/angular2-esri-loader) by way of [angular2-esri4-components](https://github.com/kgs916/angular2-esri4-components)
 
-### Ember
+### [Electron](https://electron.atom.io/)
+- [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demponstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron.
+
+### [Ember](https://www.emberjs.com/)
 - [ember-esri-loader Dummy App](http://ember-esri-loader.surge.sh/) - The dummy application for the ember-esri-loader addon
 
-### Glimmer.js
+### [Glimmer.js](https://glimmerjs.com/)
  - [esri-glimmer-example](https://github.com/tomwayson/esri-glimmer-example) - An example of how to use the ArcGIS API for JavaScript in a https://glimmerjs.com/ application
+ 
+### [Preact](https://github.com/developit/preact)
+- [City of Baltimore: Map Gallery](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS API for JavaScript built with Preact
 
-### React
+### [React](https://facebook.github.io/react/)
 - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example reaact-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
  - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
 
-### Vue
+### [Vue.js](https://vuejs.org/)
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
