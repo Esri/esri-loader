@@ -123,7 +123,7 @@ In addition to solving the above challenges, this library can also help improve 
 Here are some applications that use this library (presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye:):
 
 ### [Angular](https://angular.io/)
-- [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses [angular2-esri-loader](https://github.com/tomwayson/angular2-esri-loader) by way of [angular2-esri4-components](https://github.com/kgs916/angular2-esri4-components)
+- [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses [angular-esri-loader](https://github.com/tomwayson/angular-esri-loader) by way of [angular2-esri4-components](https://github.com/kgs916/angular2-esri4-components)
 
 ### [Electron](https://electron.atom.io/)
 - [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demponstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron.
