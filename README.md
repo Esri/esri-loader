@@ -4,7 +4,7 @@ A tiny library to help load [ArcGIS API for JavaScript](https://developers.arcgi
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance.
 
 If you want to use the ArcGIS API in an [Angular](#angular), [Ember](#ember), or [React](#react) application, you can use one of these framework specific wrappers:
- - [angular2-esri-loader](https://github.com/tomwayson/angular2-esri-loader) - An Angular service that wraps this library to make it easy to bring it into any Angular (2+) application.
+ - [angular-esri-loader](https://github.com/tomwayson/angular-esri-loader) - An Angular service that wraps this library to make it easy to bring it into any Angular (2+) application.
  - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon to allow lazy loading the ArcGIS API for JavaScript in Ember applications
  - [esri-loader-react](https://github.com/davetimmins/esri-loader-react) - A React component wrapper around esri-loader
 
