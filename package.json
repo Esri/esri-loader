@@ -16,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tomwayson/esri-loader.git"
+    "url": "git+https://github.com/Esri/esri-loader.git"
   },
   "keywords": [
     "Esri",
@@ -29,9 +29,9 @@
   "author": "Tom Wayson <tom@tomwayson.com> (https://tomwayson.com)",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/tomwayson/esri-loader/issues"
+    "url": "https://github.com/Esri/esri-loader/issues"
   },
-  "homepage": "https://github.com/tomwayson/esri-loader#readme",
+  "homepage": "https://github.com/Esri/esri-loader",
   "devDependencies": {
     "concurrently": "^3.4.0",
     "jasmine-core": "^2.5.2",
