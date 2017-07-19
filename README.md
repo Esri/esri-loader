@@ -45,6 +45,7 @@ esriLoader.bootstrap((err) => {
     console.error(err);
   } else {
     // optionall execute any code once it's preloaded
+    createMap();
   }
 }, {
   // use a specific version instead of latest 4.x
