@@ -24,11 +24,18 @@ The code below shows how you can load the ArcGIS API for JavaScript and then cre
 
 ### Loading Styles
 
-Before you can use the ArcGIS API in your app, you'll need to load the styles, for example:
+Before you can use the ArcGIS API in your app, you'll need to load the styles. For example, if you're using the latest 4.x version (the default):
 
 ```css
 /* esri styles */
-@import url('https://js.arcgis.com/3.20/esri/css/esri.css');
+@import url('https://js.arcgis.com/4.4/esri/css/main.css');
+```
+
+If you're using a specific version other than the latest 4.x:
+
+```css
+/* esri styles */
+@import url('https://js.arcgis.com/3.21/esri/css/esri.css');
 ```
 
 ### Pre-loading the ArcGIS API for JavaScript
@@ -49,7 +56,7 @@ esriLoader.bootstrap((err) => {
   }
 }, {
   // use a specific version instead of latest 4.x
-  url: '//js.arcgis.com/3.20/';
+  url: 'https://js.arcgis.com/3.21/';
 });
 ```
 
@@ -73,7 +80,7 @@ if (!esriLoader.isLoaded()) {
     }
   }, {
     // use a specific version instead of latest 4.x
-    url: 'https://js.arcgis.com/3.20/'
+    url: 'https://js.arcgis.com/3.21/'
   });
 } else {
   // ArcGIS API is already loaded, just create the map
@@ -106,14 +113,14 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/3.20/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/3.21/" data-esri-loader="loaded"></script>
 ```
 
 ## Why is this needed?
 
-Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from the modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using the Dojo's AMD loader. When using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework instead of the Dojo build system. This library let's you do that by provding a module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use it's Dojo loader to load only the ArcGIS API modules as needed.
+Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from the modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. When using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework instead of the Dojo build system. This library let's you do that by provding a module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use it's Dojo loader to load only the ArcGIS API modules as needed.
 
-[This blog post](http://tomwayson.com/2016/11/27/using-the-arcgis-api-for-javascript-in-applications-built-with-webpack/) explains in more detail how libraries like this provide a workaround to the challenges of loading ArcGIS API for JavaScript modules from bundlers like [webpack](http://webpack.github.io/).
+[This blog post](http://tomwayson.com/2016/11/27/using-the-arcgis-api-for-javascript-in-applications-built-with-webpack/) explains in more detail how libraries like this provide a workaround to the challenges of loading ArcGIS API for JavaScript modules from bundlers like [webpack](http://webpack.github.io/) and [rollup.js](https://rollupjs.org/).
 
 In addition to solving the above challenges, this library can also help improve the performance of initial application load (always an challenge in web mapping applications) by enabling you to load the ArcGIS API and it's modules only as they are needed. You can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering, or [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map.
 
@@ -143,6 +150,7 @@ Here are some applications that use this library (presented by framework in alph
  - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
 
 ### [Vue.js](https://vuejs.org/)
+- [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
 
 ## Issues
