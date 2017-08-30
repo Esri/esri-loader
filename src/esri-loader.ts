@@ -31,7 +31,9 @@ export function bootstrap(callback: Function, options = {} as any) {
 
   // don't reload API if it is already loaded or in the process of loading
   if (getScript()) {
-    callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
+    if (callback) {
+      callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
+    }
     return;
   }
 

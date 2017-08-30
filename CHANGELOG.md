@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+
+### Fixed
+- don't throw an error when `bootstrap()` is called multiple times w/o a callback
+
 ## 1.0.0
 
 ### Changed
