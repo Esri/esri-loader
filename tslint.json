@@ -2,6 +2,15 @@
   "extends": "tslint:latest",
   "rules": {
     "quotemark": ["single"],
-    "no-string-literal": false
+    "no-string-literal": false,
+    "trailing-comma": [
+      true,
+      {
+        "multiline": "never",
+        "singleline": "never"
+      }
+    ],
+    "object-literal-sort-keys": false,
+    "variable-name": [true, "check-format", "allow-leading-underscore"]
   }
 }

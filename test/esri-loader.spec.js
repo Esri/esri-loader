@@ -4,7 +4,7 @@ describe('esri-loader', function () {
       // remove previously stubbed require function
       delete window.require;
       // esri-loader script has not yet been loaded
-      spyOn(document, 'querySelector').and.returnValue(null); //.callFake(function () {        
+      spyOn(document, 'querySelector').and.returnValue(null);
     });
     it('isLoaded should be false', function () {
       expect(esriLoader.isLoaded())
@@ -113,7 +113,7 @@ describe('esri-loader', function () {
         callback();
       };
       var esriLoaderScript = document.createElement('script');
-      spyOn(document, 'querySelector').and.returnValue(esriLoaderScript); //.callFake(function () {
+      spyOn(document, 'querySelector').and.returnValue(esriLoaderScript);
       spyOn(context, 'requireCallback');
       esriLoader.dojoRequire(expectedModuleNames, context.requireCallback);
     });
