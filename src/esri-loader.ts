@@ -12,18 +12,18 @@
 */
 
 // get the script injected by this library
-function getScript () {
+function getScript() {
   return document.querySelector('script[data-esri-loader]');
 }
 
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
-  // would like to just use window.require, but fucking typescript
+  // TODO: instead of checking that require is defined, should this check if it is a function?
   return typeof window['require'] !== 'undefined' && getScript();
 }
 
 // load the ArcGIS API on the page
-export function bootstrap(callback: Function, options = {} as any) {
+export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options = {} as any) {
   // default options
   if (!options.url) {
     options.url = 'https://js.arcgis.com/4.4/';
@@ -31,7 +31,9 @@ export function bootstrap(callback: Function, options = {} as any) {
 
   // don't reload API if it is already loaded or in the process of loading
   if (getScript()) {
-    callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
+    if (callback) {
+      callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
+    }
     return;
   }
 
@@ -47,13 +49,13 @@ export function bootstrap(callback: Function, options = {} as any) {
     script.dataset['esriLoader'] = 'loaded';
 
     // we can now use Dojo's require() to load esri and dojo AMD modules
-    const dojoRequire = window['require'];
+    const _dojoRequire = window['require'];
 
     if (callback) {
       // let the caller know that the API has been successfully loaded
       // and as a convenience, return the require function
       // in case they want to use it directly
-      callback(null, dojoRequire);
+      callback(null, _dojoRequire);
     }
   };
 
@@ -61,10 +63,12 @@ export function bootstrap(callback: Function, options = {} as any) {
   document.body.appendChild(script);
 }
 
-export function dojoRequire(modules: string[], callback: Function) {
+export function dojoRequire(modules: string[], callback: (modules: any[]) => void) {
   if (isLoaded()) {
+    // already loaded, just call require
     window['require'](modules, callback);
   } else {
+    // wait for script to load then call require
     const script = getScript();
     if (script) {
       // Not yet loaded but script is in the body - use callback once loaded
@@ -72,7 +76,7 @@ export function dojoRequire(modules: string[], callback: Function) {
         window['require'](modules, callback);
         script.removeEventListener('load', onScriptLoad, false);
       };
-      script.addEventListener('load', onScriptLoad);
+      script.addEventListener('load', onScriptLoad, false);
     } else {
       // Not bootstrapped
       throw new Error('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
@@ -80,8 +84,9 @@ export function dojoRequire(modules: string[], callback: Function) {
   }
 }
 
+// export a namespace to expose all functions
 export default {
   isLoaded,
   bootstrap,
   dojoRequire
-}
+};

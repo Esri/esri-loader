@@ -6,8 +6,9 @@
   "module": "src/esri-loader.js",
   "types": "src/esri-loader.d.ts",
   "scripts": {
+    "lint": "node_modules/.bin/tslint -c tslint.json 'src/esri-loader.ts'",
     "test": "npm run build:release && karma start --single-run=true",
-    "build": "tsc && rollup -c",
+    "build": "npm run lint && tsc && rollup -c",
     "uglify": "uglifyjs ./dist/esri-loader.js -m -c -o ./dist/esri-loader.min.js --source-map ./dist/esri-loader.min.js.map",
     "build:release": "npm run build && npm run uglify",
     "prepublish": "npm run build:release",
@@ -42,6 +43,7 @@
     "karma-phantomjs-launcher": "^1.0.4",
     "onchange": "^3.2.1",
     "rollup": "^0.41.6",
+    "tslint": "^5.7.0",
     "typescript": "^2.0.10",
     "uglify-js": "^2.8.22"
   }
