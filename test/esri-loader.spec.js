@@ -47,11 +47,11 @@ describe('esri-loader', function () {
         });
         spyOn(context, 'bootstrapCallback');
         esriLoader.bootstrap(context.bootstrapCallback, {
-          url: 'https://js.arcgis.com/3.20'
+          url: 'https://js.arcgis.com/3.22'
         });
       });
       it('should load different version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.20');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.22');
       });
       it('should have called callback', function () {
         expect(context.bootstrapCallback).toHaveBeenCalledTimes(1);
