@@ -28,14 +28,14 @@ Before you can use the ArcGIS API in your app, you'll need to load the styles. F
 
 ```css
 /* esri styles */
-@import url('https://js.arcgis.com/4.4/esri/css/main.css');
+@import url('https://js.arcgis.com/4.5/esri/css/main.css');
 ```
 
 If you're using a specific version other than the latest 4.x:
 
 ```css
 /* esri styles */
-@import url('https://js.arcgis.com/3.21/esri/css/esri.css');
+@import url('https://js.arcgis.com/3.22/esri/css/esri.css');
 ```
 
 ### Pre-loading the ArcGIS API for JavaScript
@@ -56,7 +56,7 @@ esriLoader.bootstrap((err) => {
   }
 }, {
   // use a specific version instead of latest 4.x
-  url: 'https://js.arcgis.com/3.21/';
+  url: 'https://js.arcgis.com/3.22/';
 });
 ```
 
@@ -80,7 +80,7 @@ if (!esriLoader.isLoaded()) {
     }
   }, {
     // use a specific version instead of latest 4.x
-    url: 'https://js.arcgis.com/3.21/'
+    url: 'https://js.arcgis.com/3.22/'
   });
 } else {
   // ArcGIS API is already loaded, just create the map
@@ -113,7 +113,7 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/3.21/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/3.22/" data-esri-loader="loaded"></script>
 ```
 
 ## Why is this needed?
