@@ -30,7 +30,7 @@ describe('esri-loader', function () {
         esriLoader.bootstrap();
       });
       it('should default to latest version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.4/');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.5/');
       });
     });
     describe('with different API version', function () {

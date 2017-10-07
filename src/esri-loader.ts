@@ -26,7 +26,7 @@ export function isLoaded() {
 export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options = {} as any) {
   // default options
   if (!options.url) {
-    options.url = 'https://js.arcgis.com/4.4/';
+    options.url = 'https://js.arcgis.com/4.5/';
   }
 
   // don't reload API if it is already loaded or in the process of loading
