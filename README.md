@@ -56,7 +56,7 @@ esriLoader.bootstrap((err) => {
   }
 }, {
   // use a specific version instead of latest 4.x
-  url: 'https://js.arcgis.com/3.22/';
+  url: 'https://js.arcgis.com/3.22/'
 });
 ```
 
