@@ -2,13 +2,21 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## 1.2.0
+
+### Added
+- default to version 4.5 of the ArcGIS API
 
 ### Fixed
 - don't throw an error when `bootstrap()` is called multiple times w/o a callback
 
 ### Changed
 - lint source before running build
+
+## 1.1.0
+
+### Added
+- default to version 4.4 of the ArcGIS API
 
 ## 1.0.0
 
