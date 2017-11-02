@@ -41,3 +41,6 @@ dist
 src/*.js
 src/*.map
 src/*.d.ts
+
+# test
+yarn.lock
