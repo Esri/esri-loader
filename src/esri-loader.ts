@@ -16,6 +16,15 @@ function getScript() {
   return document.querySelector('script[data-esri-loader]');
 }
 
+// interfaces
+export interface IBootstrapOptions {
+  url?: string;
+  // NOTE: stole the type definition for dojoConfig from:
+  // https://github.com/nicksenger/esri-promise/blob/38834f22ffb3f70da3f57cce3773d168be990b0b/index.ts#L18
+  // I assume it defines an object w/ an unknown number of prpoerties of type any
+  dojoConfig?: { [propName: string]: any };
+}
+
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   // TODO: instead of checking that require is defined, should this check if it is a function?
@@ -23,8 +32,7 @@ export function isLoaded() {
 }
 
 // load the ArcGIS API on the page
-export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options = {} as any) {
-  // default options
+export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
   if (!options.url) {
     options.url = 'https://js.arcgis.com/4.5/';
   }
@@ -35,6 +43,11 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
       callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
     }
     return;
+  }
+
+  if (options.dojoConfig) {
+    // set dojo configuration parameters before loading the script
+    window['dojoConfig'] = options.dojoConfig;
   }
 
   // create a script object whose source points to the API
