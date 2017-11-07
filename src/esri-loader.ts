@@ -72,6 +72,13 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
     }
   };
 
+  // handle any script loading errors
+  script.onerror = (e) => {
+    if (callback) {
+      callback(e.error || new Error(`There was an error attempting to load ${script.src}`));
+    }
+  };
+
   // load the script
   document.body.appendChild(script);
 }

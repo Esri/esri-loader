@@ -88,20 +88,19 @@ describe('esri-loader', function () {
       var context = {
         bootstrapCallback: function () {}
       };
-      describe('w/ a callback', function () {
-        beforeAll(function () {
-          spyOn(document.body, 'appendChild').and.callFake(function (el) {
-            // hold onto script element for assertions below
-            scriptEl = el;
-            // call the onload callback
-            el.onload();
-          });
-          spyOn(document, 'querySelector').and.callFake(function() {
-            console.log('querySelector', scriptEl);
-            return scriptEl;
-          });
-          spyOn(context, 'bootstrapCallback');
+      beforeAll(function () {
+        spyOn(document.body, 'appendChild').and.callFake(function (el) {
+          // hold onto script element for assertions below
+          scriptEl = el;
+          // call the onload callback
+          el.onload();
         });
+        spyOn(document, 'querySelector').and.callFake(function() {
+          return scriptEl;
+        });
+        spyOn(context, 'bootstrapCallback');
+      });
+      describe('w/ a callback', function () {
         it('should pass an error to the callback', function () {
           esriLoader.bootstrap(context.bootstrapCallback, {
             url: 'https://js.arcgis.com/3.20'
@@ -122,6 +121,23 @@ describe('esri-loader', function () {
           });
           expect(1).toEqual(1);
         });
+      });
+    });
+    describe('when loading an invalid url', function () {
+      it('should pass an error to the callback', function (done) {
+        esriLoader.bootstrap((err) => {
+          expect(err.message.indexOf('There was an error attempting to load')).toEqual(0);
+          done();
+        }, {
+          url: 'not a valid url'
+        });
+      });
+      afterAll(function () {
+        // remove script tag
+        const script = document.querySelector('script[data-esri-loader]');
+        if (script) {
+          script.parentElement.removeChild(script);
+        }
       });
     });
   });
