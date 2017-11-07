@@ -2,7 +2,7 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## Unreleased
+## [1.3.0]
 
 ### Added
 - set `window.dojoConfig` by passing as an option to `bootstrap()`
@@ -10,12 +10,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - no longer running tests in phantom
 
-## 1.2.1
+## [1.2.1]
 
 ### Fixed
 - defintion of `dojoRequire()`'s callback
 
-## 1.2.0
+## [1.2.0]
 
 ### Added
 - default to version 4.5 of the ArcGIS API
@@ -26,17 +26,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - lint source before running build
 
-## 1.1.0
+## [1.1.0]
 
 ### Added
 - default to version 4.4 of the ArcGIS API
 
-## 1.0.0
+## [1.0.0]
 
 ### Changed
 - `isLoaded()` only returns true if the script tag has the `data-esri-loader` attribute
 
-## 0.3.1
+## [0.3.1]
 
 ### Fixed
 - fixed no callback bug
@@ -45,7 +45,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added unit tests
 - add a minified build and source maps for published releases
 
-## 0.3.0
+## [0.3.0]
 
 ### Added
 - add default export
@@ -53,19 +53,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Fixed
 - build outputs es5/umd (main) and es5/esm (module)
 
-## 0.2.0
+## [0.2.0]
 
 ### Added
 - enable pre-loading the ArcGIS API
 - default to version 4.3 of the ArcGIS API
 
-## 0.1.3
+## [0.1.3]
 
 ### Fixed
 - default to version 4.2 of the ArcGIS API
 - use HTTPS by default
 
-## 0.1.2
+## [0.1.2]
 
 ### Fixed
 - finally got `import from 'esri-loader' working from Angular/TS apps
@@ -79,3 +79,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - copied over source from angular-cli-esri and set up TS build
+
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.3.0...master
+[1.3.0]: https://github.com/Esri/esri-loader/compare/v1.2.1...v1.3.0
+[1.2.1]: https://github.com/Esri/esri-loader/compare/v1.2.0...v1.2.1
+[1.2.0]: https://github.com/Esri/esri-loader/compare/v1.1.0...v1.2.0
+[1.1.0]: https://github.com/Esri/esri-loader/compare/v1.0.0...v1.1.0
+[1.0.0]: https://github.com/Esri/esri-loader/compare/v0.3.1...v1.0.0
+[0.3.1]: https://github.com/Esri/esri-loader/compare/v0.3.0...v0.3.1
+[0.3.0]: https://github.com/Esri/esri-loader/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/Esri/esri-loader/compare/v0.1.3...v0.2.0
+[0.1.3]: https://github.com/Esri/esri-loader/compare/v0.1.2...v0.1.3
+[0.1.2]: https://github.com/Esri/esri-loader/tree/v0.1.2
