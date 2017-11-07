@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 - add code coverage
+- add release script
 ### Fixed
 ### Removed
 ### Breaking
