@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+### Changed
+### Fixed
+### Removed
+### Breaking
+
+## [1.4.0] - 2017-11-07
 
 ### Added
 - handle script load errors
@@ -85,7 +92,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.3.0...master
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.4.0...HEAD
+[1.4.0]: https://github.com/Esri/esri-loader/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/Esri/esri-loader/compare/v1.2.1...v1.3.0
 [1.2.1]: https://github.com/Esri/esri-loader/compare/v1.2.0...v1.2.1
 [1.2.0]: https://github.com/Esri/esri-loader/compare/v1.1.0...v1.2.0
