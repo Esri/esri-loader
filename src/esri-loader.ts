@@ -33,6 +33,7 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
+  // default options
   if (!options.url) {
     options.url = 'https://js.arcgis.com/4.5/';
   }
@@ -73,11 +74,15 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
   };
 
   // handle any script loading errors
-  script.onerror = (e) => {
+  const onScriptError = (e) => {
     if (callback) {
+      // pass the error to the callback
       callback(e.error || new Error(`There was an error attempting to load ${script.src}`));
     }
+    // remove this event listener
+    script.removeEventListener('error', onScriptError, false);
   };
+  script.addEventListener('error', onScriptError, false);
 
   // load the script
   document.body.appendChild(script);
