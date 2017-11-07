@@ -36,8 +36,9 @@
   "devDependencies": {
     "concurrently": "^3.4.0",
     "jasmine-core": "^2.5.2",
-    "karma": "^1.6.0",
+    "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.0.0",
+    "karma-coverage": "^1.1.1",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.3",
     "onchange": "^3.2.1",
