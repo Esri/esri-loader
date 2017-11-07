@@ -116,6 +116,25 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 <script src="https://js.arcgis.com/3.22/" data-esri-loader="loaded"></script>
 ```
 
+### Configuring Dojo
+
+You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `bootstrap()` to confiugre Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
+
+```js
+esriLoader.bootstrap(callbackFn, {
+  // tell Dojo where to load other packages
+  dojoConfig: {
+    async: true,
+    packages: [
+      {
+        location: 'path/to/somelib',
+        name: 'somelib'
+      }
+    ]
+  }
+});
+```
+
 ## Why is this needed?
 
 Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from the modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. When using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework instead of the Dojo build system. This library let's you do that by provding a module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use it's Dojo loader to load only the ArcGIS API modules as needed.
