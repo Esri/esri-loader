@@ -60,7 +60,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
 
 
     // Continuous Integration mode
@@ -71,11 +71,6 @@ module.exports = function(config) {
     // how many browser should be started simultaneous
     concurrency: Infinity
   };
-
-  // test in chrome too locally
-  if (!isTravis) {
-    configuration.browsers.push('Chrome');
-  }
 
   config.set(configuration);
 };
