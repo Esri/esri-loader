@@ -11,6 +11,7 @@
       }
     ],
     "object-literal-sort-keys": false,
-    "variable-name": [true, "check-format", "allow-leading-underscore"]
+    "variable-name": [true, "check-format", "allow-leading-underscore"],
+    "no-console": false
   }
 }

@@ -11,9 +11,16 @@
   limitations under the License.
 */
 
+let loadScriptPromise;
+
 // get the script injected by this library
 function getScript() {
-  return document.querySelector('script[data-esri-loader]');
+  return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
+}
+
+// TODO: at next breaking change replace the public isLoaded() API with this
+function _isLoaded() {
+  return typeof window['require'] !== 'undefined';
 }
 
 // interfaces
@@ -28,10 +35,89 @@ export interface IBootstrapOptions {
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   // TODO: instead of checking that require is defined, should this check if it is a function?
-  return typeof window['require'] !== 'undefined' && getScript();
+  return _isLoaded() && getScript();
 }
 
 // load the ArcGIS API on the page
+export function loadScript(options: IBootstrapOptions = {}): Promise<HTMLScriptElement> {
+  // default options
+  if (!options.url) {
+    options.url = 'https://js.arcgis.com/4.5/';
+  }
+
+  // if (loadScriptPromise) {
+  //   // loadScript has already been called
+  //   return loadScriptPromise
+  //   .then((loadedScript) => {
+  //     if (loadedScript.src !== options.url) {
+  //       // potentailly trying to load a different version of the JSAPI
+  //       return Promise.reject(new Error(`The ArcGIS API for JavaScript is already loaded (${loadedScript.src}).`));
+  //     } else {
+  //       return loadedScript;
+  //     }
+  //   });
+  // }
+
+  loadScriptPromise = new Promise((resolve, reject) => {
+    let script = getScript();
+    if (script) {
+      // the API is already loaded or in the process of loading...
+      // NOTE: have to test against scr attribute value, not script.src
+      // b/c the latter will return the full url for relative paths
+      const src = script.getAttribute('src');
+      if (src !== options.url) {
+        // potentailly trying to load a different version of the JSAPI
+        reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
+      } else {
+        if (_isLoaded()) {
+          // the script has already successfully loaded
+          resolve(script);
+        } else {
+          // wait for the script to load and then resolve
+          script.addEventListener('load', () => {
+            // TODO: remove this event listener
+            resolve(script);
+          }, false);
+          script.addEventListener('error', (err) => {
+            // TODO: remove this event listener
+            reject(err);
+          }, false);
+        }
+      }
+    } else {
+      if (_isLoaded()) {
+        // the API has been loaded by some other means
+        // potentailly trying to load a different version of the JSAPI
+        reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
+      } else {
+        // this is the first time attempting to load the API
+        if (options.dojoConfig) {
+          // set dojo configuration parameters before loading the script
+          window['dojoConfig'] = options.dojoConfig;
+        }
+        // create a script object whose source points to the API
+        script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = options.url;
+        script.dataset['esriLoader'] = 'loading';
+        // once the script is loaded...
+        script.onload = () => {
+          // update the status of the script
+          script.dataset['esriLoader'] = 'loaded';
+          // return the script
+          resolve(script);
+        };
+        // handle script loading errors
+        script.onerror = reject;
+        // load the script
+        document.body.appendChild(script);
+      }
+    }
+  });
+  return loadScriptPromise;
+}
+
+// TODO: deprecate
 export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
   // default options
   if (!options.url) {
@@ -112,6 +198,8 @@ export function dojoRequire(modules: string[], callback: (...modules: any[]) => 
 // export a namespace to expose all functions
 export default {
   isLoaded,
+  loadScript,
+  // TODO: deprecate
   bootstrap,
   dojoRequire
 };

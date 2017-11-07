@@ -1,19 +1,205 @@
+// helper functions
+// stub require function
+function stubRequire() {
+  window.require = function (moduleNames, callback) {
+    if (callback) {
+      // call the callback w/ the modulenames that were passed in
+      callback.apply(this, moduleNames);
+    }
+  }
+}
+// remove script tags added by esri-loader
+function removeScript() {
+  const script = document.querySelector('script[data-esri-loader]');
+  if (script) {
+    script.parentElement.removeChild(script);
+  }
+}
+// remove previously stubbed require function
+function removeRequire() {
+  delete window.require;
+}
+
 describe('esri-loader', function () {
   describe('when has not yet been loaded', function () {
     beforeEach(function() {
-      // remove previously stubbed require function
-      delete window.require;
-      // esri-loader script has not yet been loaded
-      spyOn(document, 'querySelector').and.returnValue(null);
+      removeRequire();
+      removeScript();
     });
     it('isLoaded should be false', function () {
-      expect(esriLoader.isLoaded())
+      expect(esriLoader.isLoaded()).toBeFalsy();
     });
     it('should throw error when trying to load modules', function() {
       function loadModules () {
         esriLoader.dojoRequire(['esri/map', 'esri/layers/VectorTileLayer'], function (Map, VectorTileLayer) {});
       }
       expect(loadModules).toThrowError('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
+    });
+  });
+
+  describe('when loading the script', function () {
+    const jaspi3xUrl = 'base/test/mocks/jsapi3x.js';
+    describe('with defaults', function () {
+      var scriptEl;
+      beforeAll(function (done) {
+        spyOn(document.body, 'appendChild').and.callFake(function (el) {
+          // call the onload callback
+          el.onload();
+        });
+        esriLoader.loadScript()
+        .then((script) => {
+          // hold onto script element for assertions below
+          scriptEl = script;
+          done();
+        });
+      });
+      it('should default to latest version', function () {
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.5/');
+      });
+      it('should not have set dojoConfig', function () {
+        expect(window.dojoConfig).not.toBeDefined();
+      });
+    });
+    describe('with different API version', function () {
+      var scriptEl;
+      beforeAll(function (done) {
+        spyOn(document.body, 'appendChild').and.callFake(function (el) {
+          // call the onload callback
+          el.onload();
+        });
+        esriLoader.loadScript({
+          url: 'https://js.arcgis.com/3.20'
+        })
+        .then((script) => {
+          // hold onto script element for assertions below
+          scriptEl = script;
+          done();
+        });
+      });
+      it('should load different version', function () {
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.20');
+      });
+    });
+    describe('with dojoConfig option', function () {
+      var dojoConfig = {
+        async: true,
+        packages: [
+          {
+            location: 'path/to/somelib',
+            name: 'somelib'
+          }
+        ]
+      };
+      beforeAll(function (done) {
+        spyOn(document.body, 'appendChild').and.callFake(function (el) {
+          // call the onload callback
+          el.onload();
+        });
+        esriLoader.loadScript({
+          dojoConfig: dojoConfig
+        })
+        .then((script) => {
+          done();
+        });
+      });
+      it('should have set global dojoConfig', function () {
+        expect(window.dojoConfig).toEqual(dojoConfig);
+      });
+      afterAll(function() {
+        window.dojoConfig = undefined;
+      });
+    });
+    describe('when already loaded by some other means', function () {
+      beforeAll(function () {
+        stubRequire();
+      });
+      it('should reject', function (done) {
+        esriLoader.loadScript({
+          url: jaspi3xUrl
+        })
+        .then(script => {
+          done.fail('call to loadScript should have failed');
+        })
+        .catch((e) => {
+          expect(e.message).toEqual(`The ArcGIS API for JavaScript is already loaded.`);
+          done();
+        });
+      });
+      afterAll(function () {
+        // clean up
+        removeRequire();
+        removeScript();
+      });
+    });
+    describe('when called twice', function () {
+      describe('when loading the same script', function () {
+        it('should resolve the script if it is already loaded', function (done) {
+          esriLoader.loadScript({
+            url: jaspi3xUrl
+          })
+          .then(firstScript => {
+            // try loading the same script after the first one has already loaded
+            esriLoader.loadScript({
+              url: jaspi3xUrl
+            })
+            .then(script => {
+              expect(script.getAttribute('src')).toEqual(jaspi3xUrl);
+              done();
+            })
+            .catch((e) => {
+              done.fail('second call to loadScript should not have failed' + e);
+            });
+          })
+          .catch(() => {
+            done.fail('first call to loadScript should not have failed');
+          });
+        });
+        it('should resolve an unloaded script once it loads', function (done) {
+          esriLoader.loadScript({
+            url: jaspi3xUrl
+          })
+          .catch(() => {
+            done.fail('first call to loadScript should not have failed');
+          });
+          // try loading the same script again
+          esriLoader.loadScript({
+            url: jaspi3xUrl
+          })
+          .then(script => {
+            expect(script.getAttribute('src')).toEqual(jaspi3xUrl);
+            done();
+          })
+          .catch((e) => {
+            done.fail('second call to loadScript should not have failed' + e);
+          });
+        });
+      });
+      describe('when loading different scripts', function () {
+        it('should reject', function (done) {
+          esriLoader.loadScript({
+            url: jaspi3xUrl
+          })
+          .catch(() => {
+            done.fail('first call to loadScript should not have failed');
+          });
+          // try loading a different script
+          esriLoader.loadScript({
+            url: 'base/test/mocks/jsapi4x.js'
+          })
+          .then(script => {
+            done.fail('second call to loadScript should have failed');
+          })
+          .catch((e) => {
+            expect(e.message).toEqual(`The ArcGIS API for JavaScript is already loaded (${jaspi3xUrl}).`);
+            done();
+          });
+        });
+      });
+      afterEach(function () {
+        // clean up
+        removeRequire();
+        removeScript();
+      });
     });
   });
 
@@ -82,6 +268,9 @@ describe('esri-loader', function () {
       it('should have set global dojoConfig', function () {
         expect(window.dojoConfig).toEqual(dojoConfig);
       });
+      afterAll(function() {
+        window.dojoConfig = undefined;
+      });
     });
     describe('when called twice', function () {
       var scriptEl;
@@ -133,11 +322,8 @@ describe('esri-loader', function () {
         });
       });
       afterAll(function () {
-        // remove script tag
-        const script = document.querySelector('script[data-esri-loader]');
-        if (script) {
-          script.parentElement.removeChild(script);
-        }
+        // clean up
+        removeScript();
       });
     });
   });
