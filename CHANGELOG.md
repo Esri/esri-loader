@@ -4,6 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## Unreleased
 
+### Added
+- set `window.dojoConfig` by passing as an option to `bootstrap()`
+
 ### Changed
 - no longer running tests in phantom
 
