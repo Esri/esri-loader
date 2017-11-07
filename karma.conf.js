@@ -40,7 +40,6 @@ module.exports = function(config) {
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
     reporters: ['mocha'],
 
-
     // web server port
     port: 9876,
 
@@ -69,8 +68,19 @@ module.exports = function(config) {
 
     // Concurrency level
     // how many browser should be started simultaneous
-    concurrency: Infinity
+    concurrency: Infinity,
+
+    coverageReporter: {
+      type : 'text',
+      dir : 'coverage/'
+    }
   };
+
+  // run code coverage locally
+  if (!isTravis) {
+    configuration.preprocessors[builtFile] = ['coverage'];
+    configuration.reporters.push('coverage');
+  }
 
   config.set(configuration);
 };
