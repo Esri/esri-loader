@@ -1,3 +1,4 @@
+
 # Logs
 logs
 *.log
@@ -41,3 +42,6 @@ dist
 src/*.js
 src/*.map
 src/*.d.ts
+
+# npm || yarn
+yarn.lock

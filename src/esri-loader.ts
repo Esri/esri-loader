@@ -63,7 +63,7 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
   document.body.appendChild(script);
 }
 
-export function dojoRequire(modules: string[], callback: (modules: any[]) => void) {
+export function dojoRequire(modules: string[], callback: (...modules: any[]) => void) {
   if (isLoaded()) {
     // already loaded, just call require
     window['require'](modules, callback);
