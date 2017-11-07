@@ -2,6 +2,11 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 1.2.1
+
+### Fixed
+- defintion of `dojoRequire()`'s callback
+
 ## 1.2.0
 
 ### Added
