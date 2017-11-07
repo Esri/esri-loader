@@ -51,7 +51,7 @@ esriLoader.bootstrap((err) => {
     // handle any loading errors
     console.error(err);
   } else {
-    // optionall execute any code once it's preloaded
+    // optional execute any code once it's preloaded
     createMap();
   }
 }, {
@@ -118,7 +118,7 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 
 ### Configuring Dojo
 
-You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `bootstrap()` to confiugre Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
+You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `bootstrap()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
 
 ```js
 esriLoader.bootstrap(callbackFn, {
@@ -137,11 +137,11 @@ esriLoader.bootstrap(callbackFn, {
 
 ## Why is this needed?
 
-Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from the modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. When using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework instead of the Dojo build system. This library let's you do that by provding a module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use it's Dojo loader to load only the ArcGIS API modules as needed.
+Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from the modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. When using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework instead of the Dojo build system. This library lets you do that by providing a module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use its Dojo loader to load only the ArcGIS API modules as needed.
 
 [This blog post](http://tomwayson.com/2016/11/27/using-the-arcgis-api-for-javascript-in-applications-built-with-webpack/) explains in more detail how libraries like this provide a workaround to the challenges of loading ArcGIS API for JavaScript modules from bundlers like [webpack](http://webpack.github.io/) and [rollup.js](https://rollupjs.org/).
 
-In addition to solving the above challenges, this library can also help improve the performance of initial application load (always an challenge in web mapping applications) by enabling you to load the ArcGIS API and it's modules only as they are needed. You can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering, or [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map.
+In addition to solving the above challenges, this library can also help improve the performance of initial application load (always an challenge in web mapping applications) by enabling you to load the ArcGIS API and its modules only as they are needed. You can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering, or [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map.
 
 ## Examples
 
@@ -153,7 +153,7 @@ Here are some applications that use this library (presented by framework in alph
 - [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses [angular-esri-loader](https://github.com/tomwayson/angular-esri-loader) by way of [angular-esri-components](https://github.com/TheKeithStewart/angular-esri-components)
 
 ### [Electron](https://electron.atom.io/)
-- [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demponstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron.
+- [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron.
 
 ### [Ember](https://www.emberjs.com/)
 - [ember-esri-loader Dummy App](http://ember-esri-loader.surge.sh/) - The dummy application for the ember-esri-loader addon
@@ -165,7 +165,7 @@ Here are some applications that use this library (presented by framework in alph
 - [esri-preact-pwa](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS API for JavaScript built with Preact
 
 ### [React](https://facebook.github.io/react/)
-- [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example reaact-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
+- [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example react-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
  - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
 
 ### [Vue.js](https://vuejs.org/)
