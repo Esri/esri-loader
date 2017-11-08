@@ -7,6 +7,12 @@ function stubRequire() {
       callback.apply(this, moduleNames);
     }
   }
+  window.require.on = function(name, callback) {
+    // if (callback) {
+    //   // call the callback w/ the event name that was passed in
+    //   callback(name);
+    // }
+  }
 }
 // remove script tags added by esri-loader
 function removeScript() {
@@ -21,6 +27,7 @@ function removeRequire() {
 }
 
 describe('esri-loader', function () {
+  const jaspi3xUrl = 'base/test/mocks/jsapi3x.js';
   describe('when has not yet been loaded', function () {
     beforeEach(function() {
       removeRequire();
@@ -29,16 +36,19 @@ describe('esri-loader', function () {
     it('isLoaded should be false', function () {
       expect(esriLoader.isLoaded()).toBeFalsy();
     });
-    it('should throw error when trying to load modules', function() {
+    it('should throw error when trying to load modules w/ dojoRequire', function() {
       function loadModules () {
         esriLoader.dojoRequire(['esri/map', 'esri/layers/VectorTileLayer'], function (Map, VectorTileLayer) {});
       }
       expect(loadModules).toThrowError('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
     });
+    afterEach(function() {
+      removeRequire();
+      removeScript();
+    });
   });
 
   describe('when loading the script', function () {
-    const jaspi3xUrl = 'base/test/mocks/jsapi3x.js';
     describe('with defaults', function () {
       var scriptEl;
       beforeAll(function (done) {
@@ -107,7 +117,7 @@ describe('esri-loader', function () {
       });
       afterAll(function() {
         window.dojoConfig = undefined;
-      });
+      });      
     });
     describe('when already loaded by some other means', function () {
       beforeAll(function () {
@@ -120,15 +130,14 @@ describe('esri-loader', function () {
         .then(script => {
           done.fail('call to loadScript should have failed');
         })
-        .catch((e) => {
-          expect(e.message).toEqual(`The ArcGIS API for JavaScript is already loaded.`);
+        .catch(err => {
+          expect(err.message).toEqual(`The ArcGIS API for JavaScript is already loaded.`);
           done();
         });
       });
       afterAll(function () {
         // clean up
         removeRequire();
-        removeScript();
       });
     });
     describe('when called twice', function () {
@@ -146,8 +155,8 @@ describe('esri-loader', function () {
               expect(script.getAttribute('src')).toEqual(jaspi3xUrl);
               done();
             })
-            .catch((e) => {
-              done.fail('second call to loadScript should not have failed' + e);
+            .catch(err => {
+              done.fail('second call to loadScript should not have failed with: ' + err);
             });
           })
           .catch(() => {
@@ -169,8 +178,8 @@ describe('esri-loader', function () {
             expect(script.getAttribute('src')).toEqual(jaspi3xUrl);
             done();
           })
-          .catch((e) => {
-            done.fail('second call to loadScript should not have failed' + e);
+          .catch(err => {
+            done.fail('second call to loadScript should not have failed with: ' + err);
           });
         });
       });
@@ -189,8 +198,8 @@ describe('esri-loader', function () {
           .then(script => {
             done.fail('second call to loadScript should have failed');
           })
-          .catch((e) => {
-            expect(e.message).toEqual(`The ArcGIS API for JavaScript is already loaded (${jaspi3xUrl}).`);
+          .catch(err => {
+            expect(err.message).toEqual(`The ArcGIS API for JavaScript is already loaded (${jaspi3xUrl}).`);
             done();
           });
         });
@@ -203,6 +212,78 @@ describe('esri-loader', function () {
     });
   });
 
+  describe('when loading modules', function () {
+    var expectedModuleNames = ['esri/map', 'esri/layers/VectorTileLayer'];
+    describe('when script has been loaded', function() {
+      beforeEach(function () {
+        // stub window require
+        stubRequire();
+      });
+      it('should have registered an error handler', function (done) {
+        spyOn(window.require, 'on');
+        esriLoader.loadModules(expectedModuleNames)
+        .then(() => {
+          expect(window.require.on.calls.argsFor(0)[0]).toEqual('error');
+          done();
+        })
+        .catch(err => {
+          done.fail('call to loadScript should not have failed with: ' + err);
+        });
+      });
+      it('should call require w/ correct args', function (done) {
+        spyOn(window, 'require').and.callThrough();
+        esriLoader.loadModules(expectedModuleNames)
+        .then(() => {
+          expect(window.require.calls.argsFor(0)[0]).toEqual(expectedModuleNames);
+          done();
+        })
+        .catch(err => {
+          done.fail('call to loadScript should not have failed with: ' + err);
+        });
+      });
+      afterEach(function () {
+        // clean up
+        removeRequire();
+      });
+    });
+    describe('when the script has not yet been loaded', function() {
+      beforeEach(function() {
+        // uh oh, not sure why this is needed
+        // seems like some test above did not clean up after itself
+        // but I can't find where
+        // TODO: remove this line
+        removeRequire();
+        // w/o it, test fails w/
+        // TypeError: Cannot read property 'argsFor' of undefined
+        // b/c require is defined so it's not trying to add the script
+        // and doesn't enter the appendChild spyOn() block below
+      });
+      it('should not reject', function (done) {
+        spyOn(document.body, 'appendChild').and.callFake(function (el) {
+          stubRequire();
+          spyOn(window, 'require').and.callThrough();
+          el.onload();
+        });
+        esriLoader.loadModules(expectedModuleNames, {
+          url: jaspi3xUrl
+        })
+        .then(() => {
+          expect(window.require.calls.argsFor(0)[0]).toEqual(expectedModuleNames);
+          done();
+        })
+        .catch(err => {
+          done.fail('call to loadScript should not have failed with: ' + err);
+        });
+      });
+      afterEach(function () {
+        // clean up
+        removeRequire();
+        removeScript();
+      });
+    });
+  });
+
+  // TODO: remove the following suites once the APIs they test have been removed
   describe('when bootstraping the API', function () {
     describe('with defaults', function () {
       var scriptEl;
@@ -328,14 +409,14 @@ describe('esri-loader', function () {
     });
   });
 
-  describe('when loading modules', function () {
+  describe('when loading modules w/ dojoRequire', function () {
     var expectedModuleNames = ['esri/map', 'esri/layers/VectorTileLayer'];
     var context = {
       requireCallback: function () {}
     };
     var actualModuleNames;
     beforeAll(function () {
-      // mock window require
+      // stub window require
       window.require = function (names, callback) {
         actualModuleNames = names;
         callback();

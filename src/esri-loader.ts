@@ -11,8 +11,6 @@
   limitations under the License.
 */
 
-let loadScriptPromise;
-
 // get the script injected by this library
 function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
@@ -20,10 +18,12 @@ function getScript() {
 
 // TODO: at next breaking change replace the public isLoaded() API with this
 function _isLoaded() {
+  // TODO: instead of checking that require is defined, should this check if it is a function?
   return typeof window['require'] !== 'undefined';
 }
 
 // interfaces
+// TODO: rename to ILoadScriptOptions
 export interface IBootstrapOptions {
   url?: string;
   // NOTE: stole the type definition for dojoConfig from:
@@ -34,7 +34,6 @@ export interface IBootstrapOptions {
 
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
-  // TODO: instead of checking that require is defined, should this check if it is a function?
   return _isLoaded() && getScript();
 }
 
@@ -45,20 +44,7 @@ export function loadScript(options: IBootstrapOptions = {}): Promise<HTMLScriptE
     options.url = 'https://js.arcgis.com/4.5/';
   }
 
-  // if (loadScriptPromise) {
-  //   // loadScript has already been called
-  //   return loadScriptPromise
-  //   .then((loadedScript) => {
-  //     if (loadedScript.src !== options.url) {
-  //       // potentailly trying to load a different version of the JSAPI
-  //       return Promise.reject(new Error(`The ArcGIS API for JavaScript is already loaded (${loadedScript.src}).`));
-  //     } else {
-  //       return loadedScript;
-  //     }
-  //   });
-  // }
-
-  loadScriptPromise = new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     let script = getScript();
     if (script) {
       // the API is already loaded or in the process of loading...
@@ -66,7 +52,7 @@ export function loadScript(options: IBootstrapOptions = {}): Promise<HTMLScriptE
       // b/c the latter will return the full url for relative paths
       const src = script.getAttribute('src');
       if (src !== options.url) {
-        // potentailly trying to load a different version of the JSAPI
+        // potentailly trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
       } else {
         if (_isLoaded()) {
@@ -87,7 +73,7 @@ export function loadScript(options: IBootstrapOptions = {}): Promise<HTMLScriptE
     } else {
       if (_isLoaded()) {
         // the API has been loaded by some other means
-        // potentailly trying to load a different version of the JSAPI
+        // potentailly trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
@@ -114,10 +100,32 @@ export function loadScript(options: IBootstrapOptions = {}): Promise<HTMLScriptE
       }
     }
   });
-  return loadScriptPromise;
 }
 
-// TODO: deprecate
+// wrap dojo's require() in a promise
+function requireModules(modules: string[]): Promise<any[]> {
+  return new Promise((resolve, reject) => {
+      // If something goes wrong loading the esri/dojo scripts, reject with the error.
+      window['require'].on('error', reject);
+      window['require'](modules, (...args) => {
+          // Resolve with the parameters from dojo require as an array.
+          resolve(args);
+      });
+  });
+}
+
+// returns a promise that resolves with an array of the required modules
+// also will attempt to lazy load the ArcGIS API if it has not already been loaded
+export function loadModules(modules: string[], loadScriptOptions?: IBootstrapOptions): Promise<any[]> {
+  if (!_isLoaded()) {
+    // script is not yet loaded, attept to load it
+    return loadScript(loadScriptOptions).then(() => requireModules(modules));
+  } else {
+    return requireModules(modules);
+  }
+}
+
+// TODO: deprecate the following functions
 export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
   // default options
   if (!options.url) {
