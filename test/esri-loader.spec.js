@@ -53,8 +53,8 @@ describe('esri-loader', function () {
       var scriptEl;
       beforeAll(function (done) {
         spyOn(document.body, 'appendChild').and.callFake(function (el) {
-          // call the onload callback
-          el.onload();
+          // trigger the onload event listeners
+          el.dispatchEvent(new Event('load'));
         });
         esriLoader.loadScript()
         .then((script) => {
@@ -74,8 +74,8 @@ describe('esri-loader', function () {
       var scriptEl;
       beforeAll(function (done) {
         spyOn(document.body, 'appendChild').and.callFake(function (el) {
-          // call the onload callback
-          el.onload();
+          // trigger the onload event listeners
+          el.dispatchEvent(new Event('load'));
         });
         esriLoader.loadScript({
           url: 'https://js.arcgis.com/3.20'
@@ -88,6 +88,9 @@ describe('esri-loader', function () {
       });
       it('should load different version', function () {
         expect(scriptEl.src).toEqual('https://js.arcgis.com/3.20');
+      });
+      it('should not have set dojoConfig', function () {
+        expect(window.dojoConfig).not.toBeDefined();
       });
     });
     describe('with dojoConfig option', function () {
@@ -102,8 +105,8 @@ describe('esri-loader', function () {
       };
       beforeAll(function (done) {
         spyOn(document.body, 'appendChild').and.callFake(function (el) {
-          // call the onload callback
-          el.onload();
+          // trigger the onload event listeners
+          el.dispatchEvent(new Event('load'));
         });
         esriLoader.loadScript({
           dojoConfig: dojoConfig
@@ -138,6 +141,24 @@ describe('esri-loader', function () {
       afterAll(function () {
         // clean up
         removeRequire();
+      });
+    });
+    describe('when loading an invalid url', function () {
+      it('should pass an error to the callback', function (done) {
+        esriLoader.loadScript({
+          url: 'not a valid url'
+        })
+        .then(script => {
+          done.fail('call to loadScript should have failed');
+        })
+        .catch(err => {
+          expect(err.message.indexOf('There was an error attempting to load')).toEqual(0);
+          done();
+        });
+      });
+      afterAll(function () {
+        // clean up
+        removeScript();
       });
     });
     describe('when called twice', function () {
@@ -262,7 +283,8 @@ describe('esri-loader', function () {
         spyOn(document.body, 'appendChild').and.callFake(function (el) {
           stubRequire();
           spyOn(window, 'require').and.callThrough();
-          el.onload();
+          // trigger the onload event listeners
+          el.dispatchEvent(new Event('load'));
         });
         esriLoader.loadModules(expectedModuleNames, {
           url: jaspi3xUrl
