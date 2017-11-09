@@ -8,10 +8,9 @@ function stubRequire() {
     }
   }
   window.require.on = function(name, callback) {
-    // if (callback) {
-    //   // call the callback w/ the event name that was passed in
-    //   callback(name);
-    // }
+    return {
+      remove: function() {}
+    }
   }
 }
 // remove script tags added by esri-loader
@@ -241,7 +240,7 @@ describe('esri-loader', function () {
         stubRequire();
       });
       it('should have registered an error handler', function (done) {
-        spyOn(window.require, 'on');
+        spyOn(window.require, 'on').and.callThrough();
         esriLoader.loadModules(expectedModuleNames)
         .then(() => {
           expect(window.require.on.calls.argsFor(0)[0]).toEqual('error');
