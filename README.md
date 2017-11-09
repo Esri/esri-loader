@@ -167,7 +167,7 @@ Here are some applications that use this library (presented by framework in alph
 ### [React](https://facebook.github.io/react/)
 - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example react-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
  - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
-
+- [React-Typescript-App-with-ArcGIS-JSAPI](https://github.com/guzhongren/React-Typescript-App-with-ArcGIS-JSAPI) - An example create-react-app application that uses[esri-loader](https://github.com/Esri/esri-loader) ,[esri-loader-react](https://github.com/davetimmins/esri-loader-react),[Typescript](http://www.typescriptlang.org/),[Webpack3](https://webpack.js.org/) to create MapView
 ### [Vue.js](https://vuejs.org/)
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
