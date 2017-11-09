@@ -20,8 +20,9 @@ function getScript() {
 
 // TODO: at next breaking change replace the public isLoaded() API with this
 function _isLoaded() {
-  // TODO: instead of checking that require is defined, should this check if it is a function?
-  return typeof window['require'] !== 'undefined';
+  const globalRequire = window['require'];
+  // .on() ensures that it's Dojo's AMD loader
+  return globalRequire && globalRequire.on;
 }
 
 function createScript(url) {
@@ -73,7 +74,8 @@ export interface ILoadScriptOptions {
 
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
-  return _isLoaded() && getScript();
+  // TODO: replace this implementation with that of _isLoaded() on next major release
+  return typeof window['require'] !== 'undefined' && getScript();
 }
 
 // load the ArcGIS API on the page
