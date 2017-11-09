@@ -1,5 +1,5 @@
 # esri-loader
-A tiny library to help load [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) modules in non-Dojo applications.
+A tiny library to help load modules from either the [4.x](https://developers.arcgis.com/javascript/) or [3.x](https://developers.arcgis.com/javascript/3/) versions of the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) in non-Dojo applications.
 
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance.
 
@@ -20,7 +20,7 @@ npm install esri-loader
 ```
 
 ## Usage
-The code below shows how you can load the ArcGIS API for JavaScript and then create a map. Where you place this code in your application will depend on what framework you are using. See below for [example applications](#examples).
+The code snippets below show how to load ArcGIS API for JavaScript modules use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for [example applications](#examples).
 
 ### Loading Styles
 
@@ -38,73 +38,108 @@ If you're using a specific version other than the latest 4.x:
 @import url('https://js.arcgis.com/3.22/esri/css/esri.css');
 ```
 
+### Loading Modules from the ArcGIS API for JavaScript
+
+Here's an example of how you could load and use the 4.x `Map` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
+
+```js
+// first, we use Dojo's loader to require the map class
+esriLoader.loadModules(['esri/views/MapView', 'esri/WebMap'])
+.then(([MapView, WebMap]) => {
+  // then we load a web map from an id
+  var webmap = new WebMap({
+    portalItem: { // autocasts as new PortalItem()
+      id: 'f2e9b762544945f390ca4ac3671cfa72'
+    }
+  });
+  // and we show that map in a container w/ id #viewDiv
+  var view = new MapView({
+    map: webmap,
+    container: 'viewDiv'
+  });
+})
+.catch(err => {
+  // handle any errors
+  console.error(err);
+});
+```
+
+#### Lazy Loading the ArcGIS API for JavaScript
+
+If users may never end up visiting any map routes, you can lazy load the ArcGIS API for JavaScript the first time a user visits a route with a map. 
+
+In the above snippet, the first time `loadModules()` is called, it will attempt to lazy load the most recent 4.x version of the ArcGIS API by calling `loadScript()` for you if the API has not already been loaded. The snippet below uses version 3.x of the ArcGIS API to create a map.
+
+```js
+// if the API hasn't already been loaded (i.e. the frist time this is run)
+// loadModules() will call loadScript() and pass these options, which, 
+// in this case are only needed b/c we're using v3.x instead of the latest 4.x
+const options = {
+  url: 'https://js.arcgis.com/3.22/'
+};
+esriLoader.loadModules(['esri/map'], options)
+.then(([Map]) => {
+  // create map with the given options at a DOM node w/ id 'mapNode'
+  let map = new Map('mapNode', {
+    center: [-118, 34.5],
+    zoom: 8,
+    basemap: 'dark-gray'
+  });
+})
+.catch(err => {
+  // handle any script or module loading errors
+  console.error(err);
+});
+```
+
 ### Pre-loading the ArcGIS API for JavaScript
 
 If you have good reason to believe that the user is going to transition to a map route, you may want to start pre-loading the ArcGIS API as soon as possible w/o blocking rendering, for example:
 
 ```js
-import * as esriLoader from 'esri-loader';
-
 // preload the ArcGIS API
-esriLoader.bootstrap((err) => {
-  if (err) {
-    // handle any loading errors
-    console.error(err);
-  } else {
-    // optional execute any code once it's preloaded
-    createMap();
-  }
-}, {
-  // use a specific version instead of latest 4.x
-  url: 'https://js.arcgis.com/3.22/'
+// NOTE: in this case, we're not passing any options to loadScript()
+// so it will default to loading the latest 4.x version of the API from the CDN
+this.loadScriptPromise = esriLoader.loadScript();
+
+// later, for example once a component has been rendered,
+// you can wait for the above promise to resolve (if it hasn't already)
+this.loadScriptPromise
+.then(() => {
+  // you can now load the map modules and create the map
+})
+.catch(err => {
+  // handle any script loading errors
+  console.error(err);
 });
 ```
 
-### Lazy Loading the ArcGIS API for JavaScript
+### Configuring Dojo
 
-Alternatively, if users may never end up visiting any map routes, you can lazy load the ArcGIS API for JavaScript the first time a user visits a route with a map, for example:
-
-```js
-// import the esri-loader library
-import * as esriLoader from 'esri-loader';
-
-// has the ArcGIS API been added to the page?
-if (!esriLoader.isLoaded()) {
-  // no, lazy load it the ArcGIS API before using its classes
-  esriLoader.bootstrap((err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      // once it's loaded, create the map
-      createMap();
-    }
-  }, {
-    // use a specific version instead of latest 4.x
-    url: 'https://js.arcgis.com/3.22/'
-  });
-} else {
-  // ArcGIS API is already loaded, just create the map
-  createMap();
-}
-```
-
-### Loading Modules from the ArcGIS API for JavaScript
-
-Once you've loaded the API using one of the above methods, you can then load modules. Here's an example of how you could load and use the 3.x `Map` and `VectorTileLayer` classes in a component to create a map:
+You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `loadScript()` or `loadModules()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
 
 ```js
-// create a map on the page
-function createMap() {
-  // first, we use Dojo's loader to require the map class
-  esriLoader.dojoRequire(['esri/map'], (Map) => {
-    // create map with the given options at a DOM node w/ id 'mapNode'
-    let map = new Map('mapNode', {
-      center: [-118, 34.5],
-      zoom: 8,
-      basemap: 'dark-gray'
-    });
-  });
-}
+// in this case options are only needed so we can configure dojo before loading the API
+const options = {
+  // tell Dojo where to load other packages
+  dojoConfig: {
+    async: true,
+    packages: [
+      {
+        location: '/path/to/fcl',
+        name: 'fcl'
+      }
+    ]
+  }
+};
+esriLoader.loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
+.then(([Map, FlareClusterLayer]) => {
+  // you can now create a new FlareClusterLayer and add it to a new Map
+})
+.catch(err => {
+  // handle any errors
+  console.error(err);
+});
 ```
 
 ### Using your own script tag
@@ -114,25 +149,6 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 ```html
 <!-- index.html -->
 <script src="https://js.arcgis.com/3.22/" data-esri-loader="loaded"></script>
-```
-
-### Configuring Dojo
-
-You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `bootstrap()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
-
-```js
-esriLoader.bootstrap(callbackFn, {
-  // tell Dojo where to load other packages
-  dojoConfig: {
-    async: true,
-    packages: [
-      {
-        location: 'path/to/somelib',
-        name: 'somelib'
-      }
-    ]
-  }
-});
 ```
 
 ## Why is this needed?
@@ -171,6 +187,12 @@ Here are some applications that use this library (presented by framework in alph
 ### [Vue.js](https://vuejs.org/)
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
+
+## Dependencies
+
+This library doesn't have any external dependencies, but it expects to be run in a browser (i.e. not Node.js). Since v1.5 asynchronous functions like `loadScript()` and `loadModules()` return [`Promise`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), so if your application has to support [browers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise), then you should consider using a [Promise polyfill](https://www.google.com/search?q=promise+polyfill), ideally [only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed/).
+
+Alternatively, you can still use `bootstrap()` and `dojoRequire()` which are the callback-based equivalents of the above functions. See the [v1.4.0 documentation](https://github.com/Esri/esri-loader/blob/v1.4.0/README.md#usage) for how to use the callback-based API, but _keep in mind that these functions have been deprecated and will be removed at the next major release_.
 
 ## Issues
 

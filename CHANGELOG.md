@@ -4,7 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- add promise-based functions to load the script and modules
 ### Changed
+- deprecate `bootstrap()` and `dojoRequire()`
 - add code coverage
 - add release script
 ### Fixed
