@@ -35,12 +35,22 @@ function createScript(url) {
 }
 
 // add a one-time load handler to script
-function handleScriptLoad(script, callback) {
+// and optionally add a one time error handler as well
+function handleScriptLoad(script, callback, errback?) {
+  let onScriptError;
+  if (errback) {
+    // set up an error handler as well
+    onScriptError = handleScriptError(script, errback);
+  }
   const onScriptLoad = () => {
     // pass the script to the callback
     callback(script);
     // remove this event listener
     script.removeEventListener('load', onScriptLoad, false);
+    if (onScriptError) {
+      // remove the error listener as well
+      script.removeEventListener('error', onScriptError, false);
+    }
   };
   script.addEventListener('load', onScriptLoad, false);
 }
@@ -54,6 +64,7 @@ function handleScriptError(script, callback) {
     script.removeEventListener('error', onScriptError, false);
   };
   script.addEventListener('error', onScriptError, false);
+  return onScriptError;
 }
 
 // interfaces
@@ -101,9 +112,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
           resolve(script);
         } else {
           // wait for the script to load and then resolve
-          handleScriptLoad(script, resolve);
-          // handle script loading errors
-          handleScriptError(script, reject);
+          handleScriptLoad(script, resolve, reject);
         }
       }
     } else {
@@ -121,15 +130,13 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         script = createScript(options.url);
         // once the script is loaded...
         // TODO: once we no longer need to update the dataset, replace this w/
-        // handleScriptLoad(script, resolve);
+        // handleScriptLoad(script, resolve, reject);
         handleScriptLoad(script, () => {
           // update the status of the script
           script.dataset['esriLoader'] = 'loaded';
           // return the script
           resolve(script);
-        });
-        // handle script loading errors
-        handleScriptError(script, reject);
+        }, reject);
         // load the script
         document.body.appendChild(script);
       }
