@@ -75,6 +75,11 @@ export interface IBootstrapOptions {
   dojoConfig?: { [propName: string]: any };
 }
 
+// allow consuming libraries to provide their own Promise implementations
+export const utils = {
+  Promise: window['Promise']
+};
+
 export interface ILoadScriptOptions {
   url?: string;
   // NOTE: stole the type definition for dojoConfig from:
@@ -96,7 +101,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
     options.url = DEFAULT_URL;
   }
 
-  return new Promise((resolve, reject) => {
+  return new utils.Promise((resolve, reject) => {
     let script = getScript();
     if (script) {
       // the API is already loaded or in the process of loading...
@@ -146,7 +151,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
 
 // wrap dojo's require() in a promise
 function requireModules(modules: string[]): Promise<any[]> {
-  return new Promise((resolve, reject) => {
+  return new utils.Promise((resolve, reject) => {
     // If something goes wrong loading the esri/dojo scripts, reject with the error.
     const errorHandler = window['require'].on('error', reject);
     window['require'](modules, (...args) => {
@@ -247,6 +252,7 @@ export default {
   isLoaded,
   loadScript,
   loadModules,
+  utils,
   // TODO: remove these the next major release
   bootstrap,
   dojoRequire

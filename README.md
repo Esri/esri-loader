@@ -190,9 +190,21 @@ Here are some applications that use this library (presented by framework in alph
 
 ## Dependencies
 
-This library doesn't have any external dependencies, but it expects to be run in a browser (i.e. not Node.js). Since v1.5 asynchronous functions like `loadScript()` and `loadModules()` return [`Promise`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), so if your application has to support [browers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise), then you should consider using a [Promise polyfill](https://www.google.com/search?q=promise+polyfill), ideally [only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed/).
+This library doesn't have any external dependencies, but it expects to be run in a browser (i.e. not Node.js). Since v1.5 asynchronous functions like `loadScript()` and `loadModules()` return [`Promise`s](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise), so if your application has to support [browers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise) you have a few options.
 
-Alternatively, you can still use `bootstrap()` and `dojoRequire()` which are the callback-based equivalents of the above functions. See the [v1.4.0 documentation](https://github.com/Esri/esri-loader/blob/v1.4.0/README.md#usage) for how to use the callback-based API, but _keep in mind that these functions have been deprecated and will be removed at the next major release_.
+If there's already a Promise implementation loaded on the page you can configure esri-loader to use that implementation. For example, in [ember-esri-loader](https://github.com/Esri/ember-esri-loader), we configure esri-loader to use the RSVP Promise implementation included with Ember.js.
+
+```js
+  init () {
+    this._super(...arguments);
+    // have esriLoader use Ember's RSVP promise
+    esriLoader.utils.Promise = Ember.RSVP.Promise;
+  },
+```
+
+Otherwise, you should consider using a [Promise polyfill](https://www.google.com/search?q=promise+polyfill), ideally [only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed/).
+
+Finally, for now you can still use `bootstrap()` and `dojoRequire()` which are the callback-based equivalents of the above functions. See the [v1.4.0 documentation](https://github.com/Esri/esri-loader/blob/v1.4.0/README.md#usage) for how to use the callback-based API, but _keep in mind that these functions have been deprecated and will be removed at the next major release_.
 
 ## Issues
 
