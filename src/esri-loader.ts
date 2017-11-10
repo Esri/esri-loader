@@ -11,13 +11,76 @@
   limitations under the License.
 */
 
+const DEFAULT_URL = 'https://js.arcgis.com/4.5/';
+
 // get the script injected by this library
 function getScript() {
-  return document.querySelector('script[data-esri-loader]');
+  return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
+}
+
+// TODO: at next breaking change replace the public isLoaded() API with this
+function _isLoaded() {
+  const globalRequire = window['require'];
+  // .on() ensures that it's Dojo's AMD loader
+  return globalRequire && globalRequire.on;
+}
+
+function createScript(url) {
+  const script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src = url;
+  // TODO: remove this if no longer needed
+  script.dataset['esriLoader'] = 'loading';
+  return script;
+}
+
+// add a one-time load handler to script
+// and optionally add a one time error handler as well
+function handleScriptLoad(script, callback, errback?) {
+  let onScriptError;
+  if (errback) {
+    // set up an error handler as well
+    onScriptError = handleScriptError(script, errback);
+  }
+  const onScriptLoad = () => {
+    // pass the script to the callback
+    callback(script);
+    // remove this event listener
+    script.removeEventListener('load', onScriptLoad, false);
+    if (onScriptError) {
+      // remove the error listener as well
+      script.removeEventListener('error', onScriptError, false);
+    }
+  };
+  script.addEventListener('load', onScriptLoad, false);
+}
+
+// add a one-time error handler to the script
+function handleScriptError(script, callback) {
+  const onScriptError = (e) => {
+    // reject the promise and remove this event listener
+    callback(e.error || new Error(`There was an error attempting to load ${script.src}`));
+    // remove this event listener
+    script.removeEventListener('error', onScriptError, false);
+  };
+  script.addEventListener('error', onScriptError, false);
+  return onScriptError;
 }
 
 // interfaces
+// TODO: remove this next breaking change
+// it has been replaced by ILoadScriptOptions
 export interface IBootstrapOptions {
+  url?: string;
+  dojoConfig?: { [propName: string]: any };
+}
+
+// allow consuming libraries to provide their own Promise implementations
+export const utils = {
+  Promise: window['Promise']
+};
+
+export interface ILoadScriptOptions {
   url?: string;
   // NOTE: stole the type definition for dojoConfig from:
   // https://github.com/nicksenger/esri-promise/blob/38834f22ffb3f70da3f57cce3773d168be990b0b/index.ts#L18
@@ -27,15 +90,97 @@ export interface IBootstrapOptions {
 
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
-  // TODO: instead of checking that require is defined, should this check if it is a function?
+  // TODO: replace this implementation with that of _isLoaded() on next major release
   return typeof window['require'] !== 'undefined' && getScript();
 }
 
 // load the ArcGIS API on the page
-export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
+export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
   // default options
   if (!options.url) {
-    options.url = 'https://js.arcgis.com/4.5/';
+    options.url = DEFAULT_URL;
+  }
+
+  return new utils.Promise((resolve, reject) => {
+    let script = getScript();
+    if (script) {
+      // the API is already loaded or in the process of loading...
+      // NOTE: have to test against scr attribute value, not script.src
+      // b/c the latter will return the full url for relative paths
+      const src = script.getAttribute('src');
+      if (src !== options.url) {
+        // potentailly trying to load a different version of the API
+        reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
+      } else {
+        if (_isLoaded()) {
+          // the script has already successfully loaded
+          resolve(script);
+        } else {
+          // wait for the script to load and then resolve
+          handleScriptLoad(script, resolve, reject);
+        }
+      }
+    } else {
+      if (_isLoaded()) {
+        // the API has been loaded by some other means
+        // potentailly trying to load a different version of the API
+        reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
+      } else {
+        // this is the first time attempting to load the API
+        if (options.dojoConfig) {
+          // set dojo configuration parameters before loading the script
+          window['dojoConfig'] = options.dojoConfig;
+        }
+        // create a script object whose source points to the API
+        script = createScript(options.url);
+        // once the script is loaded...
+        // TODO: once we no longer need to update the dataset, replace this w/
+        // handleScriptLoad(script, resolve, reject);
+        handleScriptLoad(script, () => {
+          // update the status of the script
+          script.dataset['esriLoader'] = 'loaded';
+          // return the script
+          resolve(script);
+        }, reject);
+        // load the script
+        document.body.appendChild(script);
+      }
+    }
+  });
+}
+
+// wrap dojo's require() in a promise
+function requireModules(modules: string[]): Promise<any[]> {
+  return new utils.Promise((resolve, reject) => {
+    // If something goes wrong loading the esri/dojo scripts, reject with the error.
+    const errorHandler = window['require'].on('error', reject);
+    window['require'](modules, (...args) => {
+      // remove error handler
+      errorHandler.remove();
+      // Resolve with the parameters from dojo require as an array.
+      resolve(args);
+    });
+  });
+}
+
+// returns a promise that resolves with an array of the required modules
+// also will attempt to lazy load the ArcGIS API if it has not already been loaded
+export function loadModules(modules: string[], loadScriptOptions?: ILoadScriptOptions): Promise<any[]> {
+  if (!_isLoaded()) {
+    // script is not yet loaded, attept to load it then load the modules
+    return loadScript(loadScriptOptions).then(() => requireModules(modules));
+  } else {
+    // script is already loaded, just load the modules
+    return requireModules(modules);
+  }
+}
+
+// TODO: remove this next major release
+export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
+  console.warn('bootstrap() has been depricated and will be removed the next major release. Use loadScript() instead.');
+  // default options
+  if (!options.url) {
+    options.url = DEFAULT_URL;
   }
 
   // don't reload API if it is already loaded or in the process of loading
@@ -52,10 +197,7 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
   }
 
   // create a script object whose source points to the API
-  const script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = options.url;
-  script.dataset['esriLoader'] = 'loading';
+  const script = createScript(options.url);
 
   // once the script is loaded...
   script.onload = () => {
@@ -73,22 +215,20 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
     }
   };
 
-  // handle any script loading errors
-  const onScriptError = (e) => {
-    if (callback) {
-      // pass the error to the callback
-      callback(e.error || new Error(`There was an error attempting to load ${script.src}`));
-    }
-    // remove this event listener
-    script.removeEventListener('error', onScriptError, false);
-  };
-  script.addEventListener('error', onScriptError, false);
+  if (callback) {
+    // handle any script loading errors
+    handleScriptError(script, callback);
+  }
 
   // load the script
   document.body.appendChild(script);
 }
 
+// TODO: remove this next major release
 export function dojoRequire(modules: string[], callback: (...modules: any[]) => void) {
+  /* tslint:disable max-line-length */
+  console.warn('dojoRequire() has been depricated and will be removed the next major release. Use loadModules() instead.');
+  /* tslint:enable max-line-length */
   if (isLoaded()) {
     // already loaded, just call require
     window['require'](modules, callback);
@@ -97,11 +237,9 @@ export function dojoRequire(modules: string[], callback: (...modules: any[]) => 
     const script = getScript();
     if (script) {
       // Not yet loaded but script is in the body - use callback once loaded
-      const onScriptLoad = () => {
+      handleScriptLoad(script, () => {
         window['require'](modules, callback);
-        script.removeEventListener('load', onScriptLoad, false);
-      };
-      script.addEventListener('load', onScriptLoad, false);
+      });
     } else {
       // Not bootstrapped
       throw new Error('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
@@ -112,6 +250,10 @@ export function dojoRequire(modules: string[], callback: (...modules: any[]) => 
 // export a namespace to expose all functions
 export default {
   isLoaded,
+  loadScript,
+  loadModules,
+  utils,
+  // TODO: remove these the next major release
   bootstrap,
   dojoRequire
 };
