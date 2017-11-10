@@ -246,6 +246,7 @@ export function dojoRequire(modules: string[], callback: (...modules: any[]) => 
 export default {
   isLoaded,
   loadScript,
+  loadModules,
   // TODO: remove these the next major release
   bootstrap,
   dojoRequire
