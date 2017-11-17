@@ -3,16 +3,13 @@ A tiny library to help load modules from either the [4.x](https://developers.arc
 
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance.
 
-If you want to use the ArcGIS API in an [Angular](#angular), [Ember](#ember), or [React](#react) application, you can use one of these framework specific wrappers:
- - [angular-esri-loader](https://github.com/tomwayson/angular-esri-loader) - An Angular service that wraps this library to make it easy to bring it into any Angular (2+) application.
- - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon to allow lazy loading the ArcGIS API for JavaScript in Ember applications
- - [esri-loader-react](https://github.com/davetimmins/esri-loader-react) - A React component wrapper around esri-loader
+**NOTE**: If you want to use the ArcGIS API in an [Ember](#ember), or Angular 1 application, you should use one of these libraries instead:
+ - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon that wraps this library
+ - [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from
 
 Otherwise you'll want to follow the [Install](#install) and [Usage](#usage) instructions below to use this library directly in your application.
 
-See the [Examples](#examples) section below for links to applications that use the above wrappers and/or this library directly.
-
-**NOTE**: For Angular 1, use [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from.
+See the [Examples](#examples) section below for links to applications that use this library.
 
 ## Install
 ```bash
@@ -163,7 +160,7 @@ In addition to solving the above challenges, this library can also help improve 
 
 ![Diagram of framework specfic wrappers of this library and applications that use this library](https://docs.google.com/drawings/d/1we3VFggV78jlUMyaM9eg-YsJlT5J2FfyDcfe6CyMA0k/pub?w=1064&h=581)
 
-Here are some applications that use this library (presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye:):
+Here are some applications and framework-specific wrapper libraries that use this library (presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye:):
 
 ### [Angular](https://angular.io/)
 - [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses [angular-esri-loader](https://github.com/tomwayson/angular-esri-loader) by way of [angular-esri-components](https://github.com/TheKeithStewart/angular-esri-components)
@@ -181,6 +178,7 @@ Here are some applications that use this library (presented by framework in alph
 - [esri-preact-pwa](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS API for JavaScript built with Preact
 
 ### [React](https://facebook.github.io/react/)
+- [esri-loader-react](https://github.com/davetimmins/esri-loader-react) - A React component wrapper around esri-loader
 - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example react-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
  - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
 - [React-Typescript-App-with-ArcGIS-JSAPI](https://github.com/guzhongren/React-Typescript-App-with-ArcGIS-JSAPI) - An example create-react-app application that uses[esri-loader](https://github.com/Esri/esri-loader) ,[esri-loader-react](https://github.com/davetimmins/esri-loader-react),[Typescript](http://www.typescriptlang.org/),[Webpack3](https://webpack.js.org/) to create MapView
