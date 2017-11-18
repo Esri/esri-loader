@@ -1,6 +1,8 @@
 # esri-loader
 A tiny library to help load modules from either the [4.x](https://developers.arcgis.com/javascript/) or [3.x](https://developers.arcgis.com/javascript/3/) versions of the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) in non-Dojo applications.
 
+![ArcGIS logo, mended broken heart, Angular logo, Ember logo, Rreact logo, Vue logo](https://docs.google.com/drawings/d/e/2PACX-1vSUEfgaupMLz6FXBX65X-nm7cqA0r9ed3rJ_KNISeqzwDDkd8LsubLhQ_hCWwO3zjS41cD5eG7QUBHl/pub?w=888&h=222)
+
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance.
 
 **NOTE**: If you want to use the ArcGIS API in an [Ember](#ember), or Angular 1 application, you should use one of these libraries instead:
