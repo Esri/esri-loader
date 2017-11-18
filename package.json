@@ -2,18 +2,26 @@
   "name": "esri-loader",
   "version": "1.5.0",
   "description": "A tiny library to help load ArcGIS API for JavaScript modules in non-Dojo applications",
-  "main": "dist/esri-loader.js",
-  "module": "src/esri-loader.js",
-  "types": "src/esri-loader.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "main": "dist/umd/esri-loader.js",
+  "browser": "dist/umd/esri-loader.js",
+  "module": "dist/esm/esri-loader.js",
+  "js:next": "dist/esm/esri-loader.js",
+  "types": "dist/esm/esri-loader.d.ts",
   "scripts": {
-    "lint": "node_modules/.bin/tslint -c tslint.json 'src/esri-loader.ts'",
-    "test": "npm run build:release && karma start --single-run=true",
-    "build": "npm run lint && tsc && rollup -c",
-    "uglify": "uglifyjs ./dist/esri-loader.js -m -c -o ./dist/esri-loader.min.js --source-map ./dist/esri-loader.min.js.map",
-    "build:release": "npm run build && npm run uglify",
+    "build": "tsc && rollup -c",
+    "build:release": "npm run clean && npm run build && rollup -c && npm run uglify",
+    "clean": "rm -rf dist && mkdir -p dist",
+    "lint": "tslint -c tslint.json 'src/esri-loader.ts'",
+    "prebuild": "npm run lint",
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
-    "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\""
+    "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
+    "test": "npm run build:release && karma start --single-run=true",
+    "uglify": "uglifyjs ./dist/umd/esri-loader.js -m -c -o ./dist/umd/esri-loader.min.js --source-map ./dist/umd/esri-loader.min.js.map"
   },
   "repository": {
     "type": "git",
