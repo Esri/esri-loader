@@ -3,7 +3,7 @@
 
 var isTravis = !!process.env.TRAVIS;
 // for now testing on the build output
-var builtFile = isTravis ? 'dist/esri-loader.min.js' : 'dist/esri-loader.js';
+var builtFile = isTravis ? 'dist/umd/esri-loader.min.js' : 'dist/umd/esri-loader.js';
 
 module.exports = function(config) {
   var configuration = {

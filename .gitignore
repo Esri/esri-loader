@@ -39,9 +39,6 @@ jspm_packages
 
 # build output
 dist
-src/*.js
-src/*.map
-src/*.d.ts
 
 # npm || yarn
 yarn.lock

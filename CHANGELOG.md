@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- output esm and .d.ts to dist folder, only include dist/src when publishing
 ### Fixed
 ### Removed
 ### Breaking
