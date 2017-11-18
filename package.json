@@ -21,7 +21,7 @@
     "preversion": "npm run test && git add README.md CHANGELOG.md",
     "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
     "test": "npm run build:release && karma start --single-run=true",
-    "uglify": "uglifyjs ./dist/umd/esri-loader.js -m -c -o ./dist/umd/esri-loader.min.js --source-map ./dist/umd/esri-loader.min.js.map"
+    "uglify": "uglifyjs ./dist/umd/esri-loader.js -m -c -o ./dist/umd/esri-loader.min.js --source-map ./dist/umd/esri-loader.min.js.map --source-map-url=esri-loader.min.js.map"
   },
   "repository": {
     "type": "git",
