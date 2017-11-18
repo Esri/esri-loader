@@ -6,9 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
-- uglify sourcemap url uses relative path
 ### Removed
 ### Breaking
+
+## [1.5.2] - 2017-11-18
+
+### Fixed
+- uglify sourcemap url uses relative path
 
 ## [1.5.1] - 2017-11-17
 
@@ -106,7 +110,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.2...HEAD
+[1.5.2]: https://github.com/Esri/esri-loader/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/Esri/esri-loader/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/Esri/esri-loader/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/Esri/esri-loader/compare/v1.3.0...v1.4.0
