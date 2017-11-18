@@ -5,10 +5,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
-- output esm and .d.ts to dist folder, only include dist/src when publishing
 ### Fixed
 ### Removed
 ### Breaking
+
+## [1.5.1] - 2017-11-17
+
+### Changed
+- output esm and .d.ts to dist folder, only include dist/src when publishing
 
 ## [1.5.0] - 2017-11-09
 ### Added
@@ -101,7 +105,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.1...HEAD
+[1.5.1]: https://github.com/Esri/esri-loader/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/Esri/esri-loader/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/Esri/esri-loader/compare/v1.3.0...v1.4.0
 [1.3.0]: https://github.com/Esri/esri-loader/compare/v1.2.1...v1.3.0
