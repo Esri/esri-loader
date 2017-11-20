@@ -12,14 +12,18 @@
   "js:next": "dist/esm/esri-loader.js",
   "types": "dist/esm/esri-loader.d.ts",
   "scripts": {
-    "build": "tsc && rollup -c",
-    "build:release": "npm run clean && npm run build && npm run build -- profiles/prod.config.js",
+    "build": "npm run compile && npm run bundle",
+    "bundle": "rollup -c",
+    "build:release": "npm run build && npm run bundle -- profiles/prod.config.js",
+    "compile": "tsc",
     "clean": "rm -rf dist && mkdir -p dist",
     "lint": "tslint -c tslint.json 'src/esri-loader.ts'",
-    "prebuild": "npm run lint",
+    "postbuild:release": "npm run bundle -- --o dist/esri-loader.js && npm run bundle -- profiles/prod.config.js --o dist/esri-loader.min.js",
+    "prebuild:release": "npm run clean",
+    "precompile": "npm run lint",
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
-    "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
+    "start": "npm run clean && npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
     "test": "npm run build:release && karma start --single-run=true"
   },
   "repository": {

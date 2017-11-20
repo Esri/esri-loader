@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- use rollup's uglify plugin for minified umd build
 ### Fixed
 - re-include umd at dist root to avoid breaking apps w/ hardcoded path
 ### Removed
