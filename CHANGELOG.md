@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 - use rollup's uglify plugin for minified umd build
+- don't generate sourcemaps when compiling TypeScript
 ### Fixed
 - re-include umd at dist root to avoid breaking apps w/ hardcoded path
 ### Removed
