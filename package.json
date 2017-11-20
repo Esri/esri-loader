@@ -13,15 +13,14 @@
   "types": "dist/esm/esri-loader.d.ts",
   "scripts": {
     "build": "tsc && rollup -c",
-    "build:release": "npm run clean && npm run build && rollup -c && npm run uglify",
+    "build:release": "npm run clean && npm run build && npm run build -- profiles/prod.config.js",
     "clean": "rm -rf dist && mkdir -p dist",
     "lint": "tslint -c tslint.json 'src/esri-loader.ts'",
     "prebuild": "npm run lint",
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
     "start": "npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
-    "test": "npm run build:release && karma start --single-run=true",
-    "uglify": "uglifyjs ./dist/umd/esri-loader.js -m -c -o ./dist/umd/esri-loader.min.js --source-map ./dist/umd/esri-loader.min.js.map --source-map-url=esri-loader.min.js.map"
+    "test": "npm run build:release && karma start --single-run=true"
   },
   "repository": {
     "type": "git",
@@ -51,8 +50,8 @@
     "karma-mocha-reporter": "^2.2.3",
     "onchange": "^3.2.1",
     "rollup": "^0.41.6",
+    "rollup-plugin-uglify": "^2.0.1",
     "tslint": "^5.7.0",
-    "typescript": "^2.0.10",
-    "uglify-js": "^2.8.22"
+    "typescript": "^2.0.10"
   }
 }

@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
+- re-include umd at dist root to avoid breaking apps w/ hardcoded path
 ### Removed
 ### Breaking
 
