@@ -4,7 +4,6 @@
     "target": "es5",
     "module": "es2015",
     "lib": ["dom", "es2015"],
-    "sourceMap": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "removeComments": false,
