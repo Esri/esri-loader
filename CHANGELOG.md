@@ -5,12 +5,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+### Fixed
+### Removed
+### Breaking
+
+## [1.5.3] - 2017-11-20
+
+### Changed
 - use rollup's uglify plugin for minified umd build
 - don't generate sourcemaps when compiling TypeScript
 ### Fixed
 - re-include umd at dist root to avoid breaking apps w/ hardcoded path
-### Removed
-### Breaking
 
 ## [1.5.2] - 2017-11-18
 
@@ -113,7 +118,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.2...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.3...HEAD
+[1.5.3]: https://github.com/Esri/esri-loader/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/Esri/esri-loader/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/Esri/esri-loader/compare/v1.5.0...v1.5.1
 [1.5.0]: https://github.com/Esri/esri-loader/compare/v1.4.0...v1.5.0
