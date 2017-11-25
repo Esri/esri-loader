@@ -11,6 +11,8 @@
   limitations under the License.
 */
 
+export let _loadScriptPromise;
+
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 
 // get the script injected by this library
@@ -101,7 +103,11 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
     options.url = DEFAULT_URL;
   }
 
-  return new utils.Promise((resolve, reject) => {
+  if (_loadScriptPromise) {
+    return _loadScriptPromise;
+  }
+
+  _loadScriptPromise = new utils.Promise((resolve, reject) => {
     let script = getScript();
     if (script) {
       // the API is already loaded or in the process of loading...
@@ -147,6 +153,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
       }
     }
   });
+  return _loadScriptPromise;
 }
 
 // wrap dojo's require() in a promise

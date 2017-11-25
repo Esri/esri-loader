@@ -27,6 +27,9 @@ function removeRequire() {
 
 describe('esri-loader', function () {
   const jaspi3xUrl = 'base/test/mocks/jsapi3x.js';
+  afterEach(function () {
+    delete esriLoader._loadScriptPromise
+  })
   describe('when has not yet been loaded', function () {
     beforeEach(function() {
       removeRequire();
