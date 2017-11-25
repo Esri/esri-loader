@@ -278,28 +278,59 @@ describe('esri-loader', function () {
         // b/c require is defined so it's not trying to add the script
         // and doesn't enter the appendChild spyOn() block below
       });
-      it('should not reject', function (done) {
-        spyOn(document.body, 'appendChild').and.callFake(function (el) {
-          stubRequire();
-          spyOn(window, 'require').and.callThrough();
-          // trigger the onload event listeners
-          el.dispatchEvent(new Event('load'));
+      describe('when there has been no attempt to load the script yet', function () {
+        it('should not reject', function (done) {
+          spyOn(document.body, 'appendChild').and.callFake(function (el) {
+            stubRequire();
+            spyOn(window, 'require').and.callThrough();
+            // trigger the onload event listeners
+            el.dispatchEvent(new Event('load'));
+          });
+            esriLoader.loadModules(expectedModuleNames, {
+            url: jaspi3xUrl
+          })
+          .then(() => {
+            expect(window.require.calls.argsFor(0)[0]).toEqual(expectedModuleNames);
+            done();
+          })
+          .catch(err => {
+            done.fail('call to loadScript should not have failed with: ' + err);
+          });
         });
-        esriLoader.loadModules(expectedModuleNames, {
-          url: jaspi3xUrl
-        })
-        .then(() => {
-          expect(window.require.calls.argsFor(0)[0]).toEqual(expectedModuleNames);
-          done();
-        })
-        .catch(err => {
-          done.fail('call to loadScript should not have failed with: ' + err);
+      });
+      describe('when the script is still loading', function () {
+        it('should not reject', function (done) {
+          let scriptEl;
+          spyOn(document.body, 'appendChild').and.callFake(function (el) {
+            scriptEl = el;
+            // setTimeout(function () {
+              stubRequire();
+              spyOn(window, 'require').and.callThrough();
+              // trigger the onload event listeners
+              el.dispatchEvent(new Event('load'));
+            // }, 1000);
+          });
+          spyOn(document, 'querySelector').and.callFake(function() {
+            return scriptEl;
+          });
+          // load script using a non-default url
+          esriLoader.loadScript({
+            url: jaspi3xUrl
+          });
+          // don't wait for the script to load before trying to load modules
+          esriLoader.loadModules(expectedModuleNames)
+          .then(() => {
+            expect(window.require.calls.argsFor(0)[0]).toEqual(expectedModuleNames);
+            done();
+          })
+          .catch(err => {
+            done.fail('call to loadScript should not have failed with: ' + err);
+          });
         });
       });
       afterEach(function () {
         // clean up
         removeRequire();
-        removeScript();
       });
     });
   });

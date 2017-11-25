@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - remove remaining references to angular-esri-loader from README
 - update README w/ info on arcgis types and browser support
 ### Fixed
+- fallback to current url when loading modules
 ### Removed
 ### Breaking
 

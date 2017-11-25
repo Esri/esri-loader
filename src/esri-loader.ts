@@ -13,6 +13,9 @@
 
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 
+// this is the url that is currently being, or already has loaded
+let _currentUrl;
+
 // get the script injected by this library
 function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
@@ -133,6 +136,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         }
         // create a script object whose source points to the API
         script = createScript(options.url);
+        _currentUrl = options.url;
         // once the script is loaded...
         // TODO: once we no longer need to update the dataset, replace this w/
         // handleScriptLoad(script, resolve, reject);
@@ -165,9 +169,14 @@ function requireModules(modules: string[]): Promise<any[]> {
 
 // returns a promise that resolves with an array of the required modules
 // also will attempt to lazy load the ArcGIS API if it has not already been loaded
-export function loadModules(modules: string[], loadScriptOptions?: ILoadScriptOptions): Promise<any[]> {
+export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOptions = {}): Promise<any[]> {
   if (!_isLoaded()) {
-    // script is not yet loaded, attept to load it then load the modules
+    // script is not yet loaded
+    if (!loadScriptOptions.url && _currentUrl) {
+      // alredy in the process of loading, so default to the same url
+      loadScriptOptions.url = _currentUrl;
+    }
+    // attept to load the script then load the modules
     return loadScript(loadScriptOptions).then(() => requireModules(modules));
   } else {
     // script is already loaded, just load the modules
