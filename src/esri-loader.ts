@@ -11,8 +11,6 @@
   limitations under the License.
 */
 
-export let _loadScriptPromise;
-
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 
 // get the script injected by this library
@@ -69,6 +67,10 @@ function handleScriptError(script, callback) {
   return onScriptError;
 }
 
+// singleton promise for loading the scripts
+// only exposing this so tests can reset state
+export let _loadScriptPromise;
+
 // interfaces
 // TODO: remove this next breaking change
 // it has been replaced by ILoadScriptOptions
@@ -98,15 +100,26 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
-  // default options
+  if (_loadScriptPromise) {
+    // the script is already loading or loaded
+    return _loadScriptPromise.then((script) => {
+      if (!options.url) {
+        return script;
+      }
+      const src = script.getAttribute('src');
+      if (src !== options.url) {
+        // potentailly trying to load a different version of the API
+        throw new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`);
+      } else {
+        return script;
+      }
+    });
+  }
+
+  // set default options and try to load the script
   if (!options.url) {
     options.url = DEFAULT_URL;
   }
-
-  if (_loadScriptPromise) {
-    return _loadScriptPromise;
-  }
-
   _loadScriptPromise = new utils.Promise((resolve, reject) => {
     let script = getScript();
     if (script) {
