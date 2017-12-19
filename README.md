@@ -27,14 +27,14 @@ Before you can use the ArcGIS API in your app, you'll need to load the styles. F
 
 ```css
 /* esri styles */
-@import url('https://js.arcgis.com/4.5/esri/css/main.css');
+@import url('https://js.arcgis.com/4.6/esri/css/main.css');
 ```
 
 If you're using a specific version other than the latest 4.x:
 
 ```css
 /* esri styles */
-@import url('https://js.arcgis.com/3.22/esri/css/esri.css');
+@import url('https://js.arcgis.com/3.23/esri/css/esri.css');
 ```
 
 ### Loading Modules from the ArcGIS API for JavaScript
@@ -74,7 +74,7 @@ In the above snippet, the first time `loadModules()` is called, it will attempt 
 // loadModules() will call loadScript() and pass these options, which, 
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
 const options = {
-  url: 'https://js.arcgis.com/3.22/'
+  url: 'https://js.arcgis.com/3.23/'
 };
 esriLoader.loadModules(['esri/map'], options)
 .then(([Map]) => {
@@ -147,7 +147,7 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/3.22/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/3.23/" data-esri-loader="loaded"></script>
 ```
 
 ## Why is this needed?

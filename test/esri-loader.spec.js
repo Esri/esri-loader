@@ -63,7 +63,7 @@ describe('esri-loader', function () {
         });
       });
       it('should default to latest version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.5/');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.6/');
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
@@ -77,7 +77,7 @@ describe('esri-loader', function () {
           el.dispatchEvent(new Event('load'));
         });
         esriLoader.loadScript({
-          url: 'https://js.arcgis.com/3.20'
+          url: 'https://js.arcgis.com/3.23'
         })
         .then((script) => {
           // hold onto script element for assertions below
@@ -86,7 +86,7 @@ describe('esri-loader', function () {
         });
       });
       it('should load different version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.20');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.23');
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
@@ -318,7 +318,7 @@ describe('esri-loader', function () {
         esriLoader.bootstrap();
       });
       it('should default to latest version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.5/');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.6/');
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
@@ -338,11 +338,11 @@ describe('esri-loader', function () {
         });
         spyOn(context, 'bootstrapCallback');
         esriLoader.bootstrap(context.bootstrapCallback, {
-          url: 'https://js.arcgis.com/3.20'
+          url: 'https://js.arcgis.com/3.23'
         });
       });
       it('should load different version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.20');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.23');
       });
       it('should have called callback', function () {
         expect(context.bootstrapCallback).toHaveBeenCalledTimes(1);
@@ -394,10 +394,10 @@ describe('esri-loader', function () {
       describe('w/ a callback', function () {
         it('should pass an error to the callback', function () {
           esriLoader.bootstrap(context.bootstrapCallback, {
-            url: 'https://js.arcgis.com/3.20'
+            url: 'https://js.arcgis.com/3.23'
           });
           esriLoader.bootstrap(context.bootstrapCallback, {
-            url: 'https://js.arcgis.com/3.20'
+            url: 'https://js.arcgis.com/3.23'
           });
           expect(context.bootstrapCallback.calls.argsFor(1)[0].message).toEqual('The ArcGIS API for JavaScript is already loaded.');
         });
@@ -405,10 +405,10 @@ describe('esri-loader', function () {
       describe('w/o a callback', function () {
         it('should not throw when called w/o a callback', function () {
           esriLoader.bootstrap(null, {
-            url: 'https://js.arcgis.com/3.20'
+            url: 'https://js.arcgis.com/3.23'
           });
           esriLoader.bootstrap(null, {
-            url: 'https://js.arcgis.com/3.20'
+            url: 'https://js.arcgis.com/3.23'
           });
           expect(1).toEqual(1);
         });

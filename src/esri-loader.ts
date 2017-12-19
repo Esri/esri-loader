@@ -11,7 +11,7 @@
   limitations under the License.
 */
 
-const DEFAULT_URL = 'https://js.arcgis.com/4.5/';
+const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 
 // get the script injected by this library
 function getScript() {
