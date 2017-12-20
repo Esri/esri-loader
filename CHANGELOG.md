@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- updated README w/ browser support
 ### Fixed
 ### Removed
 ### Breaking
