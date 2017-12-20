@@ -15,11 +15,11 @@ See the [Examples](#examples) section below for links to applications that use t
 
 ## Install
 ```bash
-npm install esri-loader
+npm install --save esri-loader
 ```
 
 ## Usage
-The code snippets below show how to load ArcGIS API for JavaScript modules use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for [example applications](#examples).
+The code snippets below show how to load the ArcGIS API and it's modules and then use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for [example applications](#examples).
 
 ### Loading Styles
 
@@ -143,12 +143,25 @@ esriLoader.loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
 
 ### Using your own script tag
 
-It is possible to use this library only to load modules (i.e. not to pre-load or lazy load the ArcGIS API), then you will need to add a `data-esri-loader` attribute to the script tag you use to load the ArcGIS API for JavaScript. Example:
+It is possible to use this library only to load modules (i.e. not to pre-load or lazy load the ArcGIS API). In this case you will need to add a `data-esri-loader` attribute to the script tag you use to load the ArcGIS API for JavaScript. Example:
 
 ```html
 <!-- index.html -->
 <script src="https://js.arcgis.com/3.23/" data-esri-loader="loaded"></script>
 ```
+
+### ArcGIS Types
+This library doesn't make any assumptions about which version of the ArcGIS API you are using, so you will have to manually install the appropriate types.
+
+#### 4.x Types
+Follow [these instructions](https://github.com/Esri/jsapi-resources/tree/master/4.x/typescript) to install the 4.x types.
+
+NOTE: For Angular CLI applications, you will also need to add "arcgis-js-api" to `compilerOptions.types` in src/tsconfig.app.json and src/tsconfig.spec.json [as shown here](https://gist.github.com/tomwayson/e6260adfd56c2529313936528b8adacd#adding-the-arcgis-api-for-javascript-types).
+
+Then you can use the `__esri` namespace for the types as seen in [this example](https://github.com/kgs916/angular2-esri4-components/blob/68861b286fd3a4814c495c2bd723e336e917ced2/src/lib/esri4-map/esri4-map.component.ts#L20-L26).
+
+#### 3.x Types
+Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types, but then [you will still need to use `import` statements to get the types](https://github.com/Esri/jsapi-resources/issues/60). This may cause build errors that may or may not result in actual runtime errors depending on your environment.
 
 ## Why is this needed?
 
