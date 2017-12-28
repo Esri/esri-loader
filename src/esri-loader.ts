@@ -30,6 +30,9 @@ function createScript(url) {
   script.type = 'text/javascript';
   script.src = url;
   // TODO: remove this if no longer needed
+  if (!script.dataset) {
+    script.dataset = {};
+  }
   script.dataset['esriLoader'] = 'loading';
   return script;
 }
