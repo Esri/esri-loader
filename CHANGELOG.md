@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- added Advanced Usage section and info on isomorphic apps to README
 ### Fixed
 ### Removed
 ### Breaking
