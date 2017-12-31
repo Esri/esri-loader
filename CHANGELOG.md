@@ -4,10 +4,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- default to version 4.6 of the ArcGIS API [#63](https://github.com/Esri/esri-loader/issues/63)
 ### Changed
 - remove remaining references to angular-esri-loader from README
-- update README w/ info on arcgis types and browser support
+- update README w/ info on arcgis types and browser support [#60](https://github.com/Esri/esri-loader/issues/60)
 ### Fixed
+- window undefined error in server-rendered apps [#64](https://github.com/Esri/esri-loader/issues/64)
 ### Removed
 ### Breaking
 

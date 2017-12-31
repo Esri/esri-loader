@@ -10,7 +10,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-
+const isBrowser = typeof window !== 'undefined';
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 
 // get the script injected by this library
@@ -77,7 +77,7 @@ export interface IBootstrapOptions {
 
 // allow consuming libraries to provide their own Promise implementations
 export const utils = {
-  Promise: window['Promise']
+  Promise: isBrowser ? window['Promise'] : undefined
 };
 
 export interface ILoadScriptOptions {
