@@ -91,7 +91,7 @@ esriLoader.loadModules(['esri/map'], options)
 });
 ```
 
-See the [Advanced Usage](#advanced-usage) section below for more advanced techniques such as [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript), [using in isomorphic/universal applications](#isomorphic-universal-applications) and [configuring Dojo](#configuring-dojo).
+See the [Advanced Usage](#advanced-usage) section below for more advanced techniques such as [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript), [using in isomorphic/universal applications](#isomorphicuniversal-applications) and [configuring Dojo](#configuring-dojo).
 
 ## Why is this needed?
 
@@ -103,7 +103,7 @@ Unlike the other techniques and boilerplates discussed in that article, esri-loa
 - improve the performance of initial application load
 - allows you to use the ArcGIS API in [isomorphic/universal applications]((https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea))
 
-This is because esri-loader let's you control when the ArcGIS API and its modules are loaded and used. You can [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map, or you can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering. You can [ensure the API and its modules are not loaded/used when rendering on the server](#isomorphic-universal-applications) where they will cause errors.
+This is because esri-loader let's you control when the ArcGIS API and its modules are loaded and used. You can [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map, or you can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering. You can [ensure the API and its modules are not loaded/used when rendering on the server](#isomorphicuniversal-applications) where they will cause errors.
 
 ## Examples
 
@@ -227,7 +227,7 @@ Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [
 
 ### Browsers
 
-This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and it's modules expect to be run in a browser. You cannot run the ArcGIS API for JavaScript in Node, but [you _can_ use this library to isomorphic/universal applications](#isomorphic-universal-applications).
+This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and it's modules expect to be run in a browser. You cannot run the ArcGIS API for JavaScript in Node, but [you _can_ use this library to isomorphic/universal applications](#isomorphicuniversal-applications).
 
 This library supports [the same browers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Although this library works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), it does not support [some of the older browsers that version supports](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
 
