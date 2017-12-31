@@ -4,14 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Breaking
+
+## [1.6.0] - 2017-12-31
+### Added
 - default to version 4.6 of the ArcGIS API [#63](https://github.com/Esri/esri-loader/issues/63)
 ### Changed
 - remove remaining references to angular-esri-loader from README
 - update README w/ info on arcgis types and browser support [#60](https://github.com/Esri/esri-loader/issues/60)
 ### Fixed
 - window undefined error in server-rendered apps [#64](https://github.com/Esri/esri-loader/issues/64)
-### Removed
-### Breaking
 
 ## [1.5.3] - 2017-11-20
 
@@ -122,7 +127,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.5.3...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.6.0...HEAD
+[1.6.0]: https://github.com/Esri/esri-loader/compare/v1.5.3...v1.6.0
 [1.5.3]: https://github.com/Esri/esri-loader/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/Esri/esri-loader/compare/v1.5.1...v1.5.2
 [1.5.1]: https://github.com/Esri/esri-loader/compare/v1.5.0...v1.5.1
