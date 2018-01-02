@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
+- fallback to current url when loading modules
 ### Removed
 ### Breaking
 
