@@ -134,8 +134,6 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         // create a script object whose source points to the API
         script = createScript(options.url);
         // once the script is loaded...
-        // TODO: once we no longer need to update the dataset, replace this w/
-        // handleScriptLoad(script, resolve, reject);
         handleScriptLoad(script, () => {
           // update the status of the script
           script.setAttribute('data-esri-loader', 'loaded');

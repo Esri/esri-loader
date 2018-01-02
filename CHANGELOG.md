@@ -5,10 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
-- added Advanced Usage section and info on isomorphic apps to README
 ### Fixed
 ### Removed
 ### Breaking
+
+## [1.6.1] - 2018-01-01
+
+### Changed
+- added Advanced Usage section and info on isomorphic apps to README
+### Fixed
+- `script.dataset` is `undefined` in IE10 [#67](https://github.com/Esri/esri-loader/pull/67)
 
 ## [1.6.0] - 2017-12-31
 ### Added
@@ -128,7 +134,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.6.1...HEAD
+[1.6.1]: https://github.com/Esri/esri-loader/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/Esri/esri-loader/compare/v1.5.3...v1.6.0
 [1.5.3]: https://github.com/Esri/esri-loader/compare/v1.5.2...v1.5.3
 [1.5.2]: https://github.com/Esri/esri-loader/compare/v1.5.1...v1.5.2

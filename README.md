@@ -229,7 +229,7 @@ Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [
 
 This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and it's modules expect to be run in a browser. You cannot run the ArcGIS API for JavaScript in Node, but [you _can_ use this library to isomorphic/universal applications](#isomorphicuniversal-applications).
 
-This library supports [the same browers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Although this library works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), it does not support [some of the older browsers that version supports](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
+This library officially supports [the same browers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Since this library also works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
 
 ### Promises
 
