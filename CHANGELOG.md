@@ -6,9 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
-- fallback to current url when loading modules
 ### Removed
 ### Breaking
+
+## [1.6.2] - 2018-01-02
+
+### Fixed
+- fallback to current url when loading modules [#51](https://github.com/Esri/esri-loader/issues/51) [#61](https://github.com/Esri/esri-loader/issues/61)
 
 ## [1.6.1] - 2018-01-01
 
@@ -135,7 +139,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.6.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.6.2...HEAD
+[1.6.2]: https://github.com/Esri/esri-loader/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/Esri/esri-loader/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/Esri/esri-loader/compare/v1.5.3...v1.6.0
 [1.5.3]: https://github.com/Esri/esri-loader/compare/v1.5.2...v1.5.3
