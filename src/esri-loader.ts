@@ -30,7 +30,7 @@ function createScript(url) {
   script.type = 'text/javascript';
   script.src = url;
   // TODO: remove this if no longer needed
-  script.dataset['esriLoader'] = 'loading';
+  script.setAttribute('data-esri-loader', 'loading');
   return script;
 }
 
@@ -138,7 +138,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         // handleScriptLoad(script, resolve, reject);
         handleScriptLoad(script, () => {
           // update the status of the script
-          script.dataset['esriLoader'] = 'loaded';
+          script.setAttribute('data-esri-loader', 'loaded');
           // return the script
           resolve(script);
         }, reject);
@@ -202,7 +202,7 @@ export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, 
   // once the script is loaded...
   script.onload = () => {
     // update the status of the script
-    script.dataset['esriLoader'] = 'loaded';
+    script.setAttribute('data-esri-loader', 'loaded');
 
     // we can now use Dojo's require() to load esri and dojo AMD modules
     const _dojoRequire = window['require'];
