@@ -95,13 +95,13 @@ See the [Advanced Usage](#advanced-usage) section below for more advanced techni
 
 ## Why is this needed?
 
-Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from the modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. However, when using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework rather than the Dojo build system. This library lets you do that by providing an ES module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use its Dojo loader to load only the ArcGIS API modules as needed.
+Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from other modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. However, when using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework rather than the Dojo build system. This library lets you do that by providing an ES module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use its Dojo loader to load only the ArcGIS API modules as needed.
 
 [This blog post](http://tomwayson.com/2016/11/27/using-the-arcgis-api-for-javascript-in-applications-built-with-webpack/) explains in more detail how libraries like this provide a workaround to the challenges of loading ArcGIS API for JavaScript modules from bundlers like [webpack](http://webpack.github.io/) and [rollup.js](https://rollupjs.org/).
 
 Unlike the other techniques and boilerplates discussed in that article, esri-loader is the only solution that also helps:
-- improve the performance of initial application load
-- allows you to use the ArcGIS API in [isomorphic/universal applications]((https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea))
+- improve the performance of initial application load (especially on mobile)
+- allows you to use the ArcGIS API in [isomorphic/universal applications](https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea)
 
 This is because esri-loader let's you control when the ArcGIS API and its modules are loaded and used. You can [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map, or you can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering. You can [ensure the API and its modules are not loaded/used when rendering on the server](#isomorphicuniversal-applications) where they will cause errors.
 
@@ -134,6 +134,7 @@ Here are some applications and framework-specific wrapper libraries that use thi
 ### [Vue.js](https://vuejs.org/)
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
+- [esri-vue-cli-example](https://github.com/tomwayson/esri-vue-cli-example) - An example of how to use esri-loader in an application built with [vue-cli](https://github.com/vuejs/vue-cli).
 
 ## Advanced Usage
 
@@ -161,7 +162,7 @@ this.loadScriptPromise
 
 ### Isomorphic/universal applications
 
-This library also allows you to use the ArcGIS API in [isomorphic or universal](https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea) applications that are rendered on the server. There's really no difference in how you invoke the functions exposed by this libary, however you should avoid trying to call them from any code that runs on the server. The easiest way to do this is to use them in component lifecyle hooks that are only invoked in a browser, for example, React's [`componentDidMount`](https://reactjs.org/docs/react-component.html#componentdidmount). See [tomwayson/esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit/) for [an example of a component that lazy loads the ArcGIS API and renders a map only once a specific route is loaded in a browser](https://github.com/tomwayson/esri-loader-react-starter-kit/commit/a513b7fe207a809105fcb621a26a687cc47918b4).
+This library also allows you to use the ArcGIS API in [isomorphic or universal](https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea) applications that are rendered on the server. There's really no difference in how you invoke the functions exposed by this libary, however you should avoid trying to call them from any code that runs on the server. The easiest way to do this is to use them in component lifecyle hooks that are only invoked in a browser, for example, React's [`componentDidMount`](https://reactjs.org/docs/react-component.html#componentdidmount) or Vue's [mounted](https://vuejs.org/v2/api/#mounted). See [tomwayson/esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit/) for [an example of a component that lazy loads the ArcGIS API and renders a map only once a specific route is loaded in a browser](https://github.com/tomwayson/esri-loader-react-starter-kit/commit/a513b7fe207a809105fcb621a26a687cc47918b4).
 
 Alternatively, you could use checks like the following to ensure these functions aren't invoked on the server:
 
