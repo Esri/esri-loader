@@ -4,7 +4,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- make getScript() a public API [#44](https://github.com/Esri/esri-loader/issues/44)
 ### Changed
+- Add link to esri-vue-cli-example to README
 ### Fixed
 ### Removed
 ### Breaking
