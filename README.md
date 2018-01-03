@@ -5,7 +5,7 @@ A tiny library to help load modules from either the [4.x](https://developers.arc
 
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance and allow using the ArcGIS API in isomorphic/universal applications.
 
-**NOTE**: If you want to use the ArcGIS API in an [Ember](#ember), or Angular 1 application, you should use one of these libraries instead:
+**NOTE**: If you want to use the ArcGIS API in an [Ember](#ember) or [AngularJS](https://angularjs.org/) (1.x) application, you should use one of these libraries instead:
  - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon that wraps this library
  - [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from
 
@@ -65,9 +65,9 @@ esriLoader.loadModules(['esri/views/MapView', 'esri/WebMap'])
 
 #### Lazy Loading the ArcGIS API for JavaScript
 
-If users may never end up visiting any map routes, you can lazy load the ArcGIS API for JavaScript the first time a user visits a route with a map. 
+In the above snippet, the first time `loadModules()` is called, it will attempt to lazy load the most recent 4.x version of the ArcGIS API if it has not already been loaded by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
 
-In the above snippet, the first time `loadModules()` is called, it will attempt to lazy load the most recent 4.x version of the ArcGIS API by calling `loadScript()` for you if the API has not already been loaded. The snippet below uses version 3.x of the ArcGIS API to create a map.
+If you don't want to use the latest version of the ArcGIS API hosted on Esri's CDN, you'll need to pass options with the URL to whichever version you want to use. For example, the snippet below uses v3.x of the ArcGIS API to create a map.
 
 ```js
 // if the API hasn't already been loaded (i.e. the frist time this is run)
@@ -91,7 +91,9 @@ esriLoader.loadModules(['esri/map'], options)
 });
 ```
 
-See the [Advanced Usage](#advanced-usage) section below for more advanced techniques such as [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript), [using in isomorphic/universal applications](#isomorphicuniversal-applications) and [configuring Dojo](#configuring-dojo).
+Lazy loading the API is a useful pattern if your users may never end up visiting any routes that need the API (i.e. show a map or 3D scene).
+
+See the [Advanced Usage](#advanced-usage) section below for more advanced techniques such as [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript), [using in isomorphic/universal applications](#isomorphicuniversal-applications), [configuring Dojo](#configuring-dojo), and more.
 
 ## Why is this needed?
 
@@ -247,8 +249,6 @@ If there's already a Promise implementation loaded on the page you can configure
 ```
 
 Otherwise, you should consider using a [Promise polyfill](https://www.google.com/search?q=promise+polyfill), ideally [only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed/).
-
-Finally, for now you can still use `bootstrap()` and `dojoRequire()` which are the callback-based equivalents of the above functions. See the [v1.4.0 documentation](https://github.com/Esri/esri-loader/blob/v1.4.0/README.md#usage) for how to use the callback-based API, but _keep in mind that these functions have been deprecated and will be removed at the next major release_.
 
 ## Issues
 

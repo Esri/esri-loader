@@ -5,9 +5,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- misc README updates
 ### Fixed
 ### Removed
 ### Breaking
+- remove deprecated bootstrap() and dojoRequire() functions
+- isLoaded() no longer checks if the script exists
+- no longer distribute builds at dist root
 
 ## [1.7.0] - 2018-01-03
 ### Added
