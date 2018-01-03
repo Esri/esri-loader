@@ -16,11 +16,6 @@ const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 // this is the url that is currently being, or already has loaded
 let _currentUrl;
 
-// get the script injected by this library
-function getScript() {
-  return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
-}
-
 // TODO: at next breaking change replace the public isLoaded() API with this
 function _isLoaded() {
   const globalRequire = window['require'];
@@ -89,6 +84,11 @@ export interface ILoadScriptOptions {
   // https://github.com/nicksenger/esri-promise/blob/38834f22ffb3f70da3f57cce3773d168be990b0b/index.ts#L18
   // I assume it defines an object w/ an unknown number of prpoerties of type any
   dojoConfig?: { [propName: string]: any };
+}
+
+// get the script injected by this library
+export function getScript() {
+  return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
 }
 
 // has ArcGIS API been loaded on the page yet?
@@ -256,9 +256,10 @@ export function dojoRequire(modules: string[], callback: (...modules: any[]) => 
 
 // export a namespace to expose all functions
 export default {
+  getScript,
   isLoaded,
-  loadScript,
   loadModules,
+  loadScript,
   utils,
   // TODO: remove these the next major release
   bootstrap,
