@@ -4,12 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- make getScript() a public API [#44](https://github.com/Esri/esri-loader/issues/44)
 ### Changed
-- Add link to esri-vue-cli-example to README
 ### Fixed
 ### Removed
 ### Breaking
+
+## [1.7.0] - 2018-01-03
+### Added
+- make getScript() a public API [#44](https://github.com/Esri/esri-loader/issues/44)
+### Changed
+- Add link to esri-vue-cli-example to README
 
 ## [1.6.2] - 2018-01-02
 
@@ -141,7 +145,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.6.2...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/Esri/esri-loader/compare/v1.6.2...v1.7.0
 [1.6.2]: https://github.com/Esri/esri-loader/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/Esri/esri-loader/compare/v1.6.0...v1.6.1
 [1.6.0]: https://github.com/Esri/esri-loader/compare/v1.5.3...v1.6.0
