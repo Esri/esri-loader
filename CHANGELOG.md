@@ -5,9 +5,15 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
-- misc README updates
 ### Fixed
 ### Removed
+### Breaking
+
+## [2.0.0] - 2018-01-04
+
+### Changed
+- misc README updates
+
 ### Breaking
 - remove deprecated bootstrap() and dojoRequire() functions
 - isLoaded() no longer checks if the script exists
@@ -149,7 +155,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v1.7.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.0.0...HEAD
+[2.0.0]: https://github.com/Esri/esri-loader/compare/v1.7.0...v2.0.0
 [1.7.0]: https://github.com/Esri/esri-loader/compare/v1.6.2...v1.7.0
 [1.6.2]: https://github.com/Esri/esri-loader/compare/v1.6.1...v1.6.2
 [1.6.1]: https://github.com/Esri/esri-loader/compare/v1.6.0...v1.6.1
