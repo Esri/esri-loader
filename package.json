@@ -18,7 +18,6 @@
     "compile": "tsc",
     "clean": "rm -rf dist && mkdir -p dist",
     "lint": "tslint -c tslint.json 'src/esri-loader.ts'",
-    "postbuild:release": "npm run bundle -- --o dist/esri-loader.js && npm run bundle -- profiles/prod.config.js --o dist/esri-loader.min.js",
     "prebuild:release": "npm run clean",
     "precompile": "npm run lint",
     "prepublish": "npm run build:release",

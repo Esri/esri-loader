@@ -16,18 +16,10 @@ const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 // this is the url that is currently being, or already has loaded
 let _currentUrl;
 
-// TODO: at next breaking change replace the public isLoaded() API with this
-function _isLoaded() {
-  const globalRequire = window['require'];
-  // .on() ensures that it's Dojo's AMD loader
-  return globalRequire && globalRequire.on;
-}
-
 function createScript(url) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
   script.src = url;
-  // TODO: remove this if no longer needed
   script.setAttribute('data-esri-loader', 'loading');
   return script;
 }
@@ -66,9 +58,7 @@ function handleScriptError(script, callback) {
 }
 
 // interfaces
-// TODO: remove this next breaking change
-// it has been replaced by ILoadScriptOptions
-export interface IBootstrapOptions {
+export interface ILoadScriptOptions {
   url?: string;
   dojoConfig?: { [propName: string]: any };
 }
@@ -78,14 +68,6 @@ export const utils = {
   Promise: isBrowser ? window['Promise'] : undefined
 };
 
-export interface ILoadScriptOptions {
-  url?: string;
-  // NOTE: stole the type definition for dojoConfig from:
-  // https://github.com/nicksenger/esri-promise/blob/38834f22ffb3f70da3f57cce3773d168be990b0b/index.ts#L18
-  // I assume it defines an object w/ an unknown number of prpoerties of type any
-  dojoConfig?: { [propName: string]: any };
-}
-
 // get the script injected by this library
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
@@ -93,8 +75,9 @@ export function getScript() {
 
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
-  // TODO: replace this implementation with that of _isLoaded() on next major release
-  return typeof window['require'] !== 'undefined' && getScript();
+  const globalRequire = window['require'];
+  // .on() ensures that it's Dojo's AMD loader
+  return globalRequire && globalRequire.on;
 }
 
 // load the ArcGIS API on the page
@@ -115,7 +98,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         // potentailly trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
       } else {
-        if (_isLoaded()) {
+        if (isLoaded()) {
           // the script has already successfully loaded
           resolve(script);
         } else {
@@ -124,7 +107,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         }
       }
     } else {
-      if (_isLoaded()) {
+      if (isLoaded()) {
         // the API has been loaded by some other means
         // potentailly trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
@@ -168,7 +151,7 @@ function requireModules(modules: string[]): Promise<any[]> {
 // returns a promise that resolves with an array of the required modules
 // also will attempt to lazy load the ArcGIS API if it has not already been loaded
 export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOptions = {}): Promise<any[]> {
-  if (!_isLoaded()) {
+  if (!isLoaded()) {
     // script is not yet loaded
     if (!loadScriptOptions.url && _currentUrl) {
       // alredy in the process of loading, so default to the same url
@@ -182,86 +165,11 @@ export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOpt
   }
 }
 
-// TODO: remove this next major release
-export function bootstrap(callback?: (error: Error, dojoRequire?: any) => void, options: IBootstrapOptions = {}) {
-  console.warn('bootstrap() has been depricated and will be removed the next major release. Use loadScript() instead.');
-  // default options
-  if (!options.url) {
-    options.url = DEFAULT_URL;
-  }
-
-  // don't reload API if it is already loaded or in the process of loading
-  if (getScript()) {
-    if (callback) {
-      callback(new Error('The ArcGIS API for JavaScript is already loaded.'));
-    }
-    return;
-  }
-
-  if (options.dojoConfig) {
-    // set dojo configuration parameters before loading the script
-    window['dojoConfig'] = options.dojoConfig;
-  }
-
-  // create a script object whose source points to the API
-  const script = createScript(options.url);
-
-  // once the script is loaded...
-  script.onload = () => {
-    // update the status of the script
-    script.setAttribute('data-esri-loader', 'loaded');
-
-    // we can now use Dojo's require() to load esri and dojo AMD modules
-    const _dojoRequire = window['require'];
-
-    if (callback) {
-      // let the caller know that the API has been successfully loaded
-      // and as a convenience, return the require function
-      // in case they want to use it directly
-      callback(null, _dojoRequire);
-    }
-  };
-
-  if (callback) {
-    // handle any script loading errors
-    handleScriptError(script, callback);
-  }
-
-  // load the script
-  document.body.appendChild(script);
-}
-
-// TODO: remove this next major release
-export function dojoRequire(modules: string[], callback: (...modules: any[]) => void) {
-  /* tslint:disable max-line-length */
-  console.warn('dojoRequire() has been depricated and will be removed the next major release. Use loadModules() instead.');
-  /* tslint:enable max-line-length */
-  if (isLoaded()) {
-    // already loaded, just call require
-    window['require'](modules, callback);
-  } else {
-    // wait for script to load then call require
-    const script = getScript();
-    if (script) {
-      // Not yet loaded but script is in the body - use callback once loaded
-      handleScriptLoad(script, () => {
-        window['require'](modules, callback);
-      });
-    } else {
-      // Not bootstrapped
-      throw new Error('The ArcGIS API for JavaScript has not been loaded. You must first call esriLoader.bootstrap()');
-    }
-  }
-}
-
 // export a namespace to expose all functions
 export default {
   getScript,
   isLoaded,
   loadModules,
   loadScript,
-  utils,
-  // TODO: remove these the next major release
-  bootstrap,
-  dojoRequire
+  utils
 };
