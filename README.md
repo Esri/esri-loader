@@ -99,11 +99,14 @@ See the [Advanced Usage](#advanced-usage) section below for more advanced techni
 
 Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from other modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. However, when using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework rather than the Dojo build system. This library lets you do that by providing an ES module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use its Dojo loader to load only the ArcGIS API modules as needed.
 
-[This blog post](http://tomwayson.com/2016/11/27/using-the-arcgis-api-for-javascript-in-applications-built-with-webpack/) explains in more detail how libraries like this provide a workaround to the challenges of loading ArcGIS API for JavaScript modules from bundlers like [webpack](http://webpack.github.io/) and [rollup.js](https://rollupjs.org/).
+There are a few different solutions to this problem, but [this blog post](http://tomwayson.com/2018/01/05/loader-of-the-things-one-library-to-load-them-all/) explains why you should be using esri-loader if your ArcGIS web application uses _any_ other module loader besides the Dojo loader (i.e. [webpack](http://webpack.github.io/), [rollup.js](https://rollupjs.org/), etc.). Using esri-loader enables you to:
 
-Unlike the other techniques and boilerplates discussed in that article, esri-loader is the only solution that also helps:
-- improve the performance of initial application load (especially on mobile)
-- allows you to use the ArcGIS API in [isomorphic/universal applications](https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea)
+<ul>
+ 	<li>Improve initial load performance, especially on mobile</li>
+ 	<li><a href="#isomorphicuniversal-applications">Use the ArcGIS API in isomorphic/universal (server-rendered) applications</a></li>
+ 	<li>Use the ArcGIS API with <a href="#examples">whatever cli or boilerplate your team prefers</a></li>
+ 	<li>Avoid having to load the ArcGIS API just to run your unit tests</li>
+</ul>
 
 This is because esri-loader let's you control when the ArcGIS API and its modules are loaded and used. You can [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map, or you can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering. You can [ensure the API and its modules are not loaded/used when rendering on the server](#isomorphicuniversal-applications) where they will cause errors.
 
