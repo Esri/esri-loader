@@ -2,6 +2,7 @@
 
 - Describe what you expected or wanted to happen.
 - What you are trying to achieve?
+- Describe your environment/framework and be specific with version numbers (e.g. React v16, Angular v5.0, Vue v2.5, Ember v2, etc.).
 
 ### Actual behavior
 
@@ -15,6 +16,6 @@
 
 Please provide:
 
-1. Steps to reproduce the behavior
-2. A link to an app where we can carry out those steps (e.g. your publicly facing app, a JSFiddle, a JS Bin, etc.)
-3. Relevant code snippet(s) (only if not easily obtained from the above link)
+1. Steps to reproduce the behavior.
+2. A link to an app where we can carry out those steps (e.g. your publicly facing app, a JSFiddle, a JS Bin, etc.).
+3. Relevant code snippet(s) (only if not easily obtained from the above link).
