@@ -231,6 +231,16 @@ Then you can use the `__esri` namespace for the types as seen in [this example](
 #### 3.x Types
 Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types, but then [you will still need to use `import` statements to get the types](https://github.com/Esri/jsapi-resources/issues/60). This may cause build errors that may or may not result in actual runtime errors depending on your environment.
 
+### Updating from previous versions
+
+#### From &lt; v1.5
+
+If you have an application using a version that is less than v1.5, [this commit](https://github.com/odoe/vue-jsapi4/pull/1/commits/4cb6413c0ea31fdd09e94f3a0ce0d1669a9fd5ad) shows the kinds of changes you'll need to make. In most cases, you should be able to replace a series of calls to `isLoaded()`, `bootstrap()`, and `dojoRequire()` with a single call to `loadModules()`.
+
+#### From angular-esri-loader
+
+The angular-esri-loader wrapper library is no longer need and has been deprecated in favor of using esri-loader directly. See [this issue](https://github.com/Esri/esri-loader/issues/75) for suggestions on how to replace angular-esri-loader with the latest version of esri-loader.
+
 ## Dependencies
 
 ### Browsers

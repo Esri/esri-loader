@@ -7,6 +7,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Changed
 - added GitHub issue and pull request templates
 - added badges to README
+- added section on updating from previous versions to README
 ### Fixed
 ### Removed
 ### Breaking
