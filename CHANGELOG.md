@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added GitHub issue and pull request templates
 - added badges to README
 - added section on updating from previous versions to README
+- added reusable library sections for Angular and React
 ### Fixed
 ### Removed
 ### Breaking
