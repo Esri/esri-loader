@@ -23,7 +23,7 @@
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
     "start": "npm run clean && npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
-    "test": "npm run build:release && karma start --single-run=true"
+    "test": "npm run build:release && karma start --single-run=true --browsers Firefox"
   },
   "repository": {
     "type": "git",
@@ -49,6 +49,7 @@
     "karma": "^1.7.1",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.1",
+    "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.3",
     "onchange": "^3.2.1",
