@@ -5,6 +5,8 @@ A tiny library to help load modules from either the [4.x](https://developers.arc
 
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance and allow using the ArcGIS API in isomorphic/universal applications.
 
+[![Travis](https://img.shields.io/travis/Esri/esri-loader.svg)]() [![npm](https://img.shields.io/npm/v/esri-loader.svg)]() [![npm](https://img.shields.io/npm/dw/esri-loader.svg)]() [![npm](https://img.shields.io/npm/l/esri-loader.svg)]() [![GitHub stars](https://img.shields.io/github/stars/esri/esri-loader.svg?style=social&label=Stars)]()
+
 **NOTE**: If you want to use the ArcGIS API in an [Ember](#ember) or [AngularJS](https://angularjs.org/) (1.x) application, you should use one of these libraries instead:
  - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon that wraps this library
  - [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from
