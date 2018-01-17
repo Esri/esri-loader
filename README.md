@@ -26,7 +26,7 @@ yarn add esri-loader
 ```
 
 ## Usage
-The code snippets below show how to load the ArcGIS API and it's modules and then use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for [example applications](#examples).
+The code snippets below show how to load the ArcGIS API and its modules and then use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for [example applications](#examples).
 
 ### Loading Styles
 
@@ -119,7 +119,7 @@ This is because esri-loader let's you control when the ArcGIS API and its module
 
 ## Examples
 
-Here are some applications and framework-specific wrapper libraries that use this library (presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye:):
+Here are some applications and framework-specific wrapper libraries that use this library. We don't gurantee that these examples are current, so check the version of esri-loader their commit history before using them as a reference. They are presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye::
 
 ### [Angular](https://angular.io/)
 
@@ -259,13 +259,13 @@ If you have an application using a version that is less than v1.5, [this commit]
 
 #### From angular-esri-loader
 
-The angular-esri-loader wrapper library is no longer need and has been deprecated in favor of using esri-loader directly. See [this issue](https://github.com/Esri/esri-loader/issues/75) for suggestions on how to replace angular-esri-loader with the latest version of esri-loader.
+The angular-esri-loader wrapper library is no longer needed and has been deprecated in favor of using esri-loader directly. See [this issue](https://github.com/Esri/esri-loader/issues/75) for suggestions on how to replace angular-esri-loader with the latest version of esri-loader.
 
 ## Dependencies
 
 ### Browsers
 
-This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and it's modules expect to be run in a browser. This library officially supports [the same browers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Since this library also works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
+This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and its modules expect to be run in a browser. This library officially supports [the same browers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Since this library also works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
 
 You cannot run the ArcGIS API for JavaScript in [Node.js](https://nodejs.org/), but you _can_ use this library in [isomorphic/universal applications](#isomorphicuniversal-applications) as well as [Electron](#electron). If you need to exectue requests to ArcGIS REST services from something like a Node.js CLI application, see [arcgis-rest-js](https://github.com/Esri/arcgis-rest-js).
 
