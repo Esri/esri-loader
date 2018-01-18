@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added badges to README
 - added section on updating from previous versions to README
 - added reusable library sections for Angular and React
+- added links to ember-esri-loader examples and CanJS
 ### Fixed
 ### Removed
 ### Breaking

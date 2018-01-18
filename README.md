@@ -129,11 +129,14 @@ Here are some applications and framework-specific wrapper libraries that use thi
 #### Example Angular applications
 - [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses the angular-esri-components library
 
+### [CanJS](https://canjs.com/)
+- [can-arcgis](https://github.com/roemhildtg/can-arcgis) - CanJS configureable mapping app (inspired by [cmv-app](https://github.com/cmv/cmv-app)) and components built for the ArcGIS JS API 4.x, bundled with [StealJS](https://stealjs.com/)
+
 ### [Electron](https://electron.atom.io/)
 - [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron
 
 ### [Ember](https://www.emberjs.com/)
-See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-loader/#examples).
+See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-loader/#examples)
 
 ### [Glimmer.js](https://glimmerjs.com/)
  - [esri-glimmer-example](https://github.com/tomwayson/esri-glimmer-example) - An example of how to use the ArcGIS API for JavaScript in a https://glimmerjs.com/ application
