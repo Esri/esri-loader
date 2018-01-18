@@ -133,7 +133,7 @@ Here are some applications and framework-specific wrapper libraries that use thi
 - [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron
 
 ### [Ember](https://www.emberjs.com/)
-- [ember-esri-loader Dummy App](http://ember-esri-loader.surge.sh/) - The dummy application for the ember-esri-loader addon
+See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-loader/#examples).
 
 ### [Glimmer.js](https://glimmerjs.com/)
  - [esri-glimmer-example](https://github.com/tomwayson/esri-glimmer-example) - An example of how to use the ArcGIS API for JavaScript in a https://glimmerjs.com/ application
