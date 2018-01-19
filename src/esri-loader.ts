@@ -23,11 +23,11 @@ function createScript(url) {
   script.setAttribute('data-esri-loader', 'loading');
   return script;
 }
+
 function createCssLib(url) {
     const styleSheet = document.createElement('link');
     styleSheet.rel = 'stylesheet';
     styleSheet.href = url;
-    styleSheet.setAttribute('data-esri-loader', 'loading');
     return styleSheet;
 }
 
@@ -80,8 +80,9 @@ export const utils = {
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
 }
-export function getCss() {
-  return document.querySelector('style[data-esri-loader]') as HTMLStyleElement;
+// check if the css url has been injected or added manually
+export function getCss(url) {
+  return document.querySelector(`link[href*="${url}"], link[href*="/esri/themes/"`) as HTMLLinkElement;
 }
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
@@ -94,7 +95,7 @@ export function isLoaded() {
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
   // default options
   if (!options.url) {
-      options.url = DEFAULT_URL;
+    options.url = DEFAULT_URL;
   }
   if (!options.css) {
     options.css = DEFAULT_CSS;
@@ -102,14 +103,19 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
-    let cssLib = getCss();
+    let cssLib = getCss(options.css);
+    if (!cssLib) {
+        // create & load the css library
+        cssLib = createCssLib(options.css);
+        document.body.appendChild(cssLib);
+    }
     if (script) {
       // the API is already loaded or in the process of loading...
       // NOTE: have to test against scr attribute value, not script.src
       // b/c the latter will return the full url for relative paths
       const src = script.getAttribute('src');
       if (src !== options.url) {
-        // potentailly trying to load a different version of the API
+        // potentially trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
       } else {
         if (isLoaded()) {
@@ -123,7 +129,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
     } else {
       if (isLoaded()) {
         // the API has been loaded by some other means
-        // potentailly trying to load a different version of the API
+        // potentially trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
@@ -133,7 +139,6 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         }
         // create a script object whose source points to the API
         script = createScript(options.url);
-        cssLib = createCssLib(options.css);
         _currentUrl = options.url;
         // once the script is loaded...
         handleScriptLoad(script, () => {
@@ -142,8 +147,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
           // return the script
           resolve(script);
         }, reject);
-        // load the script & css lib
-        document.body.appendChild(cssLib);
+        // load the script
         document.body.appendChild(script);
       }
     }
