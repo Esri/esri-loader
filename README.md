@@ -1,11 +1,12 @@
 # esri-loader
+
+[![Travis](https://img.shields.io/travis/Esri/esri-loader.svg)](https://travis-ci.org/Esri/esri-loader/builds/) [![npm](https://img.shields.io/npm/v/esri-loader.svg)](https://github.com/Esri/esri-loader/releases) [![npm](https://img.shields.io/npm/dw/esri-loader.svg)](https://www.npmjs.com/package/esri-loader) [![npm](https://img.shields.io/npm/l/esri-loader.svg)](https://github.com/Esri/esri-loader/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/esri/esri-loader.svg?style=social&label=Stars)](https://github.com/Esri/esri-loader/stargazers)
+
 A tiny library to help load modules from either the [4.x](https://developers.arcgis.com/javascript/) or [3.x](https://developers.arcgis.com/javascript/3/) versions of the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) in non-Dojo applications.
 
 ![ArcGIS logo, mended broken heart, Angular logo, Ember logo, Rreact logo, Vue logo](https://docs.google.com/drawings/d/e/2PACX-1vSUEfgaupMLz6FXBX65X-nm7cqA0r9ed3rJ_KNISeqzwDDkd8LsubLhQ_hCWwO3zjS41cD5eG7QUBHl/pub?w=888&h=222)
 
 See below for more information on [why this library is needed](#why-is-this-needed) and how it can help improve application load performance and allow using the ArcGIS API in isomorphic/universal applications.
-
-[![Travis](https://img.shields.io/travis/Esri/esri-loader.svg)](https://travis-ci.org/Esri/esri-loader/builds/) [![npm](https://img.shields.io/npm/v/esri-loader.svg)](https://github.com/Esri/esri-loader/releases) [![npm](https://img.shields.io/npm/dw/esri-loader.svg)](https://www.npmjs.com/package/esri-loader) [![npm](https://img.shields.io/npm/l/esri-loader.svg)](https://github.com/Esri/esri-loader/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/esri/esri-loader.svg?style=social&label=Stars)](https://github.com/Esri/esri-loader/stargazers)
 
 **NOTE**: If you want to use the ArcGIS API in an [Ember](#ember) or [AngularJS](https://angularjs.org/) (1.x) application, you should use one of these libraries instead:
  - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon that wraps this library
@@ -311,4 +312,4 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-A copy of the license is available in the repository's [license.txt]( ./license.txt) file.
+A copy of the license is available in the repository's [LICENSE]( ./LICENSE) file.
