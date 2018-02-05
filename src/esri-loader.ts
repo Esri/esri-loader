@@ -23,7 +23,7 @@ function createScript(url) {
   return script;
 }
 
-function createSytlesheetLink(url) {
+function createStylesheetLink(url) {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
   link.href = url;
@@ -97,7 +97,7 @@ export function loadCss(url) {
   let link = getCss(url);
   if (!link) {
     // create & load the css library
-    link = createSytlesheetLink(url);
+    link = createStylesheetLink(url);
     document.body.appendChild(link);
   }
   return link;

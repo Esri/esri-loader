@@ -38,7 +38,7 @@ Before you can use the ArcGIS API in your app, you'll need to load the styles th
 esriLoader.loadCss('https://js.arcgis.com/4.6/esri/css/main.css');
 ```
 
-Alternatively, you can manually load them by more traditional such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
+Alternatively, you can manually load them by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
 
 ```html
 <!-- load esri styles for version 4.6 via a link tag -->
