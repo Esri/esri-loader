@@ -12,7 +12,7 @@
 */
 const isBrowser = typeof window !== 'undefined';
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
-
+const DEFAULT_CSS = 'https://js.arcgis.com/4.6/esri/css/main.css';
 // this is the url that is currently being, or already has loaded
 let _currentUrl;
 
@@ -22,6 +22,13 @@ function createScript(url) {
   script.src = url;
   script.setAttribute('data-esri-loader', 'loading');
   return script;
+}
+
+function createCssLib(url) {
+    const styleSheet = document.createElement('link');
+    styleSheet.rel = 'stylesheet';
+    styleSheet.href = url;
+    return styleSheet;
 }
 
 // add a one-time load handler to script
@@ -60,6 +67,7 @@ function handleScriptError(script, callback) {
 // interfaces
 export interface ILoadScriptOptions {
   url?: string;
+  css?: string;
   dojoConfig?: { [propName: string]: any };
 }
 
@@ -72,7 +80,10 @@ export const utils = {
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
 }
-
+// check if the css url has been injected or added manually
+export function getCss(url) {
+  return document.querySelector(`link[href*="${url}"], link[href*="/esri/themes/"`) as HTMLLinkElement;
+}
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   const globalRequire = window['require'];
@@ -86,16 +97,25 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
   if (!options.url) {
     options.url = DEFAULT_URL;
   }
+  if (!options.css) {
+    options.css = DEFAULT_CSS;
+  }
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
+    let cssLib = getCss(options.css);
+    if (!cssLib) {
+        // create & load the css library
+        cssLib = createCssLib(options.css);
+        document.body.appendChild(cssLib);
+    }
     if (script) {
       // the API is already loaded or in the process of loading...
       // NOTE: have to test against scr attribute value, not script.src
       // b/c the latter will return the full url for relative paths
       const src = script.getAttribute('src');
       if (src !== options.url) {
-        // potentailly trying to load a different version of the API
+        // potentially trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
       } else {
         if (isLoaded()) {
@@ -109,7 +129,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
     } else {
       if (isLoaded()) {
         // the API has been loaded by some other means
-        // potentailly trying to load a different version of the API
+        // potentially trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
