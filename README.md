@@ -31,17 +31,25 @@ The code snippets below show how to load the ArcGIS API and its modules and then
 
 ### Loading Styles
 
-Before you can use the ArcGIS API in your app, you'll need to load the styles. For example, if you're using the latest 4.x version (the default):
+Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. You can use the provided `loadCss(url)` function. For example:
 
-```css
-/* esri styles */
+```js
+// load esri styles for version 4.6 using loadCss
+esriLoader.loadCss('https://js.arcgis.com/4.6/esri/css/main.css');
+```
+
+Alternatively, you can manually load them by more traditional such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
+
+```html
+<!-- load esri styles for version 4.6 via a link tag -->
+<link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
 @import url('https://js.arcgis.com/4.6/esri/css/main.css');
 ```
 
-If you're using a specific version other than the latest 4.x:
+or:
 
 ```css
-/* esri styles */
+/* load esri styles for version 3.23 via import */
 @import url('https://js.arcgis.com/3.23/esri/css/esri.css');
 ```
 

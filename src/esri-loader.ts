@@ -12,7 +12,6 @@
 */
 const isBrowser = typeof window !== 'undefined';
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
-const DEFAULT_CSS = 'https://js.arcgis.com/4.6/esri/css/main.css';
 // this is the url that is currently being, or already has loaded
 let _currentUrl;
 
@@ -24,11 +23,11 @@ function createScript(url) {
   return script;
 }
 
-function createCssLib(url) {
-    const styleSheet = document.createElement('link');
-    styleSheet.rel = 'stylesheet';
-    styleSheet.href = url;
-    return styleSheet;
+function createSytlesheetLink(url) {
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = url;
+  return link;
 }
 
 // add a one-time load handler to script
@@ -67,7 +66,7 @@ function handleScriptError(script, callback) {
 // interfaces
 export interface ILoadScriptOptions {
   url?: string;
-  css?: string;
+  // TODO: css?: string;
   dojoConfig?: { [propName: string]: any };
 }
 
@@ -80,15 +79,28 @@ export const utils = {
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
 }
+// TODO: export this function?
 // check if the css url has been injected or added manually
-export function getCss(url) {
-  return document.querySelector(`link[href*="${url}"], link[href*="/esri/themes/"`) as HTMLLinkElement;
+function getCss(url) {
+  return document.querySelector(`link[href*="${url}"]`) as HTMLLinkElement;
 }
+
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   const globalRequire = window['require'];
   // .on() ensures that it's Dojo's AMD loader
   return globalRequire && globalRequire.on;
+}
+
+// lazy load the CSS needed for the ArcGIS API
+export function loadCss(url) {
+  let link = getCss(url);
+  if (!link) {
+    // create & load the css library
+    link = createSytlesheetLink(url);
+    document.body.appendChild(link);
+  }
+  return link;
 }
 
 // load the ArcGIS API on the page
@@ -97,18 +109,9 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
   if (!options.url) {
     options.url = DEFAULT_URL;
   }
-  if (!options.css) {
-    options.css = DEFAULT_CSS;
-  }
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
-    let cssLib = getCss(options.css);
-    if (!cssLib) {
-        // create & load the css library
-        cssLib = createCssLib(options.css);
-        document.body.appendChild(cssLib);
-    }
     if (script) {
       // the API is already loaded or in the process of loading...
       // NOTE: have to test against scr attribute value, not script.src
