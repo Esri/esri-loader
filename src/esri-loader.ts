@@ -98,7 +98,7 @@ export function loadCss(url) {
   if (!link) {
     // create & load the css library
     link = createStylesheetLink(url);
-    document.body.appendChild(link);
+    document.head.appendChild(link);
   }
   return link;
 }

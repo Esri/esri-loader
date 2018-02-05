@@ -42,7 +42,7 @@ describe('esri-loader', function () {
       var url = 'https://js.arcgis.com/4.6/esri/css/main.css';
       var link;
       beforeAll(function () {
-        spyOn(document.body, 'appendChild').and.stub();
+        spyOn(document.head, 'appendChild').and.stub();
         spyOn(document, 'querySelector');
         link = esriLoader.loadCss(url);
       });
@@ -61,7 +61,7 @@ describe('esri-loader', function () {
         var url = 'https://js.arcgis.com/4.6/esri/css/main.css';
         var link, link2;
         beforeAll(function () {
-          spyOn(document.body, 'appendChild').and.stub();
+          spyOn(document.head, 'appendChild').and.stub();
           link = esriLoader.loadCss(url);
           spyOn(document, 'querySelector').and.returnValue(link);
           link2 = esriLoader.loadCss(url);
@@ -70,7 +70,7 @@ describe('esri-loader', function () {
           expect(link2).toEqual(link);
         });
         it('should not have tried to append the link a second time', function () {
-          expect(document.body.appendChild.calls.count()).toEqual(1);
+          expect(document.head.appendChild.calls.count()).toEqual(1);
         });
       });
     });
