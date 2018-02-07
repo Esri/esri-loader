@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - `loadScript()` takes a `css` option to load stylesheet by URL
 ### Changed
+- added Choo and Riot example links to README
 ### Fixed
 ### Removed
 ### Breaking
