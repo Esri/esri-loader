@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- `loadScript()` takes a `css` option to load stylesheet by URL
 ### Changed
 ### Fixed
 ### Removed

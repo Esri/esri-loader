@@ -84,6 +84,7 @@ describe('esri-loader', function () {
           // trigger the onload event listeners
           el.dispatchEvent(new Event('load'));
         });
+        spyOn(document.head, 'appendChild');
         esriLoader.loadScript()
         .then((script) => {
           // hold onto script element for assertions below
@@ -96,6 +97,9 @@ describe('esri-loader', function () {
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
+      });
+      it('should not have called loadCss', function () {
+        expect(document.head.appendChild.calls.any()).toBeFalsy();
       });
     });
     describe('with different API version', function () {
@@ -119,6 +123,25 @@ describe('esri-loader', function () {
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
+      });
+    });
+    describe('with css option', function () {
+      var cssUrl = 'https://js.arcgis.com/4.6/esri/css/main.css';
+      beforeAll(function (done) {
+        spyOn(document.body, 'appendChild').and.callFake(function (el) {
+          // trigger the onload event listeners
+          el.dispatchEvent(new Event('load'));
+        });
+        spyOn(document.head, 'appendChild').and.stub();
+        esriLoader.loadScript({
+          css: cssUrl
+        })
+        .then((script) => {
+          done();
+        });
+      });
+      it('should have called loadCss with the url', function () {
+        expect(document.head.appendChild.calls.argsFor(0)[0].href).toEqual(cssUrl);
       });
     });
     describe('with dojoConfig option', function () {

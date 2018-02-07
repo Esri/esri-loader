@@ -66,7 +66,7 @@ function handleScriptError(script, callback) {
 // interfaces
 export interface ILoadScriptOptions {
   url?: string;
-  // TODO: css?: string;
+  css?: string;
   dojoConfig?: { [propName: string]: any };
 }
 
@@ -136,6 +136,10 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
+        if (options.css) {
+          // load the css before loading the script
+          loadCss(options.css);
+        }
         if (options.dojoConfig) {
           // set dojo configuration parameters before loading the script
           window['dojoConfig'] = options.dojoConfig;
