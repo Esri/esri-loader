@@ -37,6 +37,45 @@ describe('esri-loader', function () {
     });
   });
 
+  describe('when loading the css', function () {
+    describe('with a url', function () {
+      var url = 'https://js.arcgis.com/4.6/esri/css/main.css';
+      var link;
+      beforeAll(function () {
+        spyOn(document.head, 'appendChild').and.stub();
+        spyOn(document, 'querySelector');
+        link = esriLoader.loadCss(url);
+      });
+      it('should have checked if the link was already appended', function() {
+        expect(document.querySelector.calls.argsFor(0)[0]).toEqual(`link[href*="${url}"]`);
+      });
+      it('should have set the href', function () {
+        expect(link.href).toEqual(url);
+      });
+      it('should not have set the rel', function () {
+        expect(link.rel).toEqual('stylesheet');
+      });
+    });
+    describe('when called twice', function () {
+      describe('when loading the same url', function () {
+        var url = 'https://js.arcgis.com/4.6/esri/css/main.css';
+        var link, link2;
+        beforeAll(function () {
+          spyOn(document.head, 'appendChild').and.stub();
+          link = esriLoader.loadCss(url);
+          spyOn(document, 'querySelector').and.returnValue(link);
+          link2 = esriLoader.loadCss(url);
+        });
+        it('should return the link if it is already loaded', function () {
+          expect(link2).toEqual(link);
+        });
+        it('should not have tried to append the link a second time', function () {
+          expect(document.head.appendChild.calls.count()).toEqual(1);
+        });
+      });
+    });
+  });
+
   describe('when loading the script', function () {
     describe('with defaults', function () {
       var scriptEl;

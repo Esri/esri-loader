@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- added loadCss(url) to inject a stylesheet link
 ### Changed
 - added GitHub issue and pull request templates
 - added badges to README
