@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added reusable library sections for Angular and React
 - added links to ember-esri-loader examples and CanJS
 - changed npm scripts to rely on rimraf and mkdirp for Windows support
+- check in yarn.lockfile and use yarn
 ### Fixed
 ### Removed
 ### Breaking
