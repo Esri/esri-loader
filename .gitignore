@@ -39,6 +39,3 @@ jspm_packages
 
 # build output
 dist
-
-# npm || yarn
-yarn.lock
