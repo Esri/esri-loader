@@ -4,6 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Breaking
+
+## [2.1.0] - 2018-02-06
+### Added
 - added loadCss(url) to inject a stylesheet link
 ### Changed
 - added GitHub issue and pull request templates
@@ -13,9 +20,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added links to ember-esri-loader examples and CanJS
 - changed npm scripts to rely on rimraf and mkdirp for Windows support
 - check in yarn.lockfile and use yarn
-### Fixed
-### Removed
-### Breaking
 
 ## [2.0.0] - 2018-01-04
 
@@ -163,7 +167,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.0.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/Esri/esri-loader/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/Esri/esri-loader/compare/v1.7.0...v2.0.0
 [1.7.0]: https://github.com/Esri/esri-loader/compare/v1.6.2...v1.7.0
 [1.6.2]: https://github.com/Esri/esri-loader/compare/v1.6.1...v1.6.2
