@@ -4,12 +4,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- `loadScript()` takes a `css` option to load stylesheet by URL
 ### Changed
-- added Choo and Riot example links to README
 ### Fixed
 ### Removed
 ### Breaking
+
+## [2.2.0] - 2018-02-07
+### Added
+- `loadScript()` takes a `css` option to load stylesheet by URL
+### Changed
+- added Choo and Riot example links to README
 
 ## [2.1.0] - 2018-02-06
 ### Added
@@ -169,7 +173,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.1.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.2.0...HEAD
+[2.2.0]: https://github.com/Esri/esri-loader/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/Esri/esri-loader/compare/v2.0.0...v2.1.0
 [2.0.0]: https://github.com/Esri/esri-loader/compare/v1.7.0...v2.0.0
 [1.7.0]: https://github.com/Esri/esri-loader/compare/v1.6.2...v1.7.0
