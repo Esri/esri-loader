@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- added Hyperapp example link to README
 ### Fixed
 ### Removed
 ### Breaking

@@ -153,6 +153,9 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 ### [Glimmer.js](https://glimmerjs.com/)
  - [esri-glimmer-example](https://github.com/tomwayson/esri-glimmer-example) - An example of how to use the ArcGIS API for JavaScript in a https://glimmerjs.com/ application
 
+### [Hyperapp](https://hyperapp.js.org/)
+ - [esri-hyperapp-example](https://github.com/jwasilgeo/esri-hyperapp-example) - An example Hyperapp application that shows how to use esri-loader to create a custom map view and component.
+
 ### [Ionic](https://ionicframework.com/)
 - [ionic2-esri-map](https://github.com/andygup/ionic2-esri-map) - Prototype app demonstrating how to use Ionic 3+ with the ArcGIS API for JavaScript
  
