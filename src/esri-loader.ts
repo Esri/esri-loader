@@ -10,6 +10,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
+import { loadCss } from './utils/css';
+
 const isBrowser = typeof window !== 'undefined';
 const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
 // this is the url that is currently being, or already has loaded
@@ -21,13 +23,6 @@ function createScript(url) {
   script.src = url;
   script.setAttribute('data-esri-loader', 'loading');
   return script;
-}
-
-function createStylesheetLink(url) {
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = url;
-  return link;
 }
 
 // add a one-time load handler to script
@@ -79,28 +74,11 @@ export const utils = {
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
 }
-// TODO: export this function?
-// check if the css url has been injected or added manually
-function getCss(url) {
-  return document.querySelector(`link[href*="${url}"]`) as HTMLLinkElement;
-}
-
 // has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   const globalRequire = window['require'];
   // .on() ensures that it's Dojo's AMD loader
   return globalRequire && globalRequire.on;
-}
-
-// lazy load the CSS needed for the ArcGIS API
-export function loadCss(url) {
-  let link = getCss(url);
-  if (!link) {
-    // create & load the css library
-    link = createStylesheetLink(url);
-    document.head.appendChild(link);
-  }
-  return link;
 }
 
 // load the ArcGIS API on the page
@@ -192,11 +170,20 @@ export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOpt
   }
 }
 
-// export a namespace to expose all functions
+// TODO: import/export getCss too?
+export { loadCss } from './utils/css';
+
+// NOTE: rollup ignores the default export
+// and builds the UMD namespace out of named exports
+// so this is only needed so that consumers of the ESM build
+// can do esriLoader.loadModules(), etc
+// TODO: remove this next breaking change?
 export default {
   getScript,
   isLoaded,
   loadModules,
   loadScript,
+  loadCss,
+  // TODO: export getCss too?
   utils
 };
