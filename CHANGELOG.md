@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 - added Hyperapp example link to README
+- move CSS functions into own module
 ### Fixed
 ### Removed
 ### Breaking
