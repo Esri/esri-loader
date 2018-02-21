@@ -136,7 +136,7 @@ Here are some applications and framework-specific wrapper libraries that use thi
 - [angular-esri-components](https://github.com/TheKeithStewart/angular-esri-components) - A set of Angular components to work with ArcGIS API for JavaScript v4.3
 
 #### Example Angular applications
-- [esri-angular-cli-example](https://github.com/tomwayson/esri-angular-cli-example) - Example of how to to use the ArcGIS API for JavaScript in an Angular CLI app, which uses the angular-esri-components library
+- [angular-cli-esri-map](https://github.com/Esri/angular-cli-esri-map) - Example of how to build a simple mapping component using Angular CLI.
 
 ### [CanJS](https://canjs.com/)
 - [can-arcgis](https://github.com/roemhildtg/can-arcgis) - CanJS configureable mapping app (inspired by [cmv-app](https://github.com/cmv/cmv-app)) and components built for the ArcGIS JS API 4.x, bundled with [StealJS](https://stealjs.com/)
