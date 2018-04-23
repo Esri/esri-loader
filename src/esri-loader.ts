@@ -13,7 +13,7 @@
 import { loadCss } from './utils/css';
 
 const isBrowser = typeof window !== 'undefined';
-const DEFAULT_URL = 'https://js.arcgis.com/4.6/';
+const DEFAULT_URL = 'https://js.arcgis.com/4.7/';
 // this is the url that is currently being, or already has loaded
 let _currentUrl;
 
