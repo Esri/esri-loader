@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- default to JSAPI 4.7; update docs w/ latest version numbers
 ### Changed
 - added Hyperapp example link to README
 - move CSS functions into own module
