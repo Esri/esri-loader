@@ -178,6 +178,9 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 ### [Riot](http://riotjs.com/)
 - [esri-riot-example](https://github.com/jwasilgeo/esri-riot-example) - An example Riot application that shows how to use esri-loader to create a custom `<esri-map-view>` component.
 
+### [Stencil](https://stenciljs.com/)
+- [esri-stencil-example](https://github.com/Dzeneralen/esri-stencil-example) - An example Stencil application that shows how to use esri-loader to create a custom map view component and implement some basic routing controlling the map state
+
 ### [Vue.js](https://vuejs.org/)
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
