@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.4.0]
+### Added
+### Changed
+- default to JSAPI 4.8; update docs w/ latest version numbers
+### Fixed
+### Removed
+### Breaking
+
 ## [2.3.0]
 ### Added
 - default to JSAPI 4.7; update docs w/ latest version numbers
