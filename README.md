@@ -34,23 +34,23 @@ The code snippets below show how to load the ArcGIS API and its modules and then
 Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. You can use the provided `loadCss(url)` function. For example:
 
 ```js
-// load esri styles for version 4.8 using loadCss
-esriLoader.loadCss('https://js.arcgis.com/4.8/esri/css/main.css');
+// load esri styles for version 4.9 using loadCss
+esriLoader.loadCss('https://js.arcgis.com/4.9/esri/css/main.css');
 ```
 
 Alternatively, you can manually load them by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
 
 ```html
-<!-- load esri styles for version 4.8 via a link tag -->
-<link rel="stylesheet" href="https://js.arcgis.com/4.8/esri/css/main.css">
-@import url('https://js.arcgis.com/4.8/esri/css/main.css');
+<!-- load esri styles for version 4.9 via a link tag -->
+<link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+@import url('https://js.arcgis.com/4.9/esri/css/main.css');
 ```
 
 or:
 
 ```css
-/* load esri styles for version 3.25 via import */
-@import url('https://js.arcgis.com/3.25/esri/css/esri.css');
+/* load esri styles for version 3.26 via import */
+@import url('https://js.arcgis.com/3.26/esri/css/esri.css');
 ```
 
 ### Loading Modules from the ArcGIS API for JavaScript
@@ -90,7 +90,7 @@ If you don't want to use the latest version of the ArcGIS API hosted on Esri's C
 // loadModules() will call loadScript() and pass these options, which, 
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
 const options = {
-  url: 'https://js.arcgis.com/3.25/'
+  url: 'https://js.arcgis.com/3.26/'
 };
 esriLoader.loadModules(['esri/map'], options)
 .then(([Map]) => {
@@ -259,7 +259,7 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/3.25/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/3.26/" data-esri-loader="loaded"></script>
 ```
 
 ### ArcGIS Types
