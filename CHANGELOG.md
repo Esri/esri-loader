@@ -2,13 +2,22 @@
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [2.4.0]
+## [Unreleased]
 ### Added
 ### Changed
-- default to JSAPI 4.8; update docs w/ latest version numbers
 ### Fixed
 ### Removed
 ### Breaking
+
+## [2.5.0] - 2018-09-29
+
+### Changed
+- default to JSAPI 4.9; update docs w/ latest version numbers
+
+## [2.4.0]
+
+### Changed
+- default to JSAPI 4.8; update docs w/ latest version numbers
 
 ## [2.3.0]
 ### Added
@@ -17,9 +26,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - added Hyperapp example link to README
 - move CSS functions into own module
 - no longer publishing src folder b/c it is not needed
-### Fixed
-### Removed
-### Breaking
 
 ## [2.2.0] - 2018-02-07
 ### Added
@@ -185,7 +191,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.4.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.5.0...HEAD
+[2.5.0]: https://github.com/Esri/esri-loader/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/Esri/esri-loader/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/Esri/esri-loader/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/Esri/esri-loader/compare/v2.1.0...v2.2.0
