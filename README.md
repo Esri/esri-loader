@@ -16,6 +16,28 @@ Otherwise you'll want to follow the [Install](#install) and [Usage](#usage) inst
 
 See the [Examples](#examples) section below for links to applications that use this library.
 
+## Table of Contents
+* [esri-loader](#esri-loader)
+* [Table of contents](#table-of-contents)
+* [Install](#install)
+* [Usage](#usage)
+	* [Loading Styles](#loading-styles)
+		* [Loading Modules from the ArcGIS API for JavaScript](#loading-modules-from-the-arcgis-api-for-javascript)
+		* [Lazy Loading the ArcGIS API for JavaScript](#lazy-loading-the-arcgis-api-for-javascript)
+	* [Why is this needed?](#why-is-this-needed)
+	* [Examples](#examples)
+	* [Advanced Usage](#advanced-usage)
+		* [Pre-loading the ArcGIS API for JavaScript](#pre-loading-the-arcgis-api-for-javascript)
+		* [Isomorphic/universal applications](#isomorphicuniversal-applications)
+		* [Configuring Dojo](#configuring-dojo)
+		* [Using your own script tag](#using-your-own-script-tag)
+		* [ArcGIS Types](#arcgis-types)
+		* [Updating from previous versions](#updating-from-previous-versions)
+	* [Dependencies](#dependencies)
+	* [Issues](#issues)
+	* [Contributing](#contributing)
+	* [Licensing](#licensing)
+
 ## Install
 ```bash
 npm install --save esri-loader
