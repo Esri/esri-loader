@@ -166,6 +166,9 @@ Here are some applications and framework-specific wrapper libraries that use thi
 ### [Choo](https://choo.io/)
 - [esri-choo-example](https://github.com/jwasilgeo/esri-choo-example) - An example Choo application that shows how to use esri-loader to create a custom map view.
 
+### [Dojo 2+](https://dojo.io)
+- [esri-dojo](https://github.com/jamesmilneruk/esri-dojo) - An example of how to use Esri Loader with Dojo 2+. This example is a simple map that allows you to place markers on it.
+
 ### [Electron](https://electron.atom.io/)
 - [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron
 
