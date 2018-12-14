@@ -39,7 +39,7 @@ describe('esri-loader', function () {
 
   describe('when loading the css', function () {
     describe('with a url', function () {
-      var url = 'https://js.arcgis.com/4.9/esri/css/main.css';
+      var url = 'https://js.arcgis.com/4.10/esri/css/main.css';
       var link;
       beforeAll(function () {
         spyOn(document.head, 'appendChild').and.stub();
@@ -58,7 +58,7 @@ describe('esri-loader', function () {
     });
     describe('when called twice', function () {
       describe('when loading the same url', function () {
-        var url = 'https://js.arcgis.com/4.9/esri/css/main.css';
+        var url = 'https://js.arcgis.com/4.10/esri/css/main.css';
         var link, link2;
         beforeAll(function () {
           spyOn(document.head, 'appendChild').and.stub();
@@ -93,7 +93,7 @@ describe('esri-loader', function () {
         });
       });
       it('should default to latest version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.9/');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/4.10/');
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
@@ -110,7 +110,7 @@ describe('esri-loader', function () {
           el.dispatchEvent(new Event('load'));
         });
         esriLoader.loadScript({
-          url: 'https://js.arcgis.com/3.26'
+          url: 'https://js.arcgis.com/3.27'
         })
         .then((script) => {
           // hold onto script element for assertions below
@@ -119,14 +119,14 @@ describe('esri-loader', function () {
         });
       });
       it('should load different version', function () {
-        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.26');
+        expect(scriptEl.src).toEqual('https://js.arcgis.com/3.27');
       });
       it('should not have set dojoConfig', function () {
         expect(window.dojoConfig).not.toBeDefined();
       });
     });
     describe('with css option', function () {
-      var cssUrl = 'https://js.arcgis.com/4.9/esri/css/main.css';
+      var cssUrl = 'https://js.arcgis.com/4.10/esri/css/main.css';
       beforeAll(function (done) {
         spyOn(document.body, 'appendChild').and.callFake(function (el) {
           // trigger the onload event listeners
