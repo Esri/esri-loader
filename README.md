@@ -56,23 +56,23 @@ The code snippets below show how to load the ArcGIS API and its modules and then
 Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. You can use the provided `loadCss(url)` function. For example:
 
 ```js
-// load esri styles for version 4.9 using loadCss
-esriLoader.loadCss('https://js.arcgis.com/4.9/esri/css/main.css');
+// load esri styles for version 4.x using loadCss
+esriLoader.loadCss('https://js.arcgis.com/4.10/esri/css/main.css');
 ```
 
 Alternatively, you can manually load them by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
 
 ```html
-<!-- load esri styles for version 4.9 via a link tag -->
-<link rel="stylesheet" href="https://js.arcgis.com/4.9/esri/css/main.css">
+<!-- load esri styles for version 4.x via a link tag -->
+<link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
 @import url('https://js.arcgis.com/4.9/esri/css/main.css');
 ```
 
 or:
 
 ```css
-/* load esri styles for version 3.26 via import */
-@import url('https://js.arcgis.com/3.26/esri/css/esri.css');
+/* load esri styles for version 3.x via import */
+@import url('https://js.arcgis.com/3.27/esri/css/esri.css');
 ```
 
 ### Loading Modules from the ArcGIS API for JavaScript
@@ -109,10 +109,10 @@ If you don't want to use the latest version of the ArcGIS API hosted on Esri's C
 
 ```js
 // if the API hasn't already been loaded (i.e. the frist time this is run)
-// loadModules() will call loadScript() and pass these options, which, 
+// loadModules() will call loadScript() and pass these options, which,
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
 const options = {
-  url: 'https://js.arcgis.com/3.26/'
+  url: 'https://js.arcgis.com/3.27/'
 };
 esriLoader.loadModules(['esri/map'], options)
 .then(([Map]) => {
@@ -183,7 +183,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ### [Ionic](https://ionicframework.com/)
 - [ionic2-esri-map](https://github.com/andygup/ionic2-esri-map) - Prototype app demonstrating how to use Ionic 3+ with the ArcGIS API for JavaScript
- 
+
 ### [Preact](https://github.com/developit/preact)
 - [esri-preact-pwa](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS API for JavaScript built with Preact
 
@@ -244,7 +244,7 @@ Alternatively, you could use checks like the following to ensure these functions
 
 ```js
 if (typeof window !== 'undefined') {
-  // this is running in a browser, 
+  // this is running in a browser,
   // pre-load the ArcGIS API for later use in components
   this.loadScriptPromise = esriLoader.loadScript();
 }
@@ -284,7 +284,7 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/3.26/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/3.27/" data-esri-loader="loaded"></script>
 ```
 
 ### ArcGIS Types
@@ -343,7 +343,7 @@ Find a bug or want to request a new feature?  Please let us know by [submitting 
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 ## Licensing
-Copyright 2017 Esri
+Copyright &copy; 2016-2019 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
