@@ -123,6 +123,7 @@ import { loadModules } from 'esri-loader';
 const options = {
   url: 'https://js.arcgis.com/3.27/'
 };
+
 loadModules(['esri/map'], options)
   .then(([Map]) => {
     // create map with the given options at a DOM node w/ id 'mapNode'
@@ -218,7 +219,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 - [esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit) - A fork of the [react-starter-kit](https://github.com/kriasoft/react-starter-kit) showing how to use esri-loader in an isomorphic/universal React application
 - [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example react-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
 - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
-- [React-Typescript-App-with-ArcGIS-JSAPI](https://github.com/guzhongren/React-Typescript-App-with-ArcGIS-JSAPI) - An example create-react-app application that uses[esri-loader](https://github.com/Esri/esri-loader) ,[esri-loader-react](https://github.com/davetimmins/esri-loader-react),[Typescript](https://www.typescriptlang.org/),[Webpack3](https://webpack.js.org/) to create MapView
+- [React-Typescript-App-with-ArcGIS-JSAPI](https://github.com/guzhongren/React-Typescript-App-with-ArcGIS-JSAPI) - An example create-react-app application that uses [esri-loader](https://github.com/Esri/esri-loader), [esri-loader-react](https://github.com/davetimmins/esri-loader-react), [Typescript](https://www.typescriptlang.org/), [Webpack3](https://webpack.js.org/) to create MapView
 
 ### [Riot](https://riot.js.org/)
 
@@ -298,6 +299,7 @@ const options = {
     ]
   }
 };
+
 loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
   .then(([Map, FlareClusterLayer]) => {
     // you can now create a new FlareClusterLayer and add it to a new Map
@@ -383,7 +385,7 @@ Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
 
-   https://www.apache.org/licenses/LICENSE-2.0
+https://www.apache.org/licenses/LICENSE-2.0
 
 Unless required by applicable law or agreed to in writing, software
 distributed under the License is distributed on an "AS IS" BASIS,
