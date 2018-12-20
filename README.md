@@ -362,10 +362,12 @@ Since v1.5 asynchronous functions like `loadScript()` and `loadModules()` return
 If there's already a Promise implementation loaded on the page you can configure esri-loader to use that implementation. For example, in [ember-esri-loader](https://github.com/Esri/ember-esri-loader), we configure esri-loader to use the RSVP Promise implementation included with Ember.js.
 
 ```js
+import { utils } from  'esri-loader';
+
 init () {
   this._super(...arguments);
   // have esriLoader use Ember's RSVP promise
-  esriLoader.utils.Promise = Ember.RSVP.Promise;
+  utils.Promise = Ember.RSVP.Promise;
 },
 ```
 
