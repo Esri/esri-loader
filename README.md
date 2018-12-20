@@ -34,7 +34,10 @@ See the [Examples](#examples) section below for links to applications that use t
   - [Configuring Dojo](#configuring-dojo)
   - [Using your own script tag](#using-your-own-script-tag)
   - [ArcGIS Types](#arcgis-types)
-  - [Updating from previous versions](#updating-from-previous-versions)
+  - [Using the esriLoader Global](#using-the-esri-loader-global)
+- [Updating from previous versions](#updating-from-previous-versions)
+  - [From &lt; v1.5](#from--v15)
+  - [From angular-esri-loader](#from-angular-esri-loader)
 - [Dependencies](#dependencies)
   - [Browsers](#browsers)
   - [Promises](#promises)
@@ -84,7 +87,9 @@ or:
 
 ### Loading Modules from the ArcGIS API for JavaScript
 
-Here's an example of how you could load and use the 4.x `Map` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
+#### From the Latest Version
+
+Here's an example of how you could load and use the latest 4.x `Map` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
 
 ```js
 import { loadModules } from 'esri-loader';
@@ -110,9 +115,7 @@ loadModules(['esri/views/MapView', 'esri/WebMap'])
   });
 ```
 
-#### Lazy Loading the ArcGIS API for JavaScript
-
-In the above snippet, the first time `loadModules()` is called, it will attempt to lazy load the most recent 4.x version of the ArcGIS API if it has not already been loaded by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
+#### From a Specific Version
 
 If you don't want to use the latest version of the ArcGIS API hosted on Esri's CDN, you'll need to pass options with the URL to whichever version you want to use. For example, the snippet below uses v3.x of the ArcGIS API to create a map.
 
@@ -141,7 +144,9 @@ loadModules(['esri/map'], options)
   });
 ```
 
-Lazy loading the API is a useful pattern if your users may never end up visiting any routes that need the API (i.e. show a map or 3D scene).
+### Lazy Loading the ArcGIS API for JavaScript
+
+Lazy loading the ArcGIS API can dramatically improve the initial load performance of your application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will attempt to lazy load the most recent 4.x version of the ArcGIS API if it has not already been loaded by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
 
 See the [Advanced Usage](#advanced-usage) section below for more advanced techniques such as [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript), [using in isomorphic/universal applications](#isomorphicuniversal-applications), [configuring Dojo](#configuring-dojo), and more.
 
@@ -337,13 +342,27 @@ Then you can use the `__esri` namespace for the types as seen in [this example](
 
 Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types, but then [you will still need to use `import` statements to get the types](https://github.com/Esri/jsapi-resources/issues/60). This may cause build errors that may or may not result in actual runtime errors depending on your environment.
 
-### Updating from previous versions
+### Using the esriLoader Global
 
-#### From &lt; v1.5
+Typically you would [install the esri-loader package](#install) and then `import` the functions you need as shown in all the above examples. However, esri-loader is also distributed as an ES5 [UMD](http://jargon.js.org/_glossary/UMD.md) bundle on [UNPKG](https://unpkg.com/) so that you can load it via a script tag and use the above functions from the `esriLoader` global.
+
+```html
+<script src="https://unpkg.com/esri-loader"></script>
+<scirpt>
+  esriLoader.loadModules(['esri/views/MapView', 'esri/WebMap'])
+  .then(([MapView, WebMap]) => {
+    // use MapView and WebMap classes as shown above
+  });
+</script>
+```
+
+## Updating from previous versions
+
+### From &lt; v1.5
 
 If you have an application using a version that is less than v1.5, [this commit](https://github.com/odoe/vue-jsapi4/pull/1/commits/4cb6413c0ea31fdd09e94f3a0ce0d1669a9fd5ad) shows the kinds of changes you'll need to make. In most cases, you should be able to replace a series of calls to `isLoaded()`, `bootstrap()`, and `dojoRequire()` with a single call to `loadModules()`.
 
-#### From angular-esri-loader
+### From angular-esri-loader
 
 The angular-esri-loader wrapper library is no longer needed and has been deprecated in favor of using esri-loader directly. See [this issue](https://github.com/Esri/esri-loader/issues/75) for suggestions on how to replace angular-esri-loader with the latest version of esri-loader.
 
