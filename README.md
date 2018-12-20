@@ -62,21 +62,21 @@ Before you can use the ArcGIS API in your app, you'll need to load the styles th
 
 ```js
 // load esri styles for version 4.x using loadCss
-esriLoader.loadCss('https://js.arcgis.com/4.10/esri/css/main.css');
+import { loadCss } from 'esri-loader';
+loadCss('https://js.arcgis.com/4.10/esri/css/main.css');
 ```
 
 Alternatively, you can manually load them by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
 
 ```html
-<!-- load esri styles for version 4.x via a link tag -->
+<!-- load esri styles for version 4.x via an html link tag -->
 <link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
-@import url('https://js.arcgis.com/4.9/esri/css/main.css');
 ```
 
 or:
 
 ```css
-/* load esri styles for version 3.x via import */
+/* load esri styles for version 3.x via css import */
 @import url('https://js.arcgis.com/3.27/esri/css/esri.css');
 ```
 
@@ -85,25 +85,27 @@ or:
 Here's an example of how you could load and use the 4.x `Map` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
 
 ```js
+import { loadModules } from 'esri-loader';
+
 // first, we use Dojo's loader to require the map class
-esriLoader.loadModules(['esri/views/MapView', 'esri/WebMap'])
-.then(([MapView, WebMap]) => {
-  // then we load a web map from an id
-  var webmap = new WebMap({
-    portalItem: { // autocasts as new PortalItem()
-      id: 'f2e9b762544945f390ca4ac3671cfa72'
-    }
+loadModules(['esri/views/MapView', 'esri/WebMap'])
+  .then(([MapView, WebMap]) => {
+    // then we load a web map from an id
+    var webmap = new WebMap({
+      portalItem: { // autocasts as new PortalItem()
+        id: 'f2e9b762544945f390ca4ac3671cfa72'
+      }
+    });
+    // and we show that map in a container w/ id #viewDiv
+    var view = new MapView({
+      map: webmap,
+      container: 'viewDiv'
+    });
+  })
+  .catch(err => {
+    // handle any errors
+    console.error(err);
   });
-  // and we show that map in a container w/ id #viewDiv
-  var view = new MapView({
-    map: webmap,
-    container: 'viewDiv'
-  });
-})
-.catch(err => {
-  // handle any errors
-  console.error(err);
-});
 ```
 
 #### Lazy Loading the ArcGIS API for JavaScript
@@ -113,25 +115,27 @@ In the above snippet, the first time `loadModules()` is called, it will attempt 
 If you don't want to use the latest version of the ArcGIS API hosted on Esri's CDN, you'll need to pass options with the URL to whichever version you want to use. For example, the snippet below uses v3.x of the ArcGIS API to create a map.
 
 ```js
+import { loadModules } from 'esri-loader';
+
 // if the API hasn't already been loaded (i.e. the frist time this is run)
 // loadModules() will call loadScript() and pass these options, which,
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
 const options = {
   url: 'https://js.arcgis.com/3.27/'
 };
-esriLoader.loadModules(['esri/map'], options)
-.then(([Map]) => {
-  // create map with the given options at a DOM node w/ id 'mapNode'
-  let map = new Map('mapNode', {
-    center: [-118, 34.5],
-    zoom: 8,
-    basemap: 'dark-gray'
+loadModules(['esri/map'], options)
+  .then(([Map]) => {
+    // create map with the given options at a DOM node w/ id 'mapNode'
+    let map = new Map('mapNode', {
+      center: [-118, 34.5],
+      zoom: 8,
+      basemap: 'dark-gray'
+    });
+  })
+  .catch(err => {
+    // handle any script or module loading errors
+    console.error(err);
   });
-})
-.catch(err => {
-  // handle any script or module loading errors
-  console.error(err);
-});
 ```
 
 Lazy loading the API is a useful pattern if your users may never end up visiting any routes that need the API (i.e. show a map or 3D scene).
@@ -238,21 +242,24 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 If you have good reason to believe that the user is going to transition to a map route, you may want to start pre-loading the ArcGIS API as soon as possible w/o blocking rendering, for example:
 
 ```js
+import { loadScript, loadModules } from 'esri-loader';
+
 // preload the ArcGIS API
 // NOTE: in this case, we're not passing any options to loadScript()
 // so it will default to loading the latest 4.x version of the API from the CDN
-this.loadScriptPromise = esriLoader.loadScript();
+this.loadScriptPromise = loadScript();
 
 // later, for example once a component has been rendered,
 // you can wait for the above promise to resolve (if it hasn't already)
 this.loadScriptPromise
-.then(() => {
-  // you can now load the map modules and create the map
-})
-.catch(err => {
-  // handle any script loading errors
-  console.error(err);
-});
+  .then(() => {
+    // you can now load the map modules and create the map
+    // by using loadModules()
+  })
+  .catch(err => {
+    // handle any script loading errors
+    console.error(err);
+  });
 ```
 
 ### Isomorphic/universal applications
@@ -262,10 +269,12 @@ This library also allows you to use the ArcGIS API in [isomorphic or universal](
 Alternatively, you could use checks like the following to ensure these functions aren't invoked on the server:
 
 ```js
+import { loadScript } from 'esri-loader';
+
 if (typeof window !== 'undefined') {
   // this is running in a browser,
   // pre-load the ArcGIS API for later use in components
-  this.loadScriptPromise = esriLoader.loadScript();
+  this.loadScriptPromise = loadScript();
 }
 ```
 
@@ -274,7 +283,9 @@ if (typeof window !== 'undefined') {
 You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `loadScript()` or `loadModules()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
 
 ```js
-// in this case options are only needed so we can configure dojo before loading the API
+import { loadModules } from 'esri-loader';
+
+// in this case options are only needed so we can configure Dojo before loading the API
 const options = {
   // tell Dojo where to load other packages
   dojoConfig: {
@@ -287,14 +298,14 @@ const options = {
     ]
   }
 };
-esriLoader.loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
-.then(([Map, FlareClusterLayer]) => {
-  // you can now create a new FlareClusterLayer and add it to a new Map
-})
-.catch(err => {
-  // handle any errors
-  console.error(err);
-});
+loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
+  .then(([Map, FlareClusterLayer]) => {
+    // you can now create a new FlareClusterLayer and add it to a new Map
+  })
+  .catch(err => {
+    // handle any errors
+    console.error(err);
+  });
 ```
 
 ### Using your own script tag
@@ -307,9 +318,11 @@ It is possible to use this library only to load modules (i.e. not to pre-load or
 ```
 
 ### ArcGIS Types
+
 This library doesn't make any assumptions about which version of the ArcGIS API you are using, so you will have to manually install the appropriate types.
 
 #### 4.x Types
+
 Follow [these instructions](https://github.com/Esri/jsapi-resources/tree/master/4.x/typescript) to install the 4.x types.
 
 NOTE: For Angular CLI applications, you will also need to add "arcgis-js-api" to `compilerOptions.types` in src/tsconfig.app.json and src/tsconfig.spec.json [as shown here](https://gist.github.com/tomwayson/e6260adfd56c2529313936528b8adacd#adding-the-arcgis-api-for-javascript-types).
@@ -317,6 +330,7 @@ NOTE: For Angular CLI applications, you will also need to add "arcgis-js-api" to
 Then you can use the `__esri` namespace for the types as seen in [this example](https://github.com/kgs916/angular2-esri4-components/blob/68861b286fd3a4814c495c2bd723e336e917ced2/src/lib/esri4-map/esri4-map.component.ts#L20-L26).
 
 #### 3.x Types
+
 Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types, but then [you will still need to use `import` statements to get the types](https://github.com/Esri/jsapi-resources/issues/60). This may cause build errors that may or may not result in actual runtime errors depending on your environment.
 
 ### Updating from previous versions
@@ -344,11 +358,11 @@ Since v1.5 asynchronous functions like `loadScript()` and `loadModules()` return
 If there's already a Promise implementation loaded on the page you can configure esri-loader to use that implementation. For example, in [ember-esri-loader](https://github.com/Esri/ember-esri-loader), we configure esri-loader to use the RSVP Promise implementation included with Ember.js.
 
 ```js
-  init () {
-    this._super(...arguments);
-    // have esriLoader use Ember's RSVP promise
-    esriLoader.utils.Promise = Ember.RSVP.Promise;
-  },
+init () {
+  this._super(...arguments);
+  // have esriLoader use Ember's RSVP promise
+  esriLoader.utils.Promise = Ember.RSVP.Promise;
+},
 ```
 
 Otherwise, you should consider using a [Promise polyfill](https://www.google.com/search?q=promise+polyfill), ideally [only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed/).
@@ -362,6 +376,7 @@ Find a bug or want to request a new feature?  Please let us know by [submitting 
 Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 ## Licensing
+
 Copyright &copy; 2016-2019 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
