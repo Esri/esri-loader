@@ -36,6 +36,8 @@ See the [Examples](#examples) section below for links to applications that use t
   - [ArcGIS Types](#arcgis-types)
   - [Updating from previous versions](#updating-from-previous-versions)
 - [Dependencies](#dependencies)
+  - [Browsers](#browsers)
+  - [Promises](#promises)
 - [Issues](#issues)
 - [Contributing](#contributing)
 - [Licensing](#licensing)
