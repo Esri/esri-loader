@@ -149,7 +149,7 @@ Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` A
 There are a few different solutions to this problem, but [this blog post](http://tomwayson.com/2018/01/05/loader-of-the-things-one-library-to-load-them-all/) explains why you should be using esri-loader if your ArcGIS web application uses _any_ other module loader besides the Dojo loader (i.e. [webpack](https://webpack.github.io/), [rollup.js](https://rollupjs.org/), etc.). Using esri-loader enables you to:
 
 - Improve initial load performance, especially on mobile
-- Use the ArcGIS API in [isomorphic/universal (server-rendered) applications]('#isomorphicuniversal-applications)
+- Use the ArcGIS API in [isomorphic/universal (server-rendered) applications](#isomorphicuniversal-applications)
 - Use the ArcGIS API with [whatever cli or boilerplate your team prefers](#examples)
 - Avoid having to load the ArcGIS API just to run your unit tests
 
