@@ -34,7 +34,7 @@ See the [Examples](#examples) section below for links to applications that use t
   - [Configuring Dojo](#configuring-dojo)
   - [Using your own script tag](#using-your-own-script-tag)
   - [ArcGIS Types](#arcgis-types)
-  - [Using the esriLoader Global](#using-the-esri-loader-global)
+  - [Using the esriLoader Global](#using-the-esriloader-global)
 - [Updating from previous versions](#updating-from-previous-versions)
   - [From &lt; v1.5](#from--v15)
   - [From angular-esri-loader](#from-angular-esri-loader)
