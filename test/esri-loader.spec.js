@@ -74,6 +74,27 @@ describe('esri-loader', function () {
         });
       });
     });
+    describe('when inserting before an existing link', function () {
+      var url = 'https://js.arcgis.com/4.10/esri/css/main.css';
+      var link;
+      var mockBeforeLink = {
+        parentNode: {
+          insertBefore: function (node, beforeNode) {}
+        }
+      }
+      beforeAll(function () {
+        // spyOn(document, 'querySelector');
+        spyOn(document, 'getElementsByTagName').and.returnValue([mockBeforeLink]);
+        spyOn(mockBeforeLink.parentNode, 'insertBefore');
+        link = esriLoader.loadCss({url, before: 0});
+      });
+      it('should have queried all the links', function () {
+        expect(document.getElementsByTagName.calls.argsFor(0)[0]).toEqual(`link`);
+      });
+      it('should have inserted before the mock node', function () {
+        expect(mockBeforeLink.parentNode.insertBefore.calls.argsFor(0)[0]).toEqual(link);
+      });
+    });
   });
 
   describe('when loading the script', function () {

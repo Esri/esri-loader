@@ -10,7 +10,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import { loadCss } from './utils/css';
+import { ILoadCssOptions, loadCss } from './utils/css';
 
 const isBrowser = typeof window !== 'undefined';
 const DEFAULT_URL = 'https://js.arcgis.com/4.10/';
@@ -61,7 +61,7 @@ function handleScriptError(script, callback) {
 // interfaces
 export interface ILoadScriptOptions {
   url?: string;
-  css?: string;
+  css?: string | ILoadCssOptions;
   dojoConfig?: { [propName: string]: any };
 }
 
@@ -170,7 +170,6 @@ export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOpt
   }
 }
 
-// TODO: import/export getCss too?
 export { loadCss } from './utils/css';
 
 // NOTE: rollup ignores the default export
@@ -184,6 +183,5 @@ export default {
   loadModules,
   loadScript,
   loadCss,
-  // TODO: export getCss too?
   utils
 };

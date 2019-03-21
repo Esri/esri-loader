@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- option to insert CSS link before an existing link tag
 ### Changed
 ### Fixed
 ### Removed
