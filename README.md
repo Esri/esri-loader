@@ -187,6 +187,8 @@ Here are some applications and framework-specific wrapper libraries that use thi
 
 ### [Dojo 2+](https://dojo.io)
 
+- [dojo-esri-loader](https://github.com/odoe/dojo-esri-loader) - Dojo 5 app with esri-loader ([blog post](https://odoe.net/blog/dojo-framework-with-arcgis-api-for-javascript/))
+
 - [esri-dojo](https://github.com/jamesmilneruk/esri-dojo) - An example of how to use Esri Loader with Dojo 2+. This example is a simple map that allows you to place markers on it.
 
 ### [Electron](https://electron.atom.io/)
@@ -217,14 +219,14 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 #### Reusable libraries for React
 
+- [react-arcgis](https://github.com/Esri/react-arcgis) - React component kit for Esri ArcGIS JS API
 - [esri-loader-react](https://github.com/davetimmins/esri-loader-react) - A React component wrapper around esri-loader ([blog post](https://davetimmins.github.io/2017/07/19/esri-loader-react/))
-- [react-arcgis](https://github.com/nicksenger/react-arcgis) - React component kit for Esri ArcGIS JS API
 - [arcgis-react-redux-legend](https://github.com/davetimmins/arcgis-react-redux-legend) - Legend control for ArcGIS JS v4 using React and Redux
 
 #### Example React applications
-
+- [create-arcgis-app](https://github.com/tomwayson/create-arcgis-app/) - An example of how to use the ArcGIS platform in an application created with Create React App and React Router.
+- [next-arcgis-app](https://github.com/tomwayson/next-arcgis-app/) - An example of how to use the ArcGIS platform in an application built with Next.js
 - [esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit) - A fork of the [react-starter-kit](https://github.com/kriasoft/react-starter-kit) showing how to use esri-loader in an isomorphic/universal React application
-- [esri-react-router-example](https://github.com/tomwayson/esri-react-router-example) - An example react-router application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to preload the ArcGIS API
 - [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
 - [React-Typescript-App-with-ArcGIS-JSAPI](https://github.com/guzhongren/React-Typescript-App-with-ArcGIS-JSAPI) - An example create-react-app application that uses [esri-loader](https://github.com/Esri/esri-loader), [esri-loader-react](https://github.com/davetimmins/esri-loader-react), [Typescript](https://www.typescriptlang.org/), [Webpack3](https://webpack.js.org/) to create MapView
 
