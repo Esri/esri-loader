@@ -1,18 +1,16 @@
 
-function createStylesheetLink(url) {
+function createStylesheetLink(href: string): HTMLLinkElement {
   const link = document.createElement('link');
   link.rel = 'stylesheet';
-  link.href = url;
+  link.href = href;
   return link;
 }
 
-function insertLink(link, before?) {
-  // if we need to insert before an existing link, get all link tags
-  const allLinks = (before || before === 0) && document.getElementsByTagName('link');
-  if (allLinks) {
-    // insert the link before the link tag
-    const beforeLink = allLinks[before];
-    beforeLink.parentNode.insertBefore(link, beforeLink);
+function insertLink(link: HTMLLinkElement, before?: string) {
+  if (before) {
+    // the link should be inserted before a specific node
+    const beforeNode = document.querySelector(before);
+    beforeNode.parentNode.insertBefore(link, beforeNode);
   } else {
     // append the link to then end of the head tag
     document.head.appendChild(link);
@@ -24,19 +22,13 @@ function getCss(url) {
   return document.querySelector(`link[href*="${url}"]`) as HTMLLinkElement;
 }
 
-export interface ILoadCssOptions {
-  url: string;
-  before?: number;
-}
-
 // lazy load the CSS needed for the ArcGIS API
-export function loadCss(css: string | ILoadCssOptions) {
-  const url = typeof css === 'string' ? css : css.url;
+export function loadCss(url: string, before?: string) {
   let link = getCss(url);
   if (!link) {
     // create & load the css link
     link = createStylesheetLink(url);
-    insertLink(link, (css as ILoadCssOptions).before);
+    insertLink(link, before);
   }
   return link;
 }

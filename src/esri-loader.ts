@@ -10,7 +10,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-import { ILoadCssOptions, loadCss } from './utils/css';
+import { loadCss } from './utils/css';
 
 const isBrowser = typeof window !== 'undefined';
 const DEFAULT_URL = 'https://js.arcgis.com/4.10/';
@@ -61,8 +61,9 @@ function handleScriptError(script, callback) {
 // interfaces
 export interface ILoadScriptOptions {
   url?: string;
-  css?: string | ILoadCssOptions;
+  css?: string;
   dojoConfig?: { [propName: string]: any };
+  insertCssBefore?: string;
 }
 
 // allow consuming libraries to provide their own Promise implementations
@@ -84,9 +85,7 @@ export function isLoaded() {
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
   // default options
-  if (!options.url) {
-    options.url = DEFAULT_URL;
-  }
+  const url = options.url || DEFAULT_URL;
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
@@ -95,7 +94,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
       // NOTE: have to test against scr attribute value, not script.src
       // b/c the latter will return the full url for relative paths
       const src = script.getAttribute('src');
-      if (src !== options.url) {
+      if (src !== url) {
         // potentially trying to load a different version of the API
         reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
       } else {
@@ -116,15 +115,15 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         // this is the first time attempting to load the API
         if (options.css) {
           // load the css before loading the script
-          loadCss(options.css);
+          loadCss(options.css, options.insertCssBefore);
         }
         if (options.dojoConfig) {
           // set dojo configuration parameters before loading the script
           window['dojoConfig'] = options.dojoConfig;
         }
         // create a script object whose source points to the API
-        script = createScript(options.url);
-        _currentUrl = options.url;
+        script = createScript(url);
+        _currentUrl = url;
         // once the script is loaded...
         handleScriptLoad(script, () => {
           // update the status of the script

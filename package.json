@@ -21,7 +21,7 @@
     "precompile": "npm run lint",
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
-    "start": "npm run clean && npm run build && concurrently \"onchange 'src/esri-loader.ts' -- npm run build\" \"karma start\"",
+    "start": "npm run clean && npm run build && concurrently \"onchange 'src/**/*.ts' -- npm run build\" \"karma start\"",
     "test": "npm run build:release && karma start --single-run=true --browsers Firefox"
   },
   "repository": {
