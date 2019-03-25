@@ -74,8 +74,10 @@ describe('esri-loader', function () {
         });
       });
     });
-    describe('when inserting before an existing link', function () {
+    describe('when inserting before an existing node', function () {
       var url = 'https://js.arcgis.com/4.10/esri/css/main.css';
+      // insert before the first <style> tag
+      var before = 'style';
       var link;
       var mockBeforeLink = {
         parentNode: {
@@ -83,13 +85,18 @@ describe('esri-loader', function () {
         }
       }
       beforeAll(function () {
-        // spyOn(document, 'querySelector');
-        spyOn(document, 'getElementsByTagName').and.returnValue([mockBeforeLink]);
+        spyOn(document, 'querySelector').and.callFake(function (selector) {
+          if (selector === before) {
+            return mockBeforeLink;
+          } else {
+            return null;
+          }
+        });
         spyOn(mockBeforeLink.parentNode, 'insertBefore');
-        link = esriLoader.loadCss({url, before: 0});
+        link = esriLoader.loadCss(url, before);
       });
-      it('should have queried all the links', function () {
-        expect(document.getElementsByTagName.calls.argsFor(0)[0]).toEqual(`link`);
+      it('should have queried for the selector', function () {
+        expect(document.querySelector.calls.argsFor(1)[0]).toEqual(before);
       });
       it('should have inserted before the mock node', function () {
         expect(mockBeforeLink.parentNode.insertBefore.calls.argsFor(0)[0]).toEqual(link);
