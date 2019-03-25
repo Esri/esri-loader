@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- `beforeCss` option to insert CSS link before an existing element
+- `insertCssBefore` option to insert CSS link before an existing element
 ### Changed
 ### Fixed
 ### Removed

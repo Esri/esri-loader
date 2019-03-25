@@ -63,7 +63,7 @@ export interface ILoadScriptOptions {
   url?: string;
   css?: string;
   dojoConfig?: { [propName: string]: any };
-  beforeCss?: string;
+  insertCssBefore?: string;
 }
 
 // allow consuming libraries to provide their own Promise implementations
@@ -115,7 +115,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         // this is the first time attempting to load the API
         if (options.css) {
           // load the css before loading the script
-          loadCss(options.css, options.beforeCss);
+          loadCss(options.css, options.insertCssBefore);
         }
         if (options.dojoConfig) {
           // set dojo configuration parameters before loading the script
