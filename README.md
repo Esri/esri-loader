@@ -123,9 +123,9 @@ loadModules(['esri/map'], options)
 
 ### Lazy Loading the ArcGIS API for JavaScript
 
-Lazy loading the ArcGIS API can dramatically improve the initial load performance of your application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will attempt to lazy load the most recent 4.x version of the ArcGIS API if it has not already been loaded by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
+Lazy loading the ArcGIS API can dramatically improve the initial load performance of your application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will attempt lazy load the ArcGIS API by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
 
-See the [Advanced Usage](#advanced-usage) section below for more advanced techniques such as [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript), [using in isomorphic/universal applications](#isomorphicuniversal-applications), [configuring Dojo](#configuring-dojo), and more.
+See below for information on how you can precisely control when the ArcGIS API is loaded by [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript).
 
 ### Loading Styles
 
@@ -134,7 +134,7 @@ Before you can use the ArcGIS API in your app, you'll need to load the styles th
 ```js
 import { loadModules } from 'esri-loader';
 
-// lazy-load the CSS before loading the modules
+// lazy load the CSS before loading the modules
 const options = {
   css: 'https://js.arcgis.com/4.10/esri/css/main.css'
 };
@@ -153,7 +153,7 @@ import { loadCss } from 'esri-loader';
 loadCss('https://js.arcgis.com/4.10/esri/css/main.css');
 ```
 
-See below for information on how to [override ArcGIS styles](#override-arcgis-styles) that you've lazy-loaded with `loadModules()` or `loadCss()`.
+See below for information on how to [override ArcGIS styles](#overriding-arcgis-styles) that you've lazy loaded with `loadModules()` or `loadCss()`.
 
 Finally, you can manually load them by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
 
@@ -171,20 +171,27 @@ or:
 
 ## Why is this needed?
 
-Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` ArcGIS modules directly from other modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. However, when using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework rather than the Dojo build system. This library lets you do that by providing an ES module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use its Dojo loader to load only the ArcGIS API modules as needed.
+Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` 'esri' modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. However, when using the ArcGIS API in an application built with another framework, you typically want to use the tooling and conventions of that framework rather than the Dojo build system. This library lets you do that by providing an ES module that you can `import` and use to dynamically inject an ArcGIS API script tag in the page and then use its Dojo loader to load only the ArcGIS API modules as needed.
 
-There are a few different solutions to this problem, but [this blog post](http://tomwayson.com/2018/01/05/loader-of-the-things-one-library-to-load-them-all/) explains why you should be using esri-loader if your ArcGIS web application uses _any_ other module loader besides the Dojo loader (i.e. [webpack](https://webpack.github.io/), [rollup.js](https://rollupjs.org/), etc.). Using esri-loader enables you to:
+There have been a few different solutions to this problem over the years, but only the [@arcgis/webpack-plugin](https://github.com/Esri/arcgis-webpack-plugin) and esri-loader allow you to improve your application's initial load performance, especially on mobile, by [lazy loading the ArcGIS API and modules](#lazy-loading-the-arcgis-api-for-javascript) only when they're needed (i.e. to render a map or 3D scene).
 
-- Improve initial load performance, especially on mobile
-- Use the ArcGIS API in [isomorphic/universal (server-rendered) applications](#isomorphicuniversal-applications)
-- Use the ArcGIS API with [whatever cli or boilerplate your team prefers](#examples)
-- Avoid having to load the ArcGIS API just to run your unit tests
+[This blog post](https://community.esri.com/people/TWayson-esristaff/blog/2018/05/10/arcgiswebpack-plugin-vs-esri-loader) explains why you would choose one or the other of those solutions, but here's the TLDR:
+- Are you using ArcGIS API >= v4.7?
+- Are you using [webpack](https://webpack.github.io/)?
+- Are you (willing and) able to configure webpack?
 
-This is because esri-loader let's you control when the ArcGIS API and its modules are loaded and used. You can [lazy load the API and modules](#lazy-loading-the-arcgis-api-for-javascript) only on routes that require them to render a map, or you can [pre-load the API](#pre-loading-the-arcgis-api-for-javascript) without blocking rendering. You can [ensure the API and its modules are not loaded/used when rendering on the server](#isomorphicuniversal-applications) where they will cause errors.
+If you answered "Yes" to all those questions you can use [@arcgis/webpack-plugin](https://github.com/Esri/arcgis-webpack-plugin) in your application and get the benefits of being able to use `import` statements and types for 'esri' modules.
+
+Otherwise, you should use esri-loader, which allows you to use the ArcGIS API:
+- both 4.x _and_ 3.x
+- with _any_ module loader: (i.e. [rollup.js](https://rollupjs.org/), [Parcel](https://parceljs.org) etc.)
+- with [whatever cli or boilerplate your team prefers](#examples)
+- in [isomorphic/universal (server-rendered) applications](#isomorphicuniversal-applications)
+- without having to load the ArcGIS API just to run your unit tests
 
 ## Examples
 
-Here are some applications and framework-specific wrapper libraries that use this library. We don't gurantee that these examples are current, so check the version of esri-loader their commit history before using them as a reference. They are presented by framework in alphabetical order - not picking any favories here :stuck_out_tongue_winking_eye::
+Here are some applications and framework-specific wrapper libraries that use this library. We don't guarantee that these examples are current, so check the version of esri-loader their commit history before using them as a reference. They are presented by framework in alphabetical order - not picking any favorites here :stuck_out_tongue_winking_eye::
 
 ### [Angular](https://angular.io/)
 
@@ -268,7 +275,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ### Configuring Dojo
 
-You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `loadScript()` or `loadModules()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
+You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `loadModules()` or `loadScript()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
 
 ```js
 import { loadModules } from 'esri-loader';
@@ -299,12 +306,12 @@ loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
 
 ### Overriding ArcGIS Styles
 
-If you want to override ArcGIS styles that you have lazy-loaded using `loadModules()` or `loadCss()`, you may need to insert the ArcGIS styles into the document _above_ your custom styles in order to ensure the [rules of CSS precedence](https://css-tricks.com/precedence-css-order-css-matters/) are applied correctly. For this reason, `loadCss()` accepts a [selector](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors#Selectors) (string) as optional second argument that will be used to query the DOM node (i.e. `<link>` or `<script>`) that contains your custom styles and it will insert the ArcGIS styles above that node. You can also pass that selector as the `insertCssBefore` option to `loadModules()`:
+If you want to override ArcGIS styles that you have [lazy loaded using `loadModules()` or `loadCss()`](#loading-styles), you may need to insert the ArcGIS styles into the document _above_ your custom styles in order to ensure the [rules of CSS precedence](https://css-tricks.com/precedence-css-order-css-matters/) are applied correctly. For this reason, `loadCss()` accepts a [selector](https://developer.mozilla.org/en-US/docs/Web/API/Document_object_model/Locating_DOM_elements_using_selectors#Selectors) (string) as optional second argument that it uses to query the DOM node (i.e. `<link>` or `<script>`) that contains your custom styles and then insert the ArcGIS styles above that node. You can also pass that selector as the `insertCssBefore` option to `loadModules()`:
 
 ```js
 import { loadModules } from 'esri-loader';
 
-// lazy-load the CSS before loading the modules
+// lazy load the CSS before loading the modules
 const options = {
   css: 'https://js.arcgis.com/4.10/esri/css/main.css',
   // insert the stylesheet link above the first <style> tag on the page
@@ -361,7 +368,7 @@ if (typeof window !== 'undefined') {
 
 ### Using your own script tag
 
-It is possible to use this library only to load modules (i.e. not to lazy-load or pre-load the ArcGIS API). In this case you will need to add a `data-esri-loader` attribute to the script tag you use to load the ArcGIS API for JavaScript. Example:
+It is possible to use this library only to load modules (i.e. not to lazy load or pre-load the ArcGIS API). In this case you will need to add a `data-esri-loader` attribute to the script tag you use to load the ArcGIS API for JavaScript. Example:
 
 ```html
 <!-- index.html -->
@@ -418,7 +425,7 @@ You cannot run the ArcGIS API for JavaScript in [Node.js](https://nodejs.org/), 
 
 ### Promises
 
-Since v1.5 asynchronous functions like `loadScript()` and `loadModules()` return [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)s, so if your application has to support [browers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise) you have a few options.
+Since v1.5 asynchronous functions like `loadModules()` and `loadScript()` return [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)s, so if your application has to support [browers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise) you have a few options.
 
 If there's already a Promise implementation loaded on the page you can configure esri-loader to use that implementation. For example, in [ember-esri-loader](https://github.com/Esri/ember-esri-loader), we configure esri-loader to use the RSVP Promise implementation included with Ember.js.
 
