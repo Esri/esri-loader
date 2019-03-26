@@ -1,8 +1,44 @@
 import { loadCss } from './css';
 
 describe('when loading the css', () => {
-  describe('with a url', () => {
+  describe('with no arguments', () => {
     const url = 'https://js.arcgis.com/4.10/esri/css/main.css';
+    let link;
+    beforeAll(() => {
+      spyOn(document.head, 'appendChild').and.stub();
+      spyOn(document, 'querySelector');
+      link = loadCss();
+    });
+    it('should have checked if the link was already appended', () => {
+      expect((document.querySelector as jasmine.Spy).calls.argsFor(0)[0]).toEqual(`link[href*="${url}"]`);
+    });
+    it('should have set the href', () => {
+      expect(link.href).toEqual(url);
+    });
+    it('should not have set the rel', () => {
+      expect(link.rel).toEqual('stylesheet');
+    });
+  });
+  describe('with a version', () => {
+    const url = 'https://js.arcgis.com/4.8/esri/css/main.css';
+    let link;
+    beforeAll(() => {
+      spyOn(document.head, 'appendChild').and.stub();
+      spyOn(document, 'querySelector');
+      link = loadCss('4.8');
+    });
+    it('should have checked if the link was already appended', () => {
+      expect((document.querySelector as jasmine.Spy).calls.argsFor(0)[0]).toEqual(`link[href*="${url}"]`);
+    });
+    it('should have set the href', () => {
+      expect(link.href).toEqual(url);
+    });
+    it('should not have set the rel', () => {
+      expect(link.rel).toEqual('stylesheet');
+    });
+  });
+  describe('with a url', () => {
+    const url = 'http://server/path/to/esri/css/main.css';
     let link;
     beforeAll(() => {
       spyOn(document.head, 'appendChild').and.stub();

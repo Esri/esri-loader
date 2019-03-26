@@ -1,3 +1,4 @@
+import { getCdnCssUrl, parseVersion } from './url';
 
 function createStylesheetLink(href: string): HTMLLinkElement {
   const link = document.createElement('link');
@@ -22,8 +23,17 @@ function getCss(url) {
   return document.querySelector(`link[href*="${url}"]`) as HTMLLinkElement;
 }
 
+function getCssUrl(urlOrVersion?: string) {
+  return !urlOrVersion || parseVersion(urlOrVersion)
+    // if it's a valid version string return the CDN URL
+    ? getCdnCssUrl(urlOrVersion)
+    // otherwise assume it's a URL and return that
+    : urlOrVersion;
+}
+
 // lazy load the CSS needed for the ArcGIS API
-export function loadCss(url: string, before?: string) {
+export function loadCss(urlOrVersion?: string, before?: string) {
+  const url = getCssUrl(urlOrVersion);
   let link = getCss(url);
   if (!link) {
     // create & load the css link

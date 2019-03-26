@@ -129,7 +129,7 @@ See below for information on how you can precisely control when the ArcGIS API i
 
 ### Loading Styles
 
-Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application. The easiest way to do that is to pass the `css` option to `loadModules()`:
+Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application. The easiest way to do that is to pass `css` option to `loadModules()`:
 
 ```js
 import { loadModules } from 'esri-loader';
@@ -145,12 +145,19 @@ loadModules(['esri/views/MapView', 'esri/WebMap'], options)
   });
 ```
 
-Alternatively, you can use the provided `loadCss(url)` function to control when the ArcGIS styles are loaded. For example:
+Alternatively, you can use the provided `loadCss()` function to control when the ArcGIS styles are loaded. For example:
 
 ```js
-// load esri styles for version 4.x using loadCss
 import { loadCss } from 'esri-loader';
-loadCss('https://js.arcgis.com/4.10/esri/css/main.css');
+
+// by default loadCss() loads styles for the latest 4.x version
+loadCss();
+
+// or for a specific CDN version
+loadCss('3.27');
+
+// or a from specific URL, like a locally hosted version
+loadCss('http://server/path/to/esri/css/main.css');
 ```
 
 See below for information on how to [override ArcGIS styles](#overriding-arcgis-styles) that you've lazy loaded with `loadModules()` or `loadCss()`.
