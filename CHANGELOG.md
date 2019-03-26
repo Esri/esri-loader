@@ -4,11 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- `insertCssBefore` option to insert CSS link before an existing element
 ### Changed
 ### Fixed
 ### Removed
 ### Breaking
+
+## [2.7.0] - 2019-03-26
+### Added
+- `insertCssBefore` option to insert CSS link before an existing element
 
 ## [2.6.0] - 2018-12-17
 
@@ -194,7 +197,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.6.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.7.0...HEAD
+[2.7.0]: https://github.com/Esri/esri-loader/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/Esri/esri-loader/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/Esri/esri-loader/compare/v2.4.0...v2.5.0
 [2.4.0]: https://github.com/Esri/esri-loader/compare/v2.3.0...v2.4.0
