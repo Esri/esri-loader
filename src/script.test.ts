@@ -1,4 +1,5 @@
 /* tslint:disable only-arrow-functions */
+import { jaspi3xUrl, removeRequire, stubRequire } from '../test/helpers';
 import { isLoaded, loadScript } from './script';
 
 declare global {
@@ -11,23 +12,8 @@ declare global {
   /* tslint:enable interface-name */
 }
 
-// helper functions
-// stub require function
-window.stubRequire = function() {
-  window.require = function(moduleNames, callback) {
-    if (callback) {
-      // call the callback w/ the modulenames that were passed in
-      callback.apply(this, moduleNames);
-    }
-  };
-  window.require.on = function(name, callback) {
-    return {
-      /* tslint:disable no-empty */
-      remove() {}
-      /* tslint:enable no-empty */
-    };
-  };
-};
+// allow the mock scripts to emulate that the JSAPI has loaded
+window.stubRequire = stubRequire;
 
 // remove script tags added by esri-loader
 function removeScript() {
@@ -36,12 +22,6 @@ function removeScript() {
     script.parentElement.removeChild(script);
   }
 }
-// remove previously stubbed require function
-function removeRequire() {
-  delete window.require;
-}
-
-const jaspi3xUrl = 'base/test/mocks/jsapi3x.js';
 
 describe('isLoaded', function() {
   describe('when has not yet been loaded', function() {
@@ -154,7 +134,7 @@ describe('when loading the script', function() {
   });
   describe('when already loaded by some other means', function() {
     beforeAll(function() {
-      window.stubRequire();
+      stubRequire();
     });
     it('should reject', function(done) {
       loadScript({

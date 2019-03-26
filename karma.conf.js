@@ -17,7 +17,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+      // source code and tests
       'src/**/*.ts',
+      // test helpers
+      'test/**/*.ts',
       // serve mock scripts
       { pattern: 'test/mocks/*.js', included: false }
     ],
@@ -31,7 +34,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      '**/*.ts': 'karma-typescript'
+      '**/*.ts': 'karma-typescript',
+      'src/**/!(*test).ts': 'coverage'
     },
 
 

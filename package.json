@@ -22,9 +22,7 @@
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
     "start": "karma start",
-    "test:js": "npm run build:release && karma start karma-js.conf.js --single-run=true --browsers Firefox",
-    "test:ts": "karma start --single-run=true --browsers Firefox",
-    "test": "npm run test:ts && npm run test:js"
+    "test": "karma start --single-run=true --browsers Firefox"
   },
   "repository": {
     "type": "git",
