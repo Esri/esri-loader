@@ -17,10 +17,9 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      // TODO: use karma-typescript to test loadScript() & loadModules() too
-      'src/utils/**/*.ts',
-      // TODO: include mocks too?
-      // { pattern: 'test/mocks/*.js', included: false }
+      'src/**/*.ts',
+      // serve mock scripts
+      { pattern: 'test/mocks/*.js', included: false }
     ],
 
 

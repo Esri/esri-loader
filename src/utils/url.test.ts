@@ -12,6 +12,7 @@ describe ('when getting CDN URLs', () => {
         expect(getCdnUrl('3.27')).toEqual('https://js.arcgis.com/3.27/');
       });
     });
+    // TODO: what about an invalid version? should we throw?
   });
   describe('for the CSS', () => {
     describe('with no arguments', () => {
