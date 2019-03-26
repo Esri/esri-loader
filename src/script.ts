@@ -12,8 +12,7 @@
 */
 import { loadCss } from './utils/css';
 import utils from './utils/index';
-
-const DEFAULT_URL = 'https://js.arcgis.com/4.10/';
+import { getCdnUrl } from './utils/url';
 
 function createScript(url) {
   const script = document.createElement('script');
@@ -58,8 +57,9 @@ function handleScriptError(script, callback) {
 
 // interfaces
 export interface ILoadScriptOptions {
+  version?: string;
   url?: string;
-  css?: string;
+  css?: string | boolean;
   dojoConfig?: { [propName: string]: any };
   insertCssBefore?: string;
 }
@@ -77,8 +77,9 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
-  // default options
-  const url = options.url || DEFAULT_URL;
+  // URL to load
+  const version = options.version;
+  const url = options.url || getCdnUrl(version);
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
@@ -106,9 +107,11 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
-        if (options.css) {
+        const css = options.css;
+        if (css) {
+          const useVersion = css === true;
           // load the css before loading the script
-          loadCss(options.css, options.insertCssBefore);
+          loadCss(useVersion ? version : (css as string), options.insertCssBefore);
         }
         if (options.dojoConfig) {
           // set dojo configuration parameters before loading the script

@@ -1,6 +1,7 @@
 /* tslint:disable only-arrow-functions */
 import { jaspi3xUrl, removeRequire, stubRequire } from '../test/helpers';
 import { isLoaded, loadScript } from './script';
+import * as cssUtils from './utils/css';
 
 declare global {
   /* tslint:disable interface-name */
@@ -23,6 +24,15 @@ function removeScript() {
   }
 }
 
+// don't actually load the script or styles
+function fakeLoading() {
+  spyOn(document.body, 'appendChild').and.callFake(function(el) {
+    // trigger the onload event listeners
+    el.dispatchEvent(new Event('load'));
+  });
+  spyOn(cssUtils, 'loadCss').and.stub();
+}
+
 describe('isLoaded', function() {
   describe('when has not yet been loaded', function() {
     beforeEach(function() {
@@ -39,11 +49,7 @@ describe('when loading the script', function() {
   describe('with defaults', function() {
     let scriptEl;
     beforeAll(function(done) {
-      spyOn(document.body, 'appendChild').and.callFake(function(el) {
-        // trigger the onload event listeners
-        el.dispatchEvent(new Event('load'));
-      });
-      spyOn(document.head, 'appendChild');
+      fakeLoading();
       loadScript()
       .then((script) => {
         // hold onto script element for assertions below
@@ -58,18 +64,16 @@ describe('when loading the script', function() {
       expect(window.dojoConfig).not.toBeDefined();
     });
     it('should not have called loadCss', function() {
-      expect((document.head.appendChild as jasmine.Spy).calls.any()).toBeFalsy();
+      expect((cssUtils.loadCss as jasmine.Spy).calls.any()).toBeFalsy();
     });
   });
-  describe('with different API version', function() {
+  describe('with a specific version from the CDN', function() {
+    const expected = 'https://js.arcgis.com/3.27/';
     let scriptEl;
     beforeAll(function(done) {
-      spyOn(document.body, 'appendChild').and.callFake(function(el) {
-        // trigger the onload event listeners
-        el.dispatchEvent(new Event('load'));
-      });
+      fakeLoading();
       loadScript({
-        url: 'https://js.arcgis.com/3.27'
+        version: '3.27'
       })
       .then((script) => {
         // hold onto script element for assertions below
@@ -77,30 +81,75 @@ describe('when loading the script', function() {
         done();
       });
     });
-    it('should load different version', function() {
-      expect(scriptEl.src).toEqual('https://js.arcgis.com/3.27');
-    });
-    it('should not have set dojoConfig', function() {
-      expect(window.dojoConfig).not.toBeDefined();
+    it('should load CDN version', function() {
+      expect(scriptEl.src).toEqual(expected);
     });
   });
-  describe('with css option', function() {
-    const cssUrl = 'https://js.arcgis.com/4.10/esri/css/main.css';
+  describe('with a specific url', function() {
+    const url = 'http://server/path/to/esri';
+    let scriptEl;
     beforeAll(function(done) {
-      spyOn(document.body, 'appendChild').and.callFake(function(el) {
-        // trigger the onload event listeners
-        el.dispatchEvent(new Event('load'));
-      });
-      spyOn(document.head, 'appendChild').and.stub();
+      fakeLoading();
       loadScript({
-        css: cssUrl
+        url
       })
       .then((script) => {
+        // hold onto script element for assertions below
+        scriptEl = script;
         done();
       });
     });
-    it('should have called loadCss with the url', function() {
-      expect((document.head.appendChild as jasmine.Spy).calls.argsFor(0)[0].href).toEqual(cssUrl);
+    it('should load url', function() {
+      expect(scriptEl.src).toEqual(url);
+    });
+  });
+  describe('with css option', function() {
+    describe('from default version', () => {
+      beforeAll(function(done) {
+        fakeLoading();
+        loadScript({
+          css: true
+        })
+        .then((script) => {
+          done();
+        });
+      });
+      it('should have called loadCss with no arguments', function() {
+        expect((cssUtils.loadCss as jasmine.Spy).calls.argsFor(0)[0]).toBeUndefined();
+      });
+    });
+    describe('with a specific version from the CDN', () => {
+      const version = '3.27';
+      beforeAll(function(done) {
+        fakeLoading();
+        loadScript({
+          version,
+          css: true
+        })
+        .then((script) => {
+          done();
+        });
+      });
+      it('should have called loadCss with the version', function() {
+        expect((cssUtils.loadCss as jasmine.Spy).calls.argsFor(0)[0]).toEqual(version);
+      });
+    });
+    describe('with a specific url', () => {
+      const url = 'http://server/path/to/esri';
+      const cssUrl = `${url}/css/main.css`;
+      beforeAll(function(done) {
+        fakeLoading();
+        loadScript({
+          url,
+          css: cssUrl
+        })
+        .then((script) => {
+          done();
+        });
+      });
+      it('should have called loadCss with the url', function() {
+        expect((cssUtils.loadCss as jasmine.Spy).calls.argsFor(0)[0]).toEqual(cssUrl);
+      });
     });
   });
   describe('with dojoConfig option', function() {
@@ -114,10 +163,7 @@ describe('when loading the script', function() {
       ]
     };
     beforeAll(function(done) {
-      spyOn(document.body, 'appendChild').and.callFake(function(el) {
-        // trigger the onload event listeners
-        el.dispatchEvent(new Event('load'));
-      });
+      fakeLoading();
       loadScript({
         dojoConfig
       })
