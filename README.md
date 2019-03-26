@@ -66,7 +66,7 @@ The code snippets below show how to load the ArcGIS API and its modules and then
 
 #### From the Latest Version
 
-Here's an example of how you could load and use the latest 4.x `Map` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
+Here's an example of how you could load and use the latest 4.x `WebMap` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
 
 ```js
 import { loadModules } from 'esri-loader';
@@ -102,9 +102,7 @@ import { loadModules } from 'esri-loader';
 // if the API hasn't already been loaded (i.e. the frist time this is run)
 // loadModules() will call loadScript() and pass these options, which,
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
-const options = {
-  url: 'https://js.arcgis.com/3.27/'
-};
+const options = { version: '3.27' };
 
 loadModules(['esri/map'], options)
   .then(([Map]) => {
@@ -121,31 +119,49 @@ loadModules(['esri/map'], options)
   });
 ```
 
+### From a Specific URL
+
+You can also load the modules from a specific URL, for example from a version of the SDK that you host on your own server. In this case, instead of passing the `version` option, you would pass the URL as a string like:
+
+```js
+const options = { url: `http://server/path/to/esri` };
+```
+
 ### Lazy Loading the ArcGIS API for JavaScript
 
 Lazy loading the ArcGIS API can dramatically improve the initial load performance of your application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will attempt lazy load the ArcGIS API by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
 
-See below for information on how you can precisely control when the ArcGIS API is loaded by [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript).
+See below for information on how you can [pre-load the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript) after initial render but before a user visits a route that needs it.
 
-### Loading Styles
+## Loading Styles
 
-Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application. The easiest way to do that is to pass `css` option to `loadModules()`:
+Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application.
+
+### When you load the script
+
+The easiest way to do that is to pass `css` option to `loadModules()`:
 
 ```js
 import { loadModules } from 'esri-loader';
 
-// lazy load the CSS before loading the modules
-const options = {
-  css: 'https://js.arcgis.com/4.10/esri/css/main.css'
-};
+// before loading the modules for the first time, 
+// also lazy load the CSS for the version of 
+// the script that you're loading from the CDN 
+const options = { css: true };
 
 loadModules(['esri/views/MapView', 'esri/WebMap'], options)
   .then(([MapView, WebMap]) => {
-    // you can safely create a map now that the styles are loaded
+    // the styles, script, and modules have all been loaded (in that order)
   });
 ```
 
-Alternatively, you can use the provided `loadCss()` function to control when the ArcGIS styles are loaded. For example:
+Passing `css: true` does not work when loading the script using the `url` option. In that case you'll need to pass the URL to the styles like: `css: 'http://server/path/to/esri/css/main.css'`.
+
+You can pass the `css` option either as `true` or the URL to a stylesheet to `loadScript()` as well.
+
+### Using loadCss()
+
+Alternatively, you can use the provided `loadCss()` function to load the ArcGIS styles at any point in your application's life cycle. For example:
 
 ```js
 import { loadCss } from 'esri-loader';
@@ -162,19 +178,7 @@ loadCss('http://server/path/to/esri/css/main.css');
 
 See below for information on how to [override ArcGIS styles](#overriding-arcgis-styles) that you've lazy loaded with `loadModules()` or `loadCss()`.
 
-Finally, you can manually load them by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS. For example:
-
-```html
-<!-- load esri styles for version 4.x via an html link tag -->
-<link rel="stylesheet" href="https://js.arcgis.com/4.10/esri/css/main.css">
-```
-
-or:
-
-```css
-/* load esri styles for version 3.x via css import */
-@import url('https://js.arcgis.com/3.27/esri/css/esri.css');
-```
+Of course, you don't need to use esri-loader to load the styles. See the [ArcGIS API for JavaScript documentation](https://developers.arcgis.com/javascript/) for more information on how to load the ArcGIS styles by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS.
 
 ## Why is this needed?
 
@@ -320,7 +324,7 @@ import { loadModules } from 'esri-loader';
 
 // lazy load the CSS before loading the modules
 const options = {
-  css: 'https://js.arcgis.com/4.10/esri/css/main.css',
+  css: true,
   // insert the stylesheet link above the first <style> tag on the page
   insertCssBefore: 'style'
 };
