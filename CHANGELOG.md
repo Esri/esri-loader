@@ -4,6 +4,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Breaking
+
+## [2.8.0] - 2019-03-27
+### Added
 - `loadScript()` takes a new `version` option to load a specific version from the CDN
 - passing `css: true` to `loadScript()` will load the styles for the CDN version
 - `loadCss()` defaults to loading the latest 4.x styles if no arguments are passed
@@ -12,9 +19,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - split source code into modules
 - tests are now written in TypeScript and loaded via karma-typescript
 - updated to recent versions of TypeScript, Karma, & Jasmine
-### Fixed
-### Removed
-### Breaking
 
 ## [2.7.0] - 2019-03-26
 ### Added
@@ -204,7 +208,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.7.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.8.0...HEAD
+[2.8.0]: https://github.com/Esri/esri-loader/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/Esri/esri-loader/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/Esri/esri-loader/compare/v2.5.0...v2.6.0
 [2.5.0]: https://github.com/Esri/esri-loader/compare/v2.4.0...v2.5.0
