@@ -29,8 +29,8 @@ See the [Examples](#examples) section below for links to applications that use t
 - [Why is this needed?](#why-is-this-needed)
 - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
-  - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
   - [Configuring Dojo](#configuring-dojo)
+  - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
   - [Pre-loading the ArcGIS API for JavaScript](#pre-loading-the-arcgis-api-for-javascript)
   - [Isomorphic/universal applications](#isomorphicuniversal-applications)
   - [Using your own script tag](#using-your-own-script-tag)
@@ -133,13 +133,13 @@ Lazy loading the ArcGIS API can dramatically improve the initial load performanc
 
 See below for information on how you can [pre-load the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript) after initial render but before a user visits a route that needs it.
 
-## Loading Styles
+### Loading Styles
 
 Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application.
 
-### When you load the script
+#### When you load the script
 
-The easiest way to do that is to pass `css` option to `loadModules()`:
+The easiest way to do that is to pass the `css` option to `loadModules()` or `loadScript()`:
 
 ```js
 import { loadModules } from 'esri-loader';
@@ -157,9 +157,9 @@ loadModules(['esri/views/MapView', 'esri/WebMap'], options)
 
 Passing `css: true` does not work when loading the script using the `url` option. In that case you'll need to pass the URL to the styles like: `css: 'http://server/path/to/esri/css/main.css'`.
 
-You can pass the `css` option either as `true` or the URL to a stylesheet to `loadScript()` as well.
+When passing the `css` option to `loadModules()` it actually passes it to `loadScript()`, So you can also use the same values (either `true` or stylesheet URL) when you call `loadScript()` directly.
 
-### Using loadCss()
+#### Using loadCss()
 
 Alternatively, you can use the provided `loadCss()` function to load the ArcGIS styles at any point in your application's life cycle. For example:
 
@@ -177,6 +177,8 @@ loadCss('http://server/path/to/esri/css/main.css');
 ```
 
 See below for information on how to [override ArcGIS styles](#overriding-arcgis-styles) that you've lazy loaded with `loadModules()` or `loadCss()`.
+
+#### Using traditional means
 
 Of course, you don't need to use esri-loader to load the styles. See the [ArcGIS API for JavaScript documentation](https://developers.arcgis.com/javascript/) for more information on how to load the ArcGIS styles by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS.
 
@@ -383,7 +385,7 @@ It is possible to use this library only to load modules (i.e. not to lazy load o
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/3.27/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/4.10/" data-esri-loader="loaded"></script>
 ```
 
 ### ArcGIS Types
