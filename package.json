@@ -21,8 +21,8 @@
     "precompile": "npm run lint",
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
-    "start": "npm run clean && npm run build && concurrently \"onchange 'src/**/*.ts' -- npm run build\" \"karma start\"",
-    "test": "npm run build:release && karma start --single-run=true --browsers Firefox"
+    "start": "karma start",
+    "test": "karma start --single-run=true --browsers Firefox"
   },
   "repository": {
     "type": "git",
@@ -43,20 +43,22 @@
   },
   "homepage": "https://github.com/Esri/esri-loader",
   "devDependencies": {
+    "@types/jasmine": "^2.8.11",
     "concurrently": "^3.4.0",
-    "jasmine-core": "^2.5.2",
-    "karma": "^3.1.3",
+    "jasmine-core": "^2.8.0",
+    "karma": "^4.0.1",
     "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.1.2",
     "karma-firefox-launcher": "^1.1.0",
     "karma-jasmine": "^1.1.0",
     "karma-mocha-reporter": "^2.2.3",
+    "karma-typescript": "^4.0.0",
     "mkdirp": "^0.5.1",
     "onchange": "^3.2.1",
     "rimraf": "^2.6.2",
     "rollup": "^0.41.6",
     "rollup-plugin-uglify": "^2.0.1",
     "tslint": "^5.7.0",
-    "typescript": "^2.0.10"
+    "typescript": "^3.3.4000"
   }
 }

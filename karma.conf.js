@@ -2,8 +2,6 @@
 // Generated on Wed Mar 08 2017 13:05:58 GMT-0800 (PST)
 
 var isTravis = !!process.env.TRAVIS;
-// for now testing on the build output
-var builtFile = isTravis ? 'dist/umd/esri-loader.min.js' : 'dist/umd/esri-loader.js';
 
 module.exports = function(config) {
   var configuration = {
@@ -14,13 +12,16 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['jasmine', 'karma-typescript'],
 
 
     // list of files / patterns to load in the browser
     files: [
-      builtFile,
-      'test/*.js',
+      // source code and tests
+      'src/**/*.ts',
+      // test helpers
+      'test/**/*.ts',
+      // serve mock scripts
       { pattern: 'test/mocks/*.js', included: false }
     ],
 
@@ -33,13 +34,15 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      '**/*.ts': 'karma-typescript',
+      'src/**/!(*test).ts': 'coverage'
     },
 
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['mocha'],
+    reporters: ['mocha', 'karma-typescript'],
 
     // web server port
     port: 9876,
@@ -79,7 +82,6 @@ module.exports = function(config) {
 
   // run code coverage locally
   if (!isTravis) {
-    configuration.preprocessors[builtFile] = ['coverage'];
     configuration.reporters.push('coverage');
   }
 
