@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `loadCss()` defaults to loading the latest 4.x styles if no arguments are passed
 - `loadCss()` can take a version as a string to load a version's styles from the CDN
 ### Changed
-- split soure code into modules
+- split source code into modules
 - tests are now written in TypeScript and loaded via karma-typescript
 - updated to recent versions of TypeScript, Karma, & Jasmine
 ### Fixed
