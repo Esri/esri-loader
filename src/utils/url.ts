@@ -1,3 +1,6 @@
+/* Copyright (c) 2017 Environmental Systems Research Institute, Inc.
+ * Apache-2.0 */
+
 const DEFAULT_VERSION = '4.10';
 
 export function parseVersion(version) {
