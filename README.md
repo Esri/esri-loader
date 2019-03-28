@@ -398,11 +398,42 @@ Follow [these instructions](https://github.com/Esri/jsapi-resources/tree/master/
 
 NOTE: For Angular CLI applications, you will also need to add "arcgis-js-api" to `compilerOptions.types` in src/tsconfig.app.json and src/tsconfig.spec.json [as shown here](https://gist.github.com/tomwayson/e6260adfd56c2529313936528b8adacd#adding-the-arcgis-api-for-javascript-types).
 
-Then you can use the `__esri` namespace for the types as seen in [this example](https://github.com/kgs916/angular2-esri4-components/blob/68861b286fd3a4814c495c2bd723e336e917ced2/src/lib/esri4-map/esri4-map.component.ts#L20-L26).
+##### TypeScript 2.9+
+
+At TypeScript 2.9 import types where added which allows types to be imported without importing the module. For more information on import types see [this post](https://davidea.st/articles/typescript-2-9-import-types).
+
+An example useage might be:
+```
+type MyModules = [typeof import("esri/WebMap"), typeof import("esri/views/MapView")];
+const [WebMap, MapView] = await (loadModules(["esri/WebMap", "esri/views/MapView"]) as Promise<MyModules>);
+// the returned objects now have type
+const webmap = new WebMap({portalItem: {id: this.webmapid}});
+```
+A more complete sample can be [seen here](https://codesandbox.io/s/xv8mw2890w?fontsize=14&module=%2Fsrc%2Fmapping.ts)
+
+##### TypeScript <2.9
+
+You can use the `__esri` namespace for the types as seen in [this example](https://github.com/kgs916/angular2-esri4-components/blob/68861b286fd3a4814c495c2bd723e336e917ced2/src/lib/esri4-map/esri4-map.component.ts#L20-L26).
 
 #### 3.x Types
 
-Unfortunately the `__esri` namespace is not defined for 3.x types. You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types, but then [you will still need to use `import` statements to get the types](https://github.com/Esri/jsapi-resources/issues/60). This may cause build errors that may or may not result in actual runtime errors depending on your environment.
+You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types.
+
+##### TypeScript 2.9+
+
+At TypeScript 2.9 import types where added which allows types to be imported without importing the module. For more information on import types see [this post](https://davidea.st/articles/typescript-2-9-import-types).
+
+An example useage might be:
+```
+type MyModules = [typeof import("esri/map"), typeof import("esri/geometry/Extent")];
+const [Map, Extent] = await (loadModules(["esri/map", "esri/geometry/Extent"], options) as Promise<MyModules>);
+// the returned objects now have type
+let map = new Map("viewDiv"...
+```
+
+##### TypeScript <2.9
+
+Unfortunately the `__esri` namespace is not defined for 3.x types. [You will still need to use `import` statements to get the types](https://github.com/Esri/jsapi-resources/issues/60). This may cause build errors that may or may not result in actual runtime errors depending on your environment.
 
 ### Using the esriLoader Global
 
