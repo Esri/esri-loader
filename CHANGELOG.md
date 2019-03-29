@@ -4,11 +4,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
-- default to JSAPI 4.11; update docs w/ latest version numbers
 ### Changed
 ### Fixed
 ### Removed
 ### Breaking
+
+## [2.9.0] - 2019-03-29
+### Added
+- default to JSAPI 4.11; update docs w/ latest version numbers
 
 ## [2.8.0] - 2019-03-27
 ### Added
@@ -212,7 +215,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.8.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.9.0...HEAD
+[2.9.0]: https://github.com/Esri/esri-loader/compare/v2.8.0...v2.9.0
 [2.8.0]: https://github.com/Esri/esri-loader/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/Esri/esri-loader/compare/v2.6.0...v2.7.0
 [2.6.0]: https://github.com/Esri/esri-loader/compare/v2.5.0...v2.6.0
