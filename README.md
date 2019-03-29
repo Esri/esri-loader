@@ -102,7 +102,7 @@ import { loadModules } from 'esri-loader';
 // if the API hasn't already been loaded (i.e. the frist time this is run)
 // loadModules() will call loadScript() and pass these options, which,
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
-const options = { version: '3.27' };
+const options = { version: '3.28' };
 
 loadModules(['esri/map'], options)
   .then(([Map]) => {
@@ -170,7 +170,7 @@ import { loadCss } from 'esri-loader';
 loadCss();
 
 // or for a specific CDN version
-loadCss('3.27');
+loadCss('3.28');
 
 // or a from specific URL, like a locally hosted version
 loadCss('http://server/path/to/esri/css/main.css');
@@ -332,7 +332,7 @@ const options = {
 };
 
 // before loading the modules, this will call:
-// loadCss('https://js.arcgis.com/4.10/esri/css/main.css', 'style')
+// loadCss('https://js.arcgis.com/4.11/esri/css/main.css', 'style')
 loadModules(['esri/views/MapView', 'esri/WebMap'], options);
 ```
 
@@ -385,7 +385,7 @@ It is possible to use this library only to load modules (i.e. not to lazy load o
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/4.10/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/4.11/" data-esri-loader="loaded"></script>
 ```
 
 ### ArcGIS Types
