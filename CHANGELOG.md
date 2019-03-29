@@ -4,6 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- default to JSAPI 4.11; update docs w/ latest version numbers
 ### Changed
 ### Fixed
 ### Removed
@@ -25,6 +26,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - `insertCssBefore` option to insert CSS link before an existing element
 
 ## [2.6.0] - 2018-12-17
+
+### Added
+- default to JSAPI 4.10; update docs w/ latest version numbers
 
 ## [2.5.0] - 2018-09-29
 
