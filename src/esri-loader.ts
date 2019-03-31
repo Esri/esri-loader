@@ -17,6 +17,7 @@ import { getScript, isLoaded, loadScript } from './script';
 import { loadCss } from './utils/css';
 import utils from './utils/index';
 export { getScript, isLoaded, loadModules, loadScript, loadCss, utils };
+export { ILoadScriptOptions } from './script';
 
 // NOTE: rollup ignores the default export
 // and builds the UMD namespace out of the above named exports
