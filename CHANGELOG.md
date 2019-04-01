@@ -6,9 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
-- export missing ILoadScriptOptions
 ### Removed
 ### Breaking
+
+## [2.9.1] - 2019-03-31
+
+### Fixed
+- export missing ILoadScriptOptions
 
 ## [2.9.0] - 2019-03-29
 ### Added
@@ -216,7 +220,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.9.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.9.1...HEAD
+[2.9.1]: https://github.com/Esri/esri-loader/compare/v2.9.0...v2.9.1
 [2.9.0]: https://github.com/Esri/esri-loader/compare/v2.8.0...v2.9.0
 [2.8.0]: https://github.com/Esri/esri-loader/compare/v2.7.0...v2.8.0
 [2.7.0]: https://github.com/Esri/esri-loader/compare/v2.6.0...v2.7.0
