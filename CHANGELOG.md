@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
+- export missing ILoadScriptOptions
 ### Removed
 ### Breaking
 
