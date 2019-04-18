@@ -6,9 +6,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 ### Fixed
-- window undefined in Node environments
 ### Removed
 ### Breaking
+
+## [2.9.2] - 2019-04-18
+
+### Fixed
+- window undefined in Node environments
 
 ## [2.9.1] - 2019-03-31
 
@@ -221,7 +225,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.9.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.9.2...HEAD
+[2.9.2]: https://github.com/Esri/esri-loader/compare/v2.9.1...v2.9.2
 [2.9.1]: https://github.com/Esri/esri-loader/compare/v2.9.0...v2.9.1
 [2.9.0]: https://github.com/Esri/esri-loader/compare/v2.8.0...v2.9.0
 [2.8.0]: https://github.com/Esri/esri-loader/compare/v2.7.0...v2.8.0
