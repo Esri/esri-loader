@@ -443,7 +443,7 @@ Typically you would [install the esri-loader package](#install) and then `import
 
 ```html
 <script src="https://unpkg.com/esri-loader"></script>
-<scirpt>
+<script>
   esriLoader.loadModules(['esri/views/MapView', 'esri/WebMap'])
   .then(([MapView, WebMap]) => {
     // use MapView and WebMap classes as shown above
