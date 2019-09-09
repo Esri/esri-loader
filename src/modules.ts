@@ -5,7 +5,7 @@ import { getScript, ILoadScriptOptions, isLoaded, loadScript } from './script';
 import utils from './utils/index';
 
 // wrap Dojo's require() in a promise
-function requireModules<T extends any[] = any>(modules: string[]): Promise<T> {
+function requireModules<T extends any[] = any[]>(modules: string[]): Promise<T> {
   return new utils.Promise((resolve, reject) => {
     // If something goes wrong loading the esri/dojo scripts, reject with the error.
     const errorHandler = window['require'].on('error', reject);
@@ -13,7 +13,7 @@ function requireModules<T extends any[] = any>(modules: string[]): Promise<T> {
       // remove error handler
       errorHandler.remove();
       // Resolve with the parameters from dojo require as an array.
-      resolve(args);
+      resolve(args as T);
     });
   });
 }
