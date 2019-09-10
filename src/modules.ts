@@ -32,7 +32,7 @@ export function loadModules<T extends any[] = any[]>(modules: string[], loadScri
       loadScriptOptions.url = src;
     }
     // attempt to load the script then load the modules
-    return loadScript(loadScriptOptions).then(() => requireModules(modules));
+    return loadScript(loadScriptOptions).then(() => requireModules<T>(modules));
   } else {
     // script is already loaded, just load the modules
     return requireModules(modules);
