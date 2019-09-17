@@ -5,7 +5,7 @@ import { getScript, ILoadScriptOptions, isLoaded, loadScript } from './script';
 import utils from './utils/index';
 
 // wrap Dojo's require() in a promise
-function requireModules(modules: string[]): Promise<any[]> {
+function requireModules<T extends any[] = any[]>(modules: string[]): Promise<T> {
   return new utils.Promise((resolve, reject) => {
     // If something goes wrong loading the esri/dojo scripts, reject with the error.
     const errorHandler = window['require'].on('error', reject);
@@ -13,14 +13,14 @@ function requireModules(modules: string[]): Promise<any[]> {
       // remove error handler
       errorHandler.remove();
       // Resolve with the parameters from dojo require as an array.
-      resolve(args);
+      resolve(args as T);
     });
   });
 }
 
 // returns a promise that resolves with an array of the required modules
 // also will attempt to lazy load the ArcGIS API if it has not already been loaded
-export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOptions = {}): Promise<any[]> {
+export function loadModules<T extends any[] = any[]>(modules: string[], loadScriptOptions: ILoadScriptOptions = {}): Promise<T> {
   if (!isLoaded()) {
     // script is not yet loaded, is it in the process of loading?
     const script = getScript();
@@ -32,7 +32,7 @@ export function loadModules(modules: string[], loadScriptOptions: ILoadScriptOpt
       loadScriptOptions.url = src;
     }
     // attempt to load the script then load the modules
-    return loadScript(loadScriptOptions).then(() => requireModules(modules));
+    return loadScript(loadScriptOptions).then(() => requireModules<T>(modules));
   } else {
     // script is already loaded, just load the modules
     return requireModules(modules);
