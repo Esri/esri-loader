@@ -288,6 +288,76 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ### [FAQS](https://github.com/Esri/esri-loader/issues?utf8=%E2%9C%93&q=label%3AFAQ+sort%3Aupdated-desc)
 
+### Using Classes Synchronously
+
+Let's say you need to create a map in one component, and then in another component create a legend. In this scenario, you need to create the map first, then create the legend only once you have a reference to the map. However, it is unlikely that you have both references to both DOM nodes at the time you want to start creating the map (for example if the legend component is a child of the map component and it's render lifecycle hasn't started yet).
+
+One way to do this would be to add functions like this to a service (or any singleton module in your app):
+
+```javascript
+newMap (elem, options) {
+  // load BOTH the map AND legend modules
+  // even though we're not using the Legend at this time
+  return loadModules(['esri/map', 'esri/dijit/Legend']).then(([Map, Legend]) => {
+    if (!this._Legend) {
+        // keep a reference to the Legend class so that legends can now be created synchronously
+        this._Legend = Legend;
+      }
+      // create and return the map
+      return new Map(elem, options);
+    }
+  );
+}
+// synchronous function to create a new legend
+// will throw an error if newMap() has not already been called and returned
+newLegend (params, srcNodeRef) {
+  if (this._Legend) {
+    return this._Legend(params, srcNodeRef);
+  } else {
+    throw new Error('You must have loaded a map before creating a legend.');
+  }
+}
+```
+
+Once the map component's DOM has loaded (like `ngInit()` or `componentDidMount()`) you can run something like:
+
+```javascript
+mapService.newMap(elemRef, options).then(map => {
+  // TODO: somehow signal to the legend component that the map has loaded
+  // i.e. pass it down as a prop, etc
+});
+```
+
+In the legend component, whenever you receive a new map instance (i.e. via prop, etc), you can run something like:
+
+```javascript
+this.legend = mapService.newLegend({ map: this.map }, elemRef);
+this.legend.startup();
+```
+
+While that is a little complicated, an advantage of this pattern is that you are in complete control over which modules can be made available synchronously, so there's no mystery about why attempts to load modules synchronously might fail (either because the JSAPI hasn't been loaded, or the module is not one of the ones that can be loaded synchronously).
+
+This encourages you to:
+
+1. consolidate your use of ArcGIS API modules in a single or few locations
+1. use only the ArcGIS API modules you need to do ArcGIS API things (map or 3D scene visualizations) and rely on your framework of choice, arcgis-rest-js, and/or modern JavaScript/TypeScript for everything else
+
+The key to success with this kind of pattern is to not overgeneralize, i.e. "adding every module to the modules list and creating a property on the service for each module (for typings and ease of calling)." Instead, focus on the specific workflows of your application. For example, let's say your app has a sidebar component that will need to at some point create a new `SimpleMarkerSymbol`, and you know that component is only visible once the map component has loaded. For this scenario, your service's `createMap()` can lazy-load `SimpleMarkerSymbol` along with whatever other modules it needs to show the map and then set `this._SimpleMarkerSymbol` so that the service's `addSymbolToMap(symbolJson)` will be available the sidebar component:
+
+```javascript
+addSymbolToMap(symbolJson) {
+  if (this._SimpleMarkerSymbol) {
+    const symbol = new this._SimpleMarkerSymbol(symbolJson)
+    // TODO: add the symbol to this._map, etc
+  } else {
+    // this should never happen, but just in case
+    throw new Error('map not loaded yet')
+  }
+}
+```
+
+Sure, it would be a pain to create such a wrapping function for every module, but if you focus on your app's specific workflows, we bet you'll find that you should only need it for a few modules/classes.
+
 ### ArcGIS Types
 
 This library doesn't make any assumptions about which version of the ArcGIS API you are using, so you will have to install the appropriate types. Furthermore, because you don't `import` esri modules directly with esri-loader, you'll have to follow the instructions below to use the types in your application.
