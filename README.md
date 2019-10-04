@@ -381,7 +381,7 @@ const options = {
 };
 
 // before loading the modules, this will call:
-// loadCss('https://js.arcgis.com/4.11/esri/css/main.css', 'style')
+// loadCss('https://js.arcgis.com/4.12/themes/light/main.css', 'style')
 loadModules(['esri/views/MapView', 'esri/WebMap'], options);
 ```
 
