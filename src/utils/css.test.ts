@@ -37,6 +37,24 @@ describe('when loading the css', () => {
       expect(link.rel).toEqual('stylesheet');
     });
   });
+  describe('with "next"', () => {
+    const url = 'https://js.arcgis.com/next/esri/css/main.css';
+    let link;
+    beforeAll(() => {
+      spyOn(document.head, 'appendChild').and.stub();
+      spyOn(document, 'querySelector');
+      link = loadCss('next');
+    });
+    it('should have checked if the link was already appended', () => {
+      expect((document.querySelector as jasmine.Spy).calls.argsFor(0)[0]).toEqual(`link[href*="${url}"]`);
+    });
+    it('should have set the href', () => {
+      expect(link.href).toEqual(url);
+    });
+    it('should not have set the rel', () => {
+      expect(link.rel).toEqual('stylesheet');
+    });
+  });
   describe('with a url', () => {
     const url = 'http://server/path/to/esri/css/main.css';
     let link;

@@ -119,6 +119,8 @@ loadModules(['esri/map'], options)
   });
 ```
 
+You can load the ["next" version of the ArcGIS API](https://github.com/Esri/feedback-js-api-next#esri-loader) by passing `next` as the version.
+
 ### From a Specific URL
 
 You can also load the modules from a specific URL, for example from a version of the SDK that you host on your own server. In this case, instead of passing the `version` option, you would pass the URL as a string like:
