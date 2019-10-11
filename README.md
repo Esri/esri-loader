@@ -29,6 +29,7 @@ See the [Examples](#examples) section below for links to applications that use t
 - [Why is this needed?](#why-is-this-needed)
 - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
+  - [Using Classes Synchronously](#using-classes-synchronously)
   - [ArcGIS Types](#arcgis-types)
   - [Configuring Dojo](#configuring-dojo)
   - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
