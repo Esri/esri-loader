@@ -38,7 +38,7 @@ describe('when loading the css', () => {
     });
   });
   describe('with "next"', () => {
-    const url = 'https://js.arcgis.com/next/esri/css/main.css';
+    const url = 'https://js.arcgis.com/next/esri/themes/light/main.css';
     let link;
     beforeAll(() => {
       spyOn(document.head, 'appendChild').and.stub();
