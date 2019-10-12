@@ -103,7 +103,7 @@ import { loadModules } from 'esri-loader';
 // if the API hasn't already been loaded (i.e. the first time this is run)
 // loadModules() will call loadScript() and pass these options, which,
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
-const options = { version: '3.29' };
+const options = { version: '3.30' };
 
 loadModules(['esri/map'], options)
   .then(([Map]) => {
@@ -173,7 +173,7 @@ import { loadCss } from 'esri-loader';
 loadCss();
 
 // or for a specific CDN version
-loadCss('3.29');
+loadCss('3.30');
 
 // or a from specific URL, like a locally hosted version
 loadCss('http://server/path/to/esri/css/main.css');

@@ -1,7 +1,7 @@
 /* Copyright (c) 2017 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-const DEFAULT_VERSION = '4.12';
+const DEFAULT_VERSION = '4.13';
 const NEXT = 'next';
 
 export function parseVersion(version) {
@@ -19,7 +19,7 @@ export function parseVersion(version) {
 /**
  * Get the CDN url for a given version
  *
- * @param version Ex: '4.12' or '3.29'. Defaults to the latest 4.x version.
+ * @param version Ex: '4.13' or '3.30'. Defaults to the latest 4.x version.
  */
 export function getCdnUrl(version = DEFAULT_VERSION) {
   return `https://js.arcgis.com/${version}/`;
@@ -28,7 +28,7 @@ export function getCdnUrl(version = DEFAULT_VERSION) {
 /**
  * Get the CDN url for a the CSS for a given version and/or theme
  *
- * @param version Ex: '4.12', '3.29', or 'next'. Defaults to the latest 4.x version.
+ * @param version Ex: '4.13', '3.30', or 'next'. Defaults to the latest 4.x version.
  */
 export function getCdnCssUrl(version = DEFAULT_VERSION) {
   const baseUrl = getCdnUrl(version);
