@@ -2,8 +2,13 @@
  * Apache-2.0 */
 
 const DEFAULT_VERSION = '4.13';
+const NEXT = 'next';
 
 export function parseVersion(version) {
+  if (version.toLowerCase() === NEXT) {
+    return NEXT;
+  }
+
   const match = version && version.match(/^(\d)\.(\d+)/);
   return match && {
     major: parseInt(match[1], 10),
@@ -23,12 +28,12 @@ export function getCdnUrl(version = DEFAULT_VERSION) {
 /**
  * Get the CDN url for a the CSS for a given version and/or theme
  *
- * @param version Ex: '4.13' or '3.30'. Defaults to the latest 4.x version.
+ * @param version Ex: '4.13', '3.30', or 'next'. Defaults to the latest 4.x version.
  */
 export function getCdnCssUrl(version = DEFAULT_VERSION) {
   const baseUrl = getCdnUrl(version);
   const parsedVersion = parseVersion(version);
-  if (parsedVersion.major === 3) {
+  if (parsedVersion !== NEXT && parsedVersion.major === 3) {
     // NOTE: at 3.11 the CSS moved from the /js folder to the root
     const path = parsedVersion.minor <= 10 ? 'js/' : '';
     return `${baseUrl}${path}esri/css/esri.css`;
