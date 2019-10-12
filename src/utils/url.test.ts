@@ -17,7 +17,7 @@ describe ('when getting CDN URLs', () => {
   describe('for the CSS', () => {
     describe('with no arguments', () => {
       it('should default to the latest 4.x CSS URL', () => {
-        expect(getCdnCssUrl()).toEqual('https://js.arcgis.com/4.13/esri/css/main.css');
+        expect(getCdnCssUrl()).toEqual('https://js.arcgis.com/4.13/esri/themes/light/main.css');
       });
     });
     describe('for 3.x version >= 3.11', () => {

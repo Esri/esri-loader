@@ -30,6 +30,7 @@ See the [Examples](#examples) section below for links to applications that use t
 - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [ArcGIS Types](#arcgis-types)
+  - [Using Classes Synchronously](#using-classes-synchronously)
   - [Configuring Dojo](#configuring-dojo)
   - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
   - [Pre-loading the ArcGIS API for JavaScript](#pre-loading-the-arcgis-api-for-javascript)
@@ -99,7 +100,7 @@ If you don't want to use the latest version of the ArcGIS API hosted on Esri's C
 ```js
 import { loadModules } from 'esri-loader';
 
-// if the API hasn't already been loaded (i.e. the frist time this is run)
+// if the API hasn't already been loaded (i.e. the first time this is run)
 // loadModules() will call loadScript() and pass these options, which,
 // in this case are only needed b/c we're using v3.x instead of the latest 4.x
 const options = { version: '3.30' };
@@ -218,7 +219,7 @@ Here are some applications and framework-specific wrapper libraries that use thi
 
 ### [CanJS](https://canjs.com/)
 
-- [can-arcgis](https://github.com/roemhildtg/can-arcgis) - CanJS configureable mapping app (inspired by [cmv-app](https://github.com/cmv/cmv-app)) and components built for the ArcGIS JS API 4.x, bundled with [StealJS](https://stealjs.com/)
+- [can-arcgis](https://github.com/roemhildtg/can-arcgis) - CanJS configurable mapping app (inspired by [cmv-app](https://github.com/cmv/cmv-app)) and components built for the ArcGIS JS API 4.x, bundled with [StealJS](https://stealjs.com/)
 
 ### [Choo](https://choo.io/)
 
@@ -286,6 +287,8 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ## Advanced Usage
 
+### [FAQS](https://github.com/Esri/esri-loader/issues?utf8=%E2%9C%93&q=label%3AFAQ+sort%3Aupdated-desc)
+
 ### ArcGIS Types
 
 This library doesn't make any assumptions about which version of the ArcGIS API you are using, so you will have to install the appropriate types. Furthermore, because you don't `import` esri modules directly with esri-loader, you'll have to follow the instructions below to use the types in your application.
@@ -294,7 +297,7 @@ This library doesn't make any assumptions about which version of the ArcGIS API 
 
 Follow [these instructions](https://github.com/Esri/jsapi-resources/tree/master/4.x/typescript) to install the 4.x types.
 
-After installling the 4.x types, you can use the `__esri` namespace for the types as seen in [this example](https://github.com/kgs916/angular2-esri4-components/blob/68861b286fd3a4814c495c2bd723e336e917ced2/src/lib/esri4-map/esri4-map.component.ts#L20-L26).
+After installing the 4.x types, you can use the `__esri` namespace for the types as seen in [this example](https://github.com/kgs916/angular2-esri4-components/blob/68861b286fd3a4814c495c2bd723e336e917ced2/src/lib/esri4-map/esri4-map.component.ts#L20-L26).
 
 #### 3.x Types
 
@@ -334,6 +337,49 @@ A more complete 3.x sample can be [seen here](https://codesandbox.io/s/rj6jloy4n
 #### Types in Angular CLI Applications
 
 For Angular CLI applications, you will also need to add "arcgis-js-api" to `compilerOptions.types` in src/tsconfig.app.json and src/tsconfig.spec.json [as shown here](https://gist.github.com/tomwayson/e6260adfd56c2529313936528b8adacd#adding-the-arcgis-api-for-javascript-types).
+
+### Using Classes Synchronously
+
+Let's say you need to create a map in one component, and then later in another component add a graphic to that map. Unlike creating a map, creating a graphic and adding it to a map is ordinarily a synchronous operation, so it can be inconvenient to have to wait for `loadModules()` just to load the `Graphic` class. One way to handle this is have the function that creates the map _also_ load the `Graphic` class before its needed. You can then hold onto that class for later use to be exposed by a function like  `addGraphicToMap(view, graphicJson)`:
+
+```javascript
+// utils/map.js
+import { loadModules } from 'esri-loader';
+
+// NOTE: module, not global scope
+let _Graphic;
+
+// this will be called by the map component
+export function loadMap(element, mapOptions) {
+  // NOTE: 
+  return loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'], {
+    css: true
+  }).then(([Map, MapView, Graphic]) => {
+    // hold onto the graphic class for later use
+    _Graphic = Graphic;
+    // create the Map
+    const map = new Map(mapOptions);
+    // return a view showing the map at the element
+    return new MapView({
+      map,
+      container: element
+    });
+  });
+}
+
+// this will be called by the component that needs to add the graphic to the map
+export function addGraphicToMap(view, graphicJson) {
+  // make sure that the graphic class has already been loaded
+  if (!_Graphic) {
+    throw new Error('You must load a map before creating new graphics');
+  }
+  view.graphics.add(new _Graphic(graphicJson));
+}
+```
+
+You can [see this pattern in use in a real-world application](https://github.com/tomwayson/create-arcgis-app/blob/master/src/utils/map.js).
+
+See [#124 (comment)](https://github.com/Esri/esri-loader/issues/124#issuecomment-408482410) and [#71 (comment)](https://github.com/Esri/esri-loader/issues/71#issuecomment-381356848) for more background on this pattern.
 
 ### Configuring Dojo
 
@@ -381,7 +427,7 @@ const options = {
 };
 
 // before loading the modules, this will call:
-// loadCss('https://js.arcgis.com/4.11/esri/css/main.css', 'style')
+// loadCss('https://js.arcgis.com/4.12/themes/light/main.css', 'style')
 loadModules(['esri/views/MapView', 'esri/WebMap'], options);
 ```
 
@@ -414,7 +460,7 @@ this.loadScriptPromise
 
 ### Isomorphic/universal applications
 
-This library also allows you to use the ArcGIS API in [isomorphic or universal](https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea) applications that are rendered on the server. There's really no difference in how you invoke the functions exposed by this libary, however you should avoid trying to call them from any code that runs on the server. The easiest way to do this is to use them in component lifecyle hooks that are only invoked in a browser, for example, React's [`componentDidMount`](https://reactjs.org/docs/react-component.html#componentdidmount) or Vue's [mounted](https://vuejs.org/v2/api/#mounted). See [tomwayson/esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit/) for [an example of a component that lazy loads the ArcGIS API and renders a map only once a specific route is loaded in a browser](https://github.com/tomwayson/esri-loader-react-starter-kit/commit/a513b7fe207a809105fcb621a26a687cc47918b4).
+This library also allows you to use the ArcGIS API in [isomorphic or universal](https://medium.com/airbnb-engineering/isomorphic-javascript-the-future-of-web-apps-10882b7a2ebc#.4nyzv6jea) applications that are rendered on the server. There's really no difference in how you invoke the functions exposed by this library, however you should avoid trying to call them from any code that runs on the server. The easiest way to do this is to use them in component lifecyle hooks that are only invoked in a browser, for example, React's [`componentDidMount`](https://reactjs.org/docs/react-component.html#componentdidmount) or Vue's [mounted](https://vuejs.org/v2/api/#mounted). See [tomwayson/esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit/) for [an example of a component that lazy loads the ArcGIS API and renders a map only once a specific route is loaded in a browser](https://github.com/tomwayson/esri-loader-react-starter-kit/commit/a513b7fe207a809105fcb621a26a687cc47918b4).
 
 Alternatively, you could use checks like the following to ensure these functions aren't invoked on the server:
 
@@ -465,13 +511,13 @@ The angular-esri-loader wrapper library is no longer needed and has been depreca
 
 ### Browsers
 
-This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and its modules expect to be run in a browser. This library officially supports [the same browers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Since this library also works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
+This library doesn't have any external dependencies, but the functions it exposes to load the ArcGIS API and its modules expect to be run in a browser. This library officially supports [the same browsers that are supported by the latest version of the ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/guide/system-requirements/index.html#supported-browsers). Since this library also works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
 
-You cannot run the ArcGIS API for JavaScript in [Node.js](https://nodejs.org/), but you _can_ use this library in [isomorphic/universal applications](#isomorphicuniversal-applications) as well as [Electron](#electron). If you need to exectue requests to ArcGIS REST services from something like a Node.js CLI application, see [arcgis-rest-js](https://github.com/Esri/arcgis-rest-js).
+You cannot run the ArcGIS API for JavaScript in [Node.js](https://nodejs.org/), but you _can_ use this library in [isomorphic/universal applications](#isomorphicuniversal-applications) as well as [Electron](#electron). If you need to execute requests to ArcGIS REST services from something like a Node.js CLI application, see [arcgis-rest-js](https://github.com/Esri/arcgis-rest-js).
 
 ### Promises
 
-Since v1.5 asynchronous functions like `loadModules()` and `loadScript()` return [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)s, so if your application has to support [browers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise) you have a few options.
+Since v1.5 asynchronous functions like `loadModules()` and `loadScript()` return [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)s, so if your application has to support [browsers that don't support Promise (i.e. IE)](https://caniuse.com/#search=promise) you have a few options.
 
 If there's already a Promise implementation loaded on the page you can configure esri-loader to use that implementation. For example, in [ember-esri-loader](https://github.com/Esri/ember-esri-loader), we configure esri-loader to use the RSVP Promise implementation included with Ember.js.
 

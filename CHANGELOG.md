@@ -9,7 +9,17 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 ### Breaking
 
+## [2.10.2] - 2019-10-12
+
+### Changed
+- added "Using Modules Synchronously" to the docs (README) - thanks [@stdavis](https://github.com/stdavis)!
+### Fixed
+- `css: true` uses the correct URL the light theme (`/esri/themes/light/main.css`) - thanks [@stdavis](https://github.com/stdavis)
+
 ## [2.10.1] - 2019-09-27
+
+### Changed
+- Added generics for `loadModules` typings improvements. #183 - thanks [@deskoh](https://github.com/deskoh)!
 
 ## [2.10.0] - 2019-07-03
 ### Added
@@ -231,7 +241,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.10.1...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.10.2...HEAD
+[2.10.2]: https://github.com/Esri/esri-loader/compare/v2.10.1...v2.10.2
 [2.10.1]: https://github.com/Esri/esri-loader/compare/v2.10.0...v2.10.1
 [2.10.0]: https://github.com/Esri/esri-loader/compare/v2.9.2...v2.10.0
 [2.9.2]: https://github.com/Esri/esri-loader/compare/v2.9.1...v2.9.2
