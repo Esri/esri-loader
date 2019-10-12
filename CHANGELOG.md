@@ -5,11 +5,16 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- added "Using Modules Synchronously" to the docs (README) - thanks [@stdavis](https://github.com/stdavis)!
 ### Fixed
+- `css: true` uses the correct URL the light theme (`/esri/themes/light/main.css`) - thanks [@stdavis](https://github.com/stdavis)
 ### Removed
 ### Breaking
 
 ## [2.10.1] - 2019-09-27
+
+### Changed
+- Added generics for `loadModules` typings improvements. #183 - thanks [@deskoh](https://github.com/deskoh)!
 
 ## [2.10.0] - 2019-07-03
 ### Added
