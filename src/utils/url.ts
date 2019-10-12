@@ -34,6 +34,6 @@ export function getCdnCssUrl(version = DEFAULT_VERSION) {
     return `${baseUrl}${path}esri/css/esri.css`;
   } else {
     // assume 4.x
-    return `${baseUrl}esri/css/main.css`;
+    return `${baseUrl}esri/themes/light/main.css`;
   }
 }
