@@ -12,6 +12,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.11.0] - 2019-10-14
 ### Added
 - default to JSAPI 4.12; update docs w/ latest version numbers
+- add support for "next" version of ArcGIS API
 
 ## [2.10.2] - 2019-10-12
 
