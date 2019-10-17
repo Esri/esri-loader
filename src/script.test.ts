@@ -1,6 +1,6 @@
 /* tslint:disable only-arrow-functions */
 import { jaspi3xUrl, removeRequire, stubRequire } from '../test/helpers';
-import { isLoaded, loadScript } from './script';
+import { isLoaded, loadScript, setDefaultOptions } from './script';
 import * as cssUtils from './utils/css';
 
 declare global {
@@ -46,7 +46,7 @@ describe('isLoaded', function() {
 });
 
 describe('when loading the script', function() {
-  describe('with defaults', function() {
+  describe('with library defaults', function() {
     let scriptEl;
     beforeAll(function(done) {
       fakeLoading();
@@ -65,6 +65,39 @@ describe('when loading the script', function() {
     });
     it('should not have called loadCss', function() {
       expect((cssUtils.loadCss as jasmine.Spy).calls.any()).toBeFalsy();
+    });
+  });
+  describe('with default loader options explicitly set', function() {
+    const scriptUrl = 'http://server/path/to/esri';
+    const cssUrl = `${scriptUrl}/css/main.css`;
+    let scriptEl;
+    beforeAll(function(done) {
+      setDefaultOptions({
+        url: scriptUrl,
+        css: cssUrl
+      });
+      fakeLoading();
+      loadScript()
+      .then((script) => {
+        // hold onto script element for assertions below
+        scriptEl = script;
+        done();
+      });
+    });
+    it('should load the specified script url', function() {
+      expect(scriptEl.src).toEqual(scriptUrl);
+    });
+    it('should not have set dojoConfig', function() {
+      expect(window.dojoConfig).not.toBeDefined();
+    });
+    it('should have called loadCss', function() {
+      expect((cssUtils.loadCss as jasmine.Spy).calls.any()).toBeTruthy();
+    });
+    it('should have called loadCss with the specified CSS url', function() {
+      expect((cssUtils.loadCss as jasmine.Spy).calls.argsFor(0)[0]).toEqual(cssUrl);
+    });
+    afterAll(function() {
+      setDefaultOptions(null);
     });
   });
   describe('with a specific version from the CDN', function() {

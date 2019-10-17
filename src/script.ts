@@ -5,7 +5,7 @@ import { loadCss } from './utils/css';
 import utils from './utils/index';
 import { getCdnUrl } from './utils/url';
 
-let defaultScriptOptions: ILoadScriptOptions = {};
+let defaultOptions: ILoadScriptOptions = {};
 
 function createScript(url) {
   const script = document.createElement('script');
@@ -58,8 +58,8 @@ export interface ILoadScriptOptions {
 }
 
 // allow the user to configure default script options rather than passing options to `loadModules` each time
-export function setDefaultScriptOptions(options: ILoadScriptOptions = {}): void {
-  defaultScriptOptions = options;
+export function setDefaultOptions(options: ILoadScriptOptions = {}): void {
+  defaultOptions = options;
 }
 
 // get the script injected by this library
@@ -75,7 +75,7 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
-  options = Object.assign(defaultScriptOptions, options);
+  options = { ...defaultOptions, ...options };
 
   // URL to load
   const version = options.version;

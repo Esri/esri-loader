@@ -13,10 +13,10 @@
 
 // re-export the functions that are part of the public API
 import { loadModules } from './modules';
-import { getScript, isLoaded, loadScript, setDefaultScriptOptions } from './script';
+import { getScript, isLoaded, loadScript, setDefaultOptions } from './script';
 import { loadCss } from './utils/css';
 import utils from './utils/index';
-export { getScript, isLoaded, loadModules, loadScript, loadCss, setDefaultScriptOptions, utils };
+export { getScript, isLoaded, loadModules, loadScript, loadCss, setDefaultOptions, utils };
 export { ILoadScriptOptions } from './script';
 
 // NOTE: rollup ignores the default export
@@ -30,6 +30,6 @@ export default {
   loadModules,
   loadScript,
   loadCss,
-  setDefaultScriptOptions,
+  setDefaultOptions,
   utils
 };
