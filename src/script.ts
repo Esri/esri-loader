@@ -5,6 +5,8 @@ import { loadCss } from './utils/css';
 import utils from './utils/index';
 import { getCdnUrl } from './utils/url';
 
+let defaultScriptOptions: ILoadScriptOptions = {};
+
 function createScript(url) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
@@ -55,6 +57,11 @@ export interface ILoadScriptOptions {
   insertCssBefore?: string;
 }
 
+// allow the user to configure default script options rather than passing options to `loadModules` each time
+export function setDefaultScriptOptions(options: ILoadScriptOptions = {}): void {
+  defaultScriptOptions = options;
+}
+
 // get the script injected by this library
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
@@ -68,6 +75,8 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
+  options = Object.assign(defaultScriptOptions, options);
+
   // URL to load
   const version = options.version;
   const url = options.url || getCdnUrl(version);
