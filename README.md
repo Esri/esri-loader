@@ -280,6 +280,10 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 - [esri-stencil-example](https://github.com/Dzeneralen/esri-stencil-example) - An example Stencil application that shows how to use esri-loader to create a custom map view component and implement some basic routing controlling the map state
 
+### [Svelte](https://svelte.dev/)
+
+- [esri-svelte-example](https://github.com/gavinr/esri-svelte-example) - An example Svelte application that shows how to use esri-loader to load a map.
+
 ### [Vue.js](https://vuejs.org/)
 
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
