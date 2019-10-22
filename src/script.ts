@@ -75,7 +75,17 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
-  const opts = options = { ...defaultOptions, ...options };
+  // we would have liked to use spread like { ...defaultOptions, ...options }
+  // but TS would inject a polyfill that would require use to configure rollup w content: 'window'
+  // if we have another occasion to use spread, let'd do that and replace this for...in
+  const opts: ILoadScriptOptions = {};
+  [defaultOptions, options].forEach((obj) => {
+    for (const prop in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+        opts[prop] = obj[prop];
+      }
+    }
+  });
   // URL to load
   const version = opts.version;
   const url = opts.url || getCdnUrl(version);

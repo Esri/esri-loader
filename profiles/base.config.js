@@ -4,6 +4,5 @@ export default {
   moduleName: 'esriLoader',
   exports: 'named',
   dest: 'dist/umd/esri-loader.js',
-  sourceMap: true,
-  context: 'window'
+  sourceMap: true
 };
