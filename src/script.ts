@@ -5,6 +5,8 @@ import { loadCss } from './utils/css';
 import utils from './utils/index';
 import { getCdnUrl } from './utils/url';
 
+let defaultOptions: ILoadScriptOptions = {};
+
 function createScript(url) {
   const script = document.createElement('script');
   script.type = 'text/javascript';
@@ -55,6 +57,11 @@ export interface ILoadScriptOptions {
   insertCssBefore?: string;
 }
 
+// allow the user to configure default script options rather than passing options to `loadModules` each time
+export function setDefaultOptions(options: ILoadScriptOptions = {}): void {
+  defaultOptions = options;
+}
+
 // get the script injected by this library
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
@@ -68,9 +75,20 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
+  // we would have liked to use spread like { ...defaultOptions, ...options }
+  // but TS would inject a polyfill that would require use to configure rollup w content: 'window'
+  // if we have another occasion to use spread, let'd do that and replace this for...in
+  const opts: ILoadScriptOptions = {};
+  [defaultOptions, options].forEach((obj) => {
+    for (const prop in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+        opts[prop] = obj[prop];
+      }
+    }
+  });
   // URL to load
-  const version = options.version;
-  const url = options.url || getCdnUrl(version);
+  const version = opts.version;
+  const url = opts.url || getCdnUrl(version);
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
@@ -98,15 +116,15 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
-        const css = options.css;
+        const css = opts.css;
         if (css) {
           const useVersion = css === true;
           // load the css before loading the script
-          loadCss(useVersion ? version : (css as string), options.insertCssBefore);
+          loadCss(useVersion ? version : (css as string), opts.insertCssBefore);
         }
-        if (options.dojoConfig) {
+        if (opts.dojoConfig) {
           // set dojo configuration parameters before loading the script
-          window['dojoConfig'] = options.dojoConfig;
+          window['dojoConfig'] = opts.dojoConfig;
         }
         // create a script object whose source points to the API
         script = createScript(url);

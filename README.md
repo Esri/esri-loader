@@ -130,6 +130,24 @@ You can also load the modules from a specific URL, for example from a version of
 const options = { url: `http://server/path/to/esri` };
 ```
 
+### Setting default options used by all `loadModules()` calls
+
+As an alternative to passing the same options to `loadModules()` every time, you can also set the options once by utilizing the `setDefaultOptions()` function:
+
+```js
+import { loadModules, setDefaultOptions } from 'esri-loader';
+
+setDefaultOptions({
+  version: 'next',
+  css: true
+});
+
+loadModules(['esri/map'])
+  .then(([Map]) => {
+    // ...
+  });
+```
+
 ### Lazy Loading the ArcGIS API for JavaScript
 
 Lazy loading the ArcGIS API can dramatically improve the initial load performance of your application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will attempt lazy load the ArcGIS API by calling `loadScript()` for you. Subsequent calls to `loadModules()` will not attempt to load the script once `loadScript()` has been called.
@@ -147,9 +165,9 @@ The easiest way to do that is to pass the `css` option to `loadModules()` or `lo
 ```js
 import { loadModules } from 'esri-loader';
 
-// before loading the modules for the first time, 
-// also lazy load the CSS for the version of 
-// the script that you're loading from the CDN 
+// before loading the modules for the first time,
+// also lazy load the CSS for the version of
+// the script that you're loading from the CDN
 const options = { css: true };
 
 loadModules(['esri/views/MapView', 'esri/WebMap'], options)
@@ -357,7 +375,7 @@ let _Graphic;
 
 // this will be called by the map component
 export function loadMap(element, mapOptions) {
-  // NOTE: 
+  // NOTE:
   return loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'], {
     css: true
   }).then(([Map, MapView, Graphic]) => {
