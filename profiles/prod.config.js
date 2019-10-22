@@ -5,6 +5,5 @@ export default Object.assign({}, base, {
   dest: 'dist/umd/esri-loader.min.js',
   plugins: [
     uglify()
-  ],
-  context: 'window'
+  ]
 });

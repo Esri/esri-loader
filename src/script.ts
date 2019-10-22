@@ -75,11 +75,10 @@ export function isLoaded() {
 
 // load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
-  options = { ...defaultOptions, ...options };
-
+  const opts = options = { ...defaultOptions, ...options };
   // URL to load
-  const version = options.version;
-  const url = options.url || getCdnUrl(version);
+  const version = opts.version;
+  const url = opts.url || getCdnUrl(version);
 
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
@@ -107,15 +106,15 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
-        const css = options.css;
+        const css = opts.css;
         if (css) {
           const useVersion = css === true;
           // load the css before loading the script
-          loadCss(useVersion ? version : (css as string), options.insertCssBefore);
+          loadCss(useVersion ? version : (css as string), opts.insertCssBefore);
         }
-        if (options.dojoConfig) {
+        if (opts.dojoConfig) {
           // set dojo configuration parameters before loading the script
-          window['dojoConfig'] = options.dojoConfig;
+          window['dojoConfig'] = opts.dojoConfig;
         }
         // create a script object whose source points to the API
         script = createScript(url);
