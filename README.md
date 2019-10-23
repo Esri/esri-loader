@@ -21,6 +21,10 @@ Want to be inspired? See the [Examples](#examples) section below for links to ap
   - [Loading Styles](#loading-styles)
 - [Why is this needed?](#why-is-this-needed)
 - [Examples](#examples)
+  - [Angular](#angular)
+  - [Ember](#ember)
+  - [React](#react)
+  - [Vue.js](#vuejs)
 - [Advanced Usage](#advanced-usage)
   - [ArcGIS Types](#arcgis-types)
   - [Configuring esri-loader](#configuring-esri-loader)
@@ -57,7 +61,7 @@ yarn add esri-loader
 
 ## Usage
 
-The code snippets below show how to load the ArcGIS API and its modules and then use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for [example applications](#examples).
+The code snippets below show how to load the ArcGIS API and its modules and then use them to create a map. Where you would place similar code in your application will depend on which application framework you are using. See below for examples that are specific to [React](#react), [Vue.js](#vuejs), [Angular](#angular), [Ember](#ember), and [example applications](#examples) written in over a dozen frameworks.
 
 ### Loading Modules from the ArcGIS API for JavaScript
 
