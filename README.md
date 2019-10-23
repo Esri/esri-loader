@@ -23,14 +23,16 @@ Want to be inspired? See the [Examples](#examples) section below for links to ap
 - [Examples](#examples)
 - [Advanced Usage](#advanced-usage)
   - [ArcGIS Types](#arcgis-types)
-  - [Using Classes Synchronously](#using-classes-synchronously)
   - [Configuring esri-loader](#configuring-esri-loader)
   - [Configuring Dojo](#configuring-dojo)
   - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
   - [Pre-loading the ArcGIS API for JavaScript](#pre-loading-the-arcgis-api-for-javascript)
-  - [Server Side Rendering](#server-side-rendering)
   - [Using your own script tag](#using-your-own-script-tag)
   - [Using the esriLoader Global](#using-the-esriloader-global)
+- [Pro Tips](#pro-tips)
+  - [Using Classes Synchronously](#using-classes-synchronously)
+  - [Server Side Rendering](#server-side-rendering)  
+  - [FAQs](#faqs)
 - [Updating from previous versions](#updating-from-previous-versions)
   - [From &lt; v1.5](#from--v15)
   - [From angular-esri-loader](#from-angular-esri-loader)
@@ -296,8 +298,6 @@ See the ArcGIS API guides for up to date examples of how to [use the ArcGIS API 
 
 ## Advanced Usage
 
-### [FAQS](https://github.com/Esri/esri-loader/issues?utf8=%E2%9C%93&q=label%3AFAQ+sort%3Aupdated-desc)
-
 ### ArcGIS Types
 
 This library doesn't make any assumptions about which version of the ArcGIS API you are using, so you will have to install the appropriate types. Furthermore, because you don't `import` esri modules directly with esri-loader, you'll have to follow the instructions below to use the types in your application.
@@ -346,47 +346,6 @@ A more complete 3.x sample can be [seen here](https://codesandbox.io/s/rj6jloy4n
 #### Types in Angular CLI Applications
 
 For Angular CLI applications, you will also need to add "arcgis-js-api" to `compilerOptions.types` in src/tsconfig.app.json and src/tsconfig.spec.json [as shown here](https://gist.github.com/tomwayson/e6260adfd56c2529313936528b8adacd#adding-the-arcgis-api-for-javascript-types).
-
-### Using Classes Synchronously
-
-Let's say you need to create a map in one component, and then later in another component add a graphic to that map. Unlike creating a map, creating a graphic and adding it to a map is ordinarily a synchronous operation, so it can be inconvenient to have to wait for `loadModules()` just to load the `Graphic` class. One way to handle this is have the function that creates the map _also_ load the `Graphic` class before its needed. You can then hold onto that class for later use to be exposed by a function like  `addGraphicToMap(view, graphicJson)`:
-
-```javascript
-// utils/map.js
-import { loadModules } from 'esri-loader';
-
-// NOTE: module, not global scope
-let _Graphic;
-
-// this will be called by the map component
-export function loadMap(element, mapOptions) {
-  return loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'])
-  .then(([Map, MapView, Graphic]) => {
-    // hold onto the graphic class for later use
-    _Graphic = Graphic;
-    // create the Map
-    const map = new Map(mapOptions);
-    // return a view showing the map at the element
-    return new MapView({
-      map,
-      container: element
-    });
-  });
-}
-
-// this will be called by the component that needs to add the graphic to the map
-export function addGraphicToMap(view, graphicJson) {
-  // make sure that the graphic class has already been loaded
-  if (!_Graphic) {
-    throw new Error('You must load a map before creating new graphics');
-  }
-  view.graphics.add(new _Graphic(graphicJson));
-}
-```
-
-You can [see this pattern in use in a real-world application](https://github.com/tomwayson/create-arcgis-app/blob/master/src/utils/map.js).
-
-See [#124 (comment)](https://github.com/Esri/esri-loader/issues/124#issuecomment-408482410) and [#71 (comment)](https://github.com/Esri/esri-loader/issues/71#issuecomment-381356848) for more background on this pattern.
 
 ### Configuring esri-loader
 
@@ -502,23 +461,6 @@ See [Configuring esri-loader](#configuring-esri-loader) for all available config
 
 **NOTE**: `loadScript()` does **not** use [`rel="preload"`](https://developer.mozilla.org/en-US/docs/Web/HTML/Preloading_content#Scripting_and_preloads), so it will fetch, parse, and execute the script. In practice, it can be tricky to find a point in your application where you can call `loadScript()` without blocking rendering. In most cases, it's best to just use `loadModules()` to lazy load the script.
 
-### Server Side Rendering
-
-<a id="isomorphicuniversal-applications"></a>This library also allows you to use the ArcGIS API in [applications that are rendered on the server](https://medium.com/@baphemot/whats-server-side-rendering-and-do-i-need-it-cb42dc059b38). There's really no difference in how you invoke the functions exposed by this library, however you should avoid trying to call them from any code that runs on the server. The easiest way to do this is to call `loadModules()` in component lifecyle hooks that are only invoked in a browser, for example, React's [useEffect](https://reactjs.org/docs/hooks-effect.html) or [componentDidMount](https://reactjs.org/docs/react-component.html#componentdidmount), or Vue's [mounted](https://vuejs.org/v2/api/#mounted).
-
-Alternatively, you could use checks like the following to prevent calling esri-loader functions on the server:
-
-```js
-import { loadCss } from 'esri-loader';
-
-if (typeof window !== 'undefined') {
-  // this is running in a browser, so go ahead and load the CSS
-  loadCss();
-}
-```
-
-See [next-arcgis-app](https://github.com/tomwayson/next-arcgis-app/) or [esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit/) for examples of how to use esri-loader in server side rendered (SSR) applications.
-
 ### Using your own script tag
 
 It is possible to use this library only to load modules (i.e. not to lazy load or pre-load the ArcGIS API). In this case you will need to add a `data-esri-loader` attribute to the script tag you use to load the ArcGIS API for JavaScript. Example:
@@ -541,6 +483,70 @@ Typically you would [install the esri-loader package](#install) and then `import
   });
 </script>
 ```
+
+## Pro Tips
+
+### Using Classes Synchronously
+
+Let's say you need to create a map in one component, and then later in another component add a graphic to that map. Unlike creating a map, creating a graphic and adding it to a map is ordinarily a synchronous operation, so it can be inconvenient to have to wait for `loadModules()` just to load the `Graphic` class. One way to handle this is have the function that creates the map _also_ load the `Graphic` class before its needed. You can then hold onto that class for later use to be exposed by a function like  `addGraphicToMap(view, graphicJson)`:
+
+```javascript
+// utils/map.js
+import { loadModules } from 'esri-loader';
+
+// NOTE: module, not global scope
+let _Graphic;
+
+// this will be called by the map component
+export function loadMap(element, mapOptions) {
+  return loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'])
+  .then(([Map, MapView, Graphic]) => {
+    // hold onto the graphic class for later use
+    _Graphic = Graphic;
+    // create the Map
+    const map = new Map(mapOptions);
+    // return a view showing the map at the element
+    return new MapView({
+      map,
+      container: element
+    });
+  });
+}
+
+// this will be called by the component that needs to add the graphic to the map
+export function addGraphicToMap(view, graphicJson) {
+  // make sure that the graphic class has already been loaded
+  if (!_Graphic) {
+    throw new Error('You must load a map before creating new graphics');
+  }
+  view.graphics.add(new _Graphic(graphicJson));
+}
+```
+
+You can [see this pattern in use in a real-world application](https://github.com/tomwayson/create-arcgis-app/blob/master/src/utils/map.js).
+
+See [#124 (comment)](https://github.com/Esri/esri-loader/issues/124#issuecomment-408482410) and [#71 (comment)](https://github.com/Esri/esri-loader/issues/71#issuecomment-381356848) for more background on this pattern.
+
+### Server Side Rendering
+
+<a id="isomorphicuniversal-applications"></a>This library also allows you to use the ArcGIS API in [applications that are rendered on the server](https://medium.com/@baphemot/whats-server-side-rendering-and-do-i-need-it-cb42dc059b38). There's really no difference in how you invoke the functions exposed by this library, however you should avoid trying to call them from any code that runs on the server. The easiest way to do this is to call `loadModules()` in component lifecyle hooks that are only invoked in a browser, for example, React's [useEffect](https://reactjs.org/docs/hooks-effect.html) or [componentDidMount](https://reactjs.org/docs/react-component.html#componentdidmount), or Vue's [mounted](https://vuejs.org/v2/api/#mounted).
+
+Alternatively, you could use checks like the following to prevent calling esri-loader functions on the server:
+
+```js
+import { loadCss } from 'esri-loader';
+
+if (typeof window !== 'undefined') {
+  // this is running in a browser, so go ahead and load the CSS
+  loadCss();
+}
+```
+
+See [next-arcgis-app](https://github.com/tomwayson/next-arcgis-app/) or [esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit/) for examples of how to use esri-loader in server side rendered (SSR) applications.
+
+### FAQs
+
+In addition to the pro tips above, you might want to check out some [frequently asked questions](https://github.com/Esri/esri-loader/issues?utf8=%E2%9C%93&q=label%3AFAQ+sort%3Aupdated-desc).
 
 ## Updating from previous versions
 
