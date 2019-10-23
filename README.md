@@ -31,6 +31,7 @@ See the [Examples](#examples) section below for links to applications that use t
 - [Advanced Usage](#advanced-usage)
   - [ArcGIS Types](#arcgis-types)
   - [Using Classes Synchronously](#using-classes-synchronously)
+  - [Configuring esri-loader](#configuring-esri-loader)
   - [Configuring Dojo](#configuring-dojo)
   - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
   - [Pre-loading the ArcGIS API for JavaScript](#pre-loading-the-arcgis-api-for-javascript)
@@ -67,7 +68,7 @@ The code snippets below show how to load the ArcGIS API and its modules and then
 
 #### From the Latest Version
 
-Here's an example of how you could load and use the latest 4.x `WebMap` and `MapView` classes in a component to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
+Here's an example of how you could load and use the latest 4.x `WebMap` and `MapView` classes from the CDN to create a map (based on [this sample](https://developers.arcgis.com/javascript/latest/sample-code/sandbox/index.html?sample=webmap-basic)):
 
 ```js
 import { loadModules } from 'esri-loader';
@@ -95,17 +96,18 @@ loadModules(['esri/views/MapView', 'esri/WebMap'])
 
 #### From a Specific Version
 
-If you don't want to use the latest version of the ArcGIS API hosted on Esri's CDN, you'll need to pass options with the URL to whichever version you want to use. For example, the snippet below uses v3.x of the ArcGIS API to create a map.
+By default esri-loader will load modules from the latest 4.x version from CDN, but you can [configure the default behavior](#configuring-esri-loader) by calling `setDefaultOptions()` _before_ making any calls to `loadModules()`.
+
+For example, the snippet below uses v3.x of the ArcGIS API from the CDN to create a map by setting the default `version` option.
 
 ```js
-import { loadModules } from 'esri-loader';
+import { setDefaultOptions, loadModules } from 'esri-loader';
 
-// if the API hasn't already been loaded (i.e. the first time this is run)
-// loadModules() will call loadScript() and pass these options, which,
-// in this case are only needed b/c we're using v3.x instead of the latest 4.x
-const options = { version: '3.30' };
+// configure esri-loader to use version 3.30 from the ArcGIS CDN
+// NOTE: make sure this is called once before any calls to loadModules()
+setDefaultOptions({ version: '3.30' })
 
-loadModules(['esri/map'], options)
+loadModules(['esri/map'])
   .then(([Map]) => {
     // create map with the given options at a DOM node w/ id 'mapNode'
     let map = new Map('mapNode', {
@@ -120,33 +122,18 @@ loadModules(['esri/map'], options)
   });
 ```
 
-You can load the ["next" version of the ArcGIS API](https://github.com/Esri/feedback-js-api-next#esri-loader) by passing `next` as the version.
+You can load the ["next" version of the ArcGIS API](https://github.com/Esri/feedback-js-api-next#esri-loader) by passing `'next'` as the version.
 
-### From a Specific URL
+#### From a Specific URL
 
-You can also load the modules from a specific URL, for example from a version of the SDK that you host on your own server. In this case, instead of passing the `version` option, you would pass the URL as a string like:
-
-```js
-const options = { url: `http://server/path/to/esri` };
-```
-
-### Setting default options used by all `loadModules()` calls
-
-As an alternative to passing the same options to `loadModules()` every time, you can also set the options once by utilizing the `setDefaultOptions()` function:
+If want to load modules from a build of the SDK that you host on your own server, you would set the default `url` option instead:
 
 ```js
-import { loadModules, setDefaultOptions } from 'esri-loader';
-
-setDefaultOptions({
-  version: 'next',
-  css: true
-});
-
-loadModules(['esri/map'])
-  .then(([Map]) => {
-    // ...
-  });
+// NOTE: make sure this is called once before any calls to loadModules()
+setDefaultOptions({ url: `http://server/path/to/esri` });
 ```
+
+See [Configuring esri-loader](#configuring-esri-loader) for all available configuration options.
 
 ### Lazy Loading the ArcGIS API for JavaScript
 
@@ -156,29 +143,27 @@ See below for information on how you can [pre-load the ArcGIS API](#pre-loading-
 
 ### Loading Styles
 
-Before you can use the ArcGIS API in your app, you'll need to load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application.
+Before you can use the ArcGIS API in your app, you must load the styles that correspond to the version you are using. Just like the ArcGIS API modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application.
 
 #### When you load the script
 
-The easiest way to do that is to pass the `css` option to `loadModules()` or `loadScript()`:
+The easiest way to do that is to pass the `css` option to `setDefaultOptions()`:
 
 ```js
-import { loadModules } from 'esri-loader';
+import { setDefaultOptions, loadModules } from 'esri-loader';
 
 // before loading the modules for the first time,
 // also lazy load the CSS for the version of
 // the script that you're loading from the CDN
-const options = { css: true };
+setDefaultOptions({ css: true });
 
-loadModules(['esri/views/MapView', 'esri/WebMap'], options)
+loadModules(['esri/views/MapView', 'esri/WebMap'])
   .then(([MapView, WebMap]) => {
     // the styles, script, and modules have all been loaded (in that order)
   });
 ```
 
-Passing `css: true` does not work when loading the script using the `url` option. In that case you'll need to pass the URL to the styles like: `css: 'http://server/path/to/esri/css/main.css'`.
-
-When passing the `css` option to `loadModules()` it actually passes it to `loadScript()`, So you can also use the same values (either `true` or stylesheet URL) when you call `loadScript()` directly.
+Passing `css: true` does not work when loading the script using the `url` option. In that case you'll need to pass the URL to the styles like: `css: 'http://server/path/to/esri/css/main.css'`. See [Configuring esri-loader](#configuring-esri-loader) for all available configuration options.
 
 #### Using loadCss()
 
@@ -375,10 +360,8 @@ let _Graphic;
 
 // this will be called by the map component
 export function loadMap(element, mapOptions) {
-  // NOTE:
-  return loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'], {
-    css: true
-  }).then(([Map, MapView, Graphic]) => {
+  return loadModules(['esri/Map', 'esri/views/MapView', 'esri/Graphic'])
+  .then(([Map, MapView, Graphic]) => {
     // hold onto the graphic class for later use
     _Graphic = Graphic;
     // create the Map
@@ -404,6 +387,49 @@ export function addGraphicToMap(view, graphicJson) {
 You can [see this pattern in use in a real-world application](https://github.com/tomwayson/create-arcgis-app/blob/master/src/utils/map.js).
 
 See [#124 (comment)](https://github.com/Esri/esri-loader/issues/124#issuecomment-408482410) and [#71 (comment)](https://github.com/Esri/esri-loader/issues/71#issuecomment-381356848) for more background on this pattern.
+
+### Configuring esri-loader
+
+As mentioned above, you can call `setDefaultOptions()` to configure [how esri-loader loads ArcGIS API modules](#from-a-specific-version) and CSS. Here are all the options you can set.
+
+| Name | Type | Default Value | Description |
+| -- | -- | -- | -- |
+| `version` | `string` | `'4.13'` | The version of the ArcGIS API hosted on Esri's CDN to use. |
+| `url` | `string` | `undefined` | The URL to a hosted build of the ArcGIS API to use. If both `version` and `url` are passed, `url` will be used. |
+| `css` | `string` or `boolean` | `undefined` | If a `string` is passed it is assumed to be the URL of a CSS file to load. Use `css: true` to load the `version`'s CSS from the CDN. |
+| `insertCssBefore` | `string` | `undefined` | When using `css`, the `<link>` to the stylesheet will be inserted before the first element that matches this [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). See [Overriding ArcGIS Styles](#overriding-arcgis-styles). |
+| `dojoConfig` | `Object` | `undefined` | See [Configuring Dojo](#configuring-dojo). |
+
+All of the above are optional.
+
+#### Without `setDefaultOptions()`
+
+If you're application only has a single call to `loadModules()`, you do not need `setDefaultOptions()`. Instead you can just pass the `options` as a second argument to `loadModules()`:
+
+```js
+import { loadModules } from 'esri-loader';
+
+// if the API hasn't already been loaded (i.e. the first time this is run)
+// loadModules() will call loadScript() and pass these options, which,
+// in this case are only needed b/c we're using v3.x instead of the latest 4.x
+const options = { version: '3.30', css: true };
+
+loadModules(['esri/map'], options)
+  .then(([Map]) => {
+    // create map with the given options at a DOM node w/ id 'mapNode'
+    let map = new Map('mapNode', {
+      center: [-118, 34.5],
+      zoom: 8,
+      basemap: 'dark-gray'
+    });
+  })
+  .catch(err => {
+    // handle any script or module loading errors
+    console.error(err);
+  });
+```
+
+If you are [pre-loading the ArcGIS API](#pre-loading-the-arcgis-api-for-javascript) you can pass the `options` to `loadScript()` directly.
 
 ### Configuring Dojo
 
@@ -481,6 +507,8 @@ this.loadScriptPromise
     console.error(err);
   });
 ```
+
+See [Configuring esri-loader](#configuring-esri-loader) for all available configuration options you can pass to `loadScript()`.
 
 ### Isomorphic/universal applications
 
