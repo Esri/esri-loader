@@ -9,6 +9,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 ### Breaking
 
+## [2.12.0] - 2019-10-24
+### Added
+- `setDefaultOptions()` to set default `loadScript()` options at app startup
+
 ## [2.11.0] - 2019-10-14
 ### Added
 - default to JSAPI 4.13; update docs w/ latest version numbers
@@ -246,7 +250,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.11.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.12.0...HEAD
+[2.12.0]: https://github.com/Esri/esri-loader/compare/v2.11.0...v2.12.0
 [2.11.0]: https://github.com/Esri/esri-loader/compare/v2.10.2...v2.11.0
 [2.10.2]: https://github.com/Esri/esri-loader/compare/v2.10.1...v2.10.2
 [2.10.1]: https://github.com/Esri/esri-loader/compare/v2.10.0...v2.10.1
