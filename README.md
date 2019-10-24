@@ -367,7 +367,7 @@ All of the above are optional.
 
 #### Without `setDefaultOptions()`
 
-If you're application only has a single call to `loadModules()`, you do not need `setDefaultOptions()`. Instead you can just pass the `options` as a second argument to `loadModules()`:
+If your application only has a single call to `loadModules()`, you do not need `setDefaultOptions()`. Instead you can just pass the `options` as a second argument to `loadModules()`:
 
 ```js
 import { loadModules } from 'esri-loader';
