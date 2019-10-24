@@ -10,8 +10,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Breaking
 
 ## [2.12.0] - 2019-10-24
+
 ### Added
-- `setDefaultOptions()` to set default `loadScript()` options at app startup
+- `setDefaultOptions()` to set default `loadScript()` options at app startup (#192) - thanks @JoshCrozier!
+### Changed
+- updated README to emphasize `setDefaultOptions()` and link to the new [Framework Guides](https://developers.arcgis.com/javascript/latest/guide/using-frameworks/)
 
 ## [2.11.0] - 2019-10-14
 ### Added
