@@ -58,7 +58,7 @@ describe('when loading the script', function() {
       });
     });
     it('should default to latest version', function() {
-      expect(scriptEl.src).toEqual('https://js.arcgis.com/4.13/');
+      expect(scriptEl.src).toEqual('https://js.arcgis.com/4.14/');
     });
     it('should not have set dojoConfig', function() {
       expect(window.dojoConfig).not.toBeDefined();
@@ -101,12 +101,12 @@ describe('when loading the script', function() {
     });
   });
   describe('with a specific version from the CDN', function() {
-    const expected = 'https://js.arcgis.com/3.30/';
+    const expected = 'https://js.arcgis.com/3.31/';
     let scriptEl;
     beforeAll(function(done) {
       fakeLoading();
       loadScript({
-        version: '3.30'
+        version: '3.31'
       })
       .then((script) => {
         // hold onto script element for assertions below
@@ -152,7 +152,7 @@ describe('when loading the script', function() {
       });
     });
     describe('with a specific version from the CDN', () => {
-      const version = '3.30';
+      const version = '3.31';
       beforeAll(function(done) {
         fakeLoading();
         loadScript({

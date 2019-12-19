@@ -104,9 +104,9 @@ For example, the snippet below configures esri-loader to use the [latest 3.x rel
 // app.js
 import { setDefaultOptions } from 'esri-loader';
 
-// configure esri-loader to use version 3.30 from the ArcGIS CDN
+// configure esri-loader to use version 3.31 from the ArcGIS CDN
 // NOTE: make sure this is called once before any calls to loadModules()
-setDefaultOptions({ version: '3.30' })
+setDefaultOptions({ version: '3.31' })
 ```
 
 Then later, for example after a map component has mounted, you would use `loadModules()` as normal, except in this case you'd be using the [3.x `Map` class](https://developers.arcgis.com/javascript/3/jsapi/map-amd.html) instead of the 4.x classes.
@@ -190,7 +190,7 @@ import { loadCss } from 'esri-loader';
 loadCss();
 
 // or for a specific CDN version
-loadCss('3.30');
+loadCss('3.31');
 
 // or a from specific URL, like a locally hosted version
 loadCss('http://server/path/to/esri/css/main.css');
@@ -372,7 +372,7 @@ As mentioned above, you can call `setDefaultOptions()` to configure [how esri-lo
 
 | Name | Type | Default Value | Description |
 | -- | -- | -- | -- |
-| `version` | `string` | `'4.13'` | The version of the ArcGIS API hosted on Esri's CDN to use. |
+| `version` | `string` | `'4.14'` | The version of the ArcGIS API hosted on Esri's CDN to use. |
 | `url` | `string` | `undefined` | The URL to a hosted build of the ArcGIS API to use. If both `version` and `url` are passed, `url` will be used. |
 | `css` | `string` or `boolean` | `undefined` | If a `string` is passed it is assumed to be the URL of a CSS file to load. Use `css: true` to load the `version`'s CSS from the CDN. |
 | `insertCssBefore` | `string` | `undefined` | When using `css`, the `<link>` to the stylesheet will be inserted before the first element that matches this [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). See [Overriding ArcGIS Styles](#overriding-arcgis-styles). |
@@ -387,9 +387,9 @@ If your application only has a single call to `loadModules()`, you do not need `
 ```js
 import { loadModules } from 'esri-loader';
 
-// configure esri-loader to use version 3.30
+// configure esri-loader to use version 3.31
 // and the CSS for that version from the ArcGIS CDN
-const options = { version: '3.30', css: true };
+const options = { version: '3.31', css: true };
 
 loadModules(['esri/map'], options)
   .then(([Map]) => {
@@ -486,7 +486,7 @@ It is possible to use this library only to load modules (i.e. not to lazy load o
 
 ```html
 <!-- index.html -->
-<script src="https://js.arcgis.com/4.13/" data-esri-loader="loaded"></script>
+<script src="https://js.arcgis.com/4.14/" data-esri-loader="loaded"></script>
 ```
 
 ### Using the esriLoader Global
