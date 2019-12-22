@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 ### Breaking
 
+## [2.13.0] - 2019-12-22
+
 ## [2.12.0] - 2019-10-24
 
 ### Added
@@ -253,7 +255,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.12.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v2.13.0...HEAD
+[2.13.0]: https://github.com/Esri/esri-loader/compare/v2.12.0...v2.13.0
 [2.12.0]: https://github.com/Esri/esri-loader/compare/v2.11.0...v2.12.0
 [2.11.0]: https://github.com/Esri/esri-loader/compare/v2.10.2...v2.11.0
 [2.10.2]: https://github.com/Esri/esri-loader/compare/v2.10.1...v2.10.2
