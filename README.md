@@ -305,6 +305,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 ### [Svelte](https://svelte.dev/)
 
 - [esri-svelte-example](https://github.com/gavinr/esri-svelte-example) - An example Svelte application that shows how to use esri-loader to load a map.
+- [esri-svelte-basemaps-example](https://github.com/jwasilgeo/esri-svelte-basemaps-example) - An example Svelte application that shows how to use esri-loader to create a custom `<EsriMapView>` component and explore various basemaps.
 
 ### [Vue.js](https://vuejs.org/)
 
