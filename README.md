@@ -32,7 +32,9 @@ Want to be inspired? See the [Examples](#examples) section below for links to ap
   - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
   - [Pre-loading the ArcGIS API for JavaScript](#pre-loading-the-arcgis-api-for-javascript)
   - [Using your own script tag](#using-your-own-script-tag)
-  - [Using the esriLoader Global](#using-the-esriloader-global)
+  - [Without a module bundler](#without-a-module-bundler)
+    - [Using a module script tag](#using-a-module-script-tag)
+    - [Using the esriLoader Global](#using-the-esriloader-global)
 - [Pro Tips](#pro-tips)
   - [Using Classes Synchronously](#using-classes-synchronously)
   - [Server Side Rendering](#server-side-rendering)  
@@ -490,19 +492,53 @@ It is possible to use this library only to load modules (i.e. not to lazy load o
 <script src="https://js.arcgis.com/4.14/" data-esri-loader="loaded"></script>
 ```
 
-### Using the esriLoader Global
+### Without a module bundler
 
-Typically you would [install the esri-loader package](#install) and then `import` the functions you need as shown in all the above examples. However, esri-loader is also distributed as an ES5 [UMD](http://jargon.js.org/_glossary/UMD.md) bundle on [UNPKG](https://unpkg.com/) so that you can load it via a script tag and use the above functions from the `esriLoader` global.
+Typically you would [install the esri-loader package](#install) and then use a module loader/bundler to `import` the functions you need as part of your application's build. However, ES5 builds of esri-loader are also distributed on [UNPKG](https://unpkg.com/) both as ES modules and as a [UMD](http://jargon.js.org/_glossary/UMD.md) bundle that exposes the `esriLoader` global.
+
+This is an _excellent_ way to prototype how you will use the ArcGIS API for JavaScript, or to isolate any problems that you are having with the API. Before we can help you with any issue related to the behavior of a map, scene, or widgets, we will **require** you to reproduce it _outside_ your application. A great place to start is one of the codepens linked below.
+
+#### Using a module script tag
+
+You can load the esri-loader [ES modules directly in modern browsers](https://caniuse.com/#feat=es6-module) using `<script type="module">`. The advantage of this approach is that [any browser that supports `type="module"` also supports ES2015](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) and most support later features like [`async`/`await`](https://caniuse.com/#search=await). This means you can use all of those features in your script.
 
 ```html
+<script type="module">
+  // to use a specific version of esri-loader, include the @version in the URL for example:
+  // https://unpkg.com/esri-loader@2.13.0/dist/esm/esri-loader.js
+  import { loadModules } from "https://unpkg.com/esri-loader/dist/esm/esri-loader.js";
+  
+  const main = async () => {
+    const [MapView, WebMap] = await loadModules(['esri/views/MapView', 'esri/WebMap']);
+    // use MapView and WebMap classes as shown above
+  }
+  main();
+</script>
+```
+
+You can fork [this codepen](https://codepen.io/gavinr/pen/wvavjwp) to try this out yourself.
+
+A disadvantage of this approach is that the ES module build of esri-loader is not bundled. This means your browser will make multiple requests for a few (tiny) JS files, which may not be suitable for a production application.
+
+#### Using the esriLoader Global
+
+If you need to run the script in an older browser, you can load the UMD build and then use the `esriLoader` global.
+
+```html
+<!--
+  to use a specific version of esri-loader, include the @version in the URL for example:
+  https://unpkg.com/esri-loader@2.13.0
+-->
 <script src="https://unpkg.com/esri-loader"></script>
 <script>
   esriLoader.loadModules(['esri/views/MapView', 'esri/WebMap'])
-  .then(([MapView, WebMap]) => {
+  .then(function ([MapView, WebMap]) {
     // use MapView and WebMap classes as shown above
   });
 </script>
 ```
+
+You can fork [this codepen](https://codepen.io/tomwayson/pen/PoqwZYm) to try this out yourself.
 
 ## Pro Tips
 
