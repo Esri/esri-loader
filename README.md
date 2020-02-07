@@ -500,7 +500,7 @@ This is an _excellent_ way to prototype how you will use the ArcGIS API for Java
 
 #### Using a module script tag
 
-You can load the esri-loader [ES modules directly in modern browsers](https://caniuse.com/#feat=es6-module) using `<script type="module">`. The advantage of this approach is that [any browser that supports `type="module"` also supports ES2015](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/) and most support later features like [`async`/`await`](https://caniuse.com/#search=await). This means you can use all of those features in your script.
+You can load the esri-loader [ES modules directly in modern browsers](https://caniuse.com/#feat=es6-module) using `<script type="module">`. The advantage of this approach is that [browsers that support `type="module"` also support ES2015 and many later features like `async`/`await`](https://philipwalton.com/articles/deploying-es2015-code-in-production-today/). This means you can safely write modern JavaScript in your script, which will make it easier to copy/paste to/from your application's source code.
 
 ```html
 <script type="module">
