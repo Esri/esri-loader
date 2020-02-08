@@ -17,5 +17,10 @@
 Please provide:
 
 1. Steps to reproduce the behavior.
-2. A link to an app where we can carry out those steps (e.g. your publicly facing app, a JSFiddle, a JS Bin, etc.).
-3. Relevant code snippet(s) (only if not easily obtained from the above link).
+2. A link to an app where we can carry out those steps and see the source code.
+
+To help you reproduce issues in an environment that we can't access (e.g. private repository) follow these helpful tips:
+
+- If the problem is related to the ArcGIS API (i.e. behavior of the map, etc), start here https://github.com/Esri/esri-loader#without-a-module-bundler.
+- Otherwise, search for and fork a codesandbox that is similar to your environment (React, etc): https://codesandbox.io/search
+  - For sandboxes that depend on esri-loader see: https://codesandbox.io/search?refinementList[npm_dependencies.dependency][0]=esri-loader
