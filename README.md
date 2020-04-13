@@ -285,6 +285,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 #### Reusable libraries for React
 
+- [esri-loader-hooks](https://github.com/tomwayson/esri-loader-hooks) - Custom React hooks for using the ArcGIS API for JavaScript with esri-loader
 - [react-arcgis](https://github.com/Esri/react-arcgis) - A few components to help you get started using esri-loader with React
 - [esri-loader-react](https://github.com/davetimmins/esri-loader-react) - A React component wrapper around esri-loader ([blog post](https://davetimmins.github.io/2017/07/19/esri-loader-react/))
 - [arcgis-react-redux-legend](https://github.com/davetimmins/arcgis-react-redux-legend) - Legend control for ArcGIS JS v4 using React and Redux
