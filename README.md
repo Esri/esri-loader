@@ -506,7 +506,7 @@ You can load the esri-loader [ES modules directly in modern browsers](https://ca
 ```html
 <script type="module">
   // to use a specific version of esri-loader, include the @version in the URL for example:
-  // https://unpkg.com/esri-loader@2.13.0/dist/esm/esri-loader.js
+  // https://unpkg.com/esri-loader@2.14.0/dist/esm/esri-loader.js
   import { loadModules } from "https://unpkg.com/esri-loader/dist/esm/esri-loader.js";
 
   const main = async () => {
@@ -528,7 +528,7 @@ If you need to run the script in an older browser, you can load the UMD build an
 ```html
 <!--
   to use a specific version of esri-loader, include the @version in the URL for example:
-  https://unpkg.com/esri-loader@2.13.0
+  https://unpkg.com/esri-loader@2.14.0
 -->
 <script src="https://unpkg.com/esri-loader"></script>
 <script>
