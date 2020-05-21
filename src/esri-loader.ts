@@ -12,12 +12,12 @@
 */
 
 // re-export the functions that are part of the public API
-import { loadModules } from './modules';
-import { getScript, isLoaded, loadScript, setDefaultOptions } from './script';
-import { loadCss } from './utils/css';
-import utils from './utils/index';
+import { loadModules } from './modules.ts';
+import { getScript, isLoaded, loadScript, setDefaultOptions } from './script.ts';
+import { loadCss } from './utils/css.ts';
+import utils from './utils/index.ts';
 export { getScript, isLoaded, loadModules, loadScript, loadCss, setDefaultOptions, utils };
-export { ILoadScriptOptions } from './script';
+export { ILoadScriptOptions } from './script.ts';
 
 // NOTE: rollup ignores the default export
 // and builds the UMD namespace out of the above named exports
