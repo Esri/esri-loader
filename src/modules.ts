@@ -1,8 +1,8 @@
 /* Copyright (c) 2017 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-import { getScript, ILoadScriptOptions, isLoaded, loadScript } from './script';
-import utils from './utils/index';
+import { getScript, ILoadScriptOptions, isLoaded, loadScript } from './script.ts';
+import utils from './utils/index.ts';
 
 // wrap Dojo's require() in a promise
 function requireModules<T extends any[] = any[]>(modules: string[]): Promise<T> {
