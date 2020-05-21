@@ -1,7 +1,7 @@
 /* Copyright (c) 2017 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-import { getCdnCssUrl, parseVersion } from './url';
+import { getCdnCssUrl, parseVersion } from './url.ts';
 
 function createStylesheetLink(href: string): HTMLLinkElement {
   const link = document.createElement('link');
