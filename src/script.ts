@@ -1,9 +1,9 @@
 /* Copyright (c) 2017 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
-import { loadCss } from './utils/css';
-import utils from './utils/index';
-import { getCdnUrl } from './utils/url';
+import { loadCss } from './utils/css.ts';
+import utils from './utils/index.ts';
+import { getCdnUrl } from './utils/url.ts';
 
 let defaultOptions: ILoadScriptOptions = {};
 
