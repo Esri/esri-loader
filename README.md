@@ -395,7 +395,7 @@ import { loadModules } from 'esri-loader';
 // and the CSS for that version from the ArcGIS CDN
 const options = { version: '3.32', css: true };
 
-loadModules(['esri/map'], options)
+loadModules(['esri/Map'], options)
   .then(([Map]) => {
     // create map with the given options at a DOM node w/ id 'mapNode'
     let map = new Map('mapNode', {
