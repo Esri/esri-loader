@@ -54,6 +54,7 @@ export interface ILoadScriptOptions {
   url?: string;
   css?: string | boolean;
   dojoConfig?: { [propName: string]: any };
+  esriConfig?: { [propName: string]: any };
   insertCssBefore?: string;
 }
 
@@ -125,6 +126,10 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
         if (opts.dojoConfig) {
           // set dojo configuration parameters before loading the script
           window['dojoConfig'] = opts.dojoConfig;
+        }
+        if (opts.esriConfig) {
+          // set esriConfig parameters before loading the script
+          window['esriConfig'] = opts.esriConfig;
         }
         // create a script object whose source points to the API
         script = createScript(url);
