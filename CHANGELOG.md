@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.15.0] - 2020-07-10
 ### Added
-- default to JSAPI 4.16; update docs w/ latest version numbers - @JoshCrozier
+- default to JSAPI 4.17; update docs w/ latest version numbers - @JoshCrozier
 
 ## [2.14.0] - 2020-04-09
 ### Added

@@ -58,7 +58,7 @@ describe('when loading the script', function() {
       });
     });
     it('should default to latest version', function() {
-      expect(scriptEl.src).toEqual('https://js.arcgis.com/4.16/');
+      expect(scriptEl.src).toEqual('https://js.arcgis.com/4.17/');
     });
     it('should not have set dojoConfig', function() {
       expect(window.dojoConfig).not.toBeDefined();
