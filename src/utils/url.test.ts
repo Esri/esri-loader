@@ -9,7 +9,7 @@ describe ('when getting CDN URLs', () => {
     });
     describe('with a valid version', () => {
       it('should return URL for that version', () => {
-        expect(getCdnUrl('3.33')).toEqual('https://js.arcgis.com/3.33/');
+        expect(getCdnUrl('3.34')).toEqual('https://js.arcgis.com/3.34/');
       });
     });
     // TODO: what about an invalid version? should we throw?
@@ -22,7 +22,7 @@ describe ('when getting CDN URLs', () => {
     });
     describe('for 3.x version >= 3.11', () => {
       it('should return the CSS URL for that version', () => {
-        expect(getCdnCssUrl('3.33')).toEqual('https://js.arcgis.com/3.33/esri/css/esri.css');
+        expect(getCdnCssUrl('3.34')).toEqual('https://js.arcgis.com/3.34/esri/css/esri.css');
       });
     });
     describe('for version < 3.11', () => {

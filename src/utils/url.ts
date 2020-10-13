@@ -19,7 +19,7 @@ export function parseVersion(version) {
 /**
  * Get the CDN url for a given version
  *
- * @param version Ex: '4.16' or '3.33'. Defaults to the latest 4.x version.
+ * @param version Ex: '4.16' or '3.34'. Defaults to the latest 4.x version.
  */
 export function getCdnUrl(version = DEFAULT_VERSION) {
   return `https://js.arcgis.com/${version}/`;
@@ -28,7 +28,7 @@ export function getCdnUrl(version = DEFAULT_VERSION) {
 /**
  * Get the CDN url for a the CSS for a given version and/or theme
  *
- * @param version Ex: '4.16', '3.33', or 'next'. Defaults to the latest 4.x version.
+ * @param version Ex: '4.16', '3.34', or 'next'. Defaults to the latest 4.x version.
  */
 export function getCdnCssUrl(version = DEFAULT_VERSION) {
   const baseUrl = getCdnUrl(version);

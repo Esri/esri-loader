@@ -106,9 +106,9 @@ For example, the snippet below configures esri-loader to use the [latest 3.x rel
 // app.js
 import { setDefaultOptions } from 'esri-loader';
 
-// configure esri-loader to use version 3.33 from the ArcGIS CDN
+// configure esri-loader to use version 3.34 from the ArcGIS CDN
 // NOTE: make sure this is called once before any calls to loadModules()
-setDefaultOptions({ version: '3.33' })
+setDefaultOptions({ version: '3.34' })
 ```
 
 Then later, for example after a map component has mounted, you would use `loadModules()` as normal, except in this case you'd be using the [3.x `Map` class](https://developers.arcgis.com/javascript/3/jsapi/map-amd.html) instead of the 4.x classes.
@@ -192,7 +192,7 @@ import { loadCss } from 'esri-loader';
 loadCss();
 
 // or for a specific CDN version
-loadCss('3.33');
+loadCss('3.34');
 
 // or a from specific URL, like a locally hosted version
 loadCss('http://server/path/to/esri/css/main.css');
@@ -391,9 +391,9 @@ If your application only has a single call to `loadModules()`, you do not need `
 ```js
 import { loadModules } from 'esri-loader';
 
-// configure esri-loader to use version 3.33
+// configure esri-loader to use version 3.34
 // and the CSS for that version from the ArcGIS CDN
-const options = { version: '3.33', css: true };
+const options = { version: '3.34', css: true };
 
 loadModules(['esri/map'], options)
   .then(([Map]) => {
