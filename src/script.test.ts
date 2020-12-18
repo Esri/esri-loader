@@ -7,7 +7,6 @@ declare global {
   /* tslint:disable interface-name */
   interface Window {
     require?: any;
-    dojoConfig?: any;
     stubRequire?: any;
   }
   /* tslint:enable interface-name */
@@ -60,9 +59,6 @@ describe('when loading the script', function() {
     it('should default to latest version', function() {
       expect(scriptEl.src).toEqual('https://js.arcgis.com/4.17/');
     });
-    it('should not have set dojoConfig', function() {
-      expect(window.dojoConfig).not.toBeDefined();
-    });
     it('should not have called loadCss', function() {
       expect((cssUtils.loadCss as jasmine.Spy).calls.any()).toBeFalsy();
     });
@@ -86,9 +82,6 @@ describe('when loading the script', function() {
     });
     it('should load the specified script url', function() {
       expect(scriptEl.src).toEqual(scriptUrl);
-    });
-    it('should not have set dojoConfig', function() {
-      expect(window.dojoConfig).not.toBeDefined();
     });
     it('should have called loadCss', function() {
       expect((cssUtils.loadCss as jasmine.Spy).calls.any()).toBeTruthy();
@@ -183,32 +176,6 @@ describe('when loading the script', function() {
       it('should have called loadCss with the url', function() {
         expect((cssUtils.loadCss as jasmine.Spy).calls.argsFor(0)[0]).toEqual(cssUrl);
       });
-    });
-  });
-  describe('with dojoConfig option', function() {
-    const dojoConfig = {
-      async: true,
-      packages: [
-        {
-          location: 'path/to/somelib',
-          name: 'somelib'
-        }
-      ]
-    };
-    beforeAll(function(done) {
-      fakeLoading();
-      loadScript({
-        dojoConfig
-      })
-      .then((script) => {
-        done();
-      });
-    });
-    it('should have set global dojoConfig', function() {
-      expect(window.dojoConfig).toEqual(dojoConfig);
-    });
-    afterAll(function() {
-      window.dojoConfig = undefined;
     });
   });
   describe('when already loaded by some other means', function() {

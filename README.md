@@ -387,7 +387,6 @@ As mentioned above, you can call `setDefaultOptions()` to configure [how esri-lo
 | `url` | `string` | `undefined` | The URL to a hosted build of the ArcGIS API to use. If both `version` and `url` are passed, `url` will be used. |
 | `css` | `string` or `boolean` | `undefined` | If a `string` is passed it is assumed to be the URL of a CSS file to load. Use `css: true` to load the `version`'s CSS from the CDN. |
 | `insertCssBefore` | `string` | `undefined` | When using `css`, the `<link>` to the stylesheet will be inserted before the first element that matches this [CSS Selector](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Selectors). See [Overriding ArcGIS Styles](#overriding-arcgis-styles). |
-| `dojoConfig` | `Object` | `undefined` | See [Configuring Dojo](#configuring-dojo). |
 
 All of the above are optional.
 
@@ -419,23 +418,21 @@ loadModules(['esri/map'], options)
 
 ### Configuring Dojo
 
-You can pass a [`dojoConfig`](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) option to `loadModules()` to configure Dojo before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
+You can set `window.dojoConfig` before calling `loadModules()` to [configure Dojo](https://dojotoolkit.org/documentation/tutorials/1.10/dojo_config/) before the script tag is loaded. This is useful if you want to use esri-loader to load Dojo packages that are not included in the ArcGIS API for JavaScript such as [FlareClusterLayer](https://github.com/nickcam/FlareClusterLayer).
 
 ```js
 import { loadModules } from 'esri-loader';
 
-// in this case options are only needed so we can configure Dojo before loading the API
-const options = {
+// can configure Dojo before loading the API
+window.dojoConfig = {
   // tell Dojo where to load other packages
-  dojoConfig: {
-    async: true,
-    packages: [
-      {
-        location: '/path/to/fcl',
-        name: 'fcl'
-      }
-    ]
-  }
+  async: true,
+  packages: [
+    {
+      location: '/path/to/fcl',
+      name: 'fcl'
+    }
+  ]
 };
 
 loadModules(['esri/map', 'fcl/FlareClusterLayer_v3'], options)
