@@ -4,11 +4,13 @@
 
 A tiny library to help you use the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) in applications built with popular JavaScript frameworks and bundlers.
 
+**NOTE: As of version v4.18 of the ArcGIS API for JavaScript you can try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) _instead_ of using esri-loader.** Read more below about [when you might want to use esri-loader](#why-is-this-needed).
+
 ![ArcGIS logo, mended broken heart, Angular logo, Ember logo, React logo, Vue logo](https://docs.google.com/drawings/d/e/2PACX-1vSUEfgaupMLz6FXBX65X-nm7cqA0r9ed3rJ_KNISeqzwDDkd8LsubLhQ_hCWwO3zjS41cD5eG7QUBHl/pub?w=888&h=222)
 
 Ready to jump in? Follow the [Install](#install) and [Usage](#usage) instructions below to get started. Then see more in depth instructions on how to [configure esri-loader](#configuring-esri-loader) and use it with [React](#react), [Vue.js](#vuejs), [Angular](#angular), [Ember](#ember), or the [ArcGIS Types](#arcgis-types).
 
-Want to learn more? Read below about [why this library is needed](#why-is-this-needed) and how it can help [improve application load performance](#lazy-loading-the-arcgis-api-for-javascript) and allow you to [use the ArcGIS API in server side rendered applications](#server-side-rendering).
+Want to learn more? Learn how esri-loader can help [improve application load performance](#lazy-loading-the-arcgis-api-for-javascript) and allow you to [use the ArcGIS API in server side rendered applications](#server-side-rendering).
 
 Want to be inspired? See the [Examples](#examples) section below for links to applications that use this library in over a dozen different frameworks.
 
@@ -19,7 +21,7 @@ Want to be inspired? See the [Examples](#examples) section below for links to ap
   - [Loading Modules from the ArcGIS API for JavaScript](#loading-modules-from-the-arcgis-api-for-javascript)
   - [Lazy Loading the ArcGIS API for JavaScript](#lazy-loading-the-arcgis-api-for-javascript)
   - [Loading Styles](#loading-styles)
-- [Why is this needed?](#why-is-this-needed)
+- [Do I need esri-loader?](#do-i-need-esri-loader)
 - [Examples](#examples)
   - [Angular](#angular)
   - [Ember](#ember)
@@ -204,16 +206,21 @@ See below for information on how to [override ArcGIS styles](#overriding-arcgis-
 
 Of course, you don't need to use esri-loader to load the styles. See the [ArcGIS API for JavaScript documentation](https://developers.arcgis.com/javascript/latest/guide/get-api/index.html) for more information on how to load the ArcGIS styles by more traditional means such as adding `<link>` tags to your HTML, or `@import` statements to your CSS.
 
-## Why is this needed?
+## Do I need esri-loader?
 
-Unfortunately, you can't simply `npm install` the ArcGIS API and then `import` 'esri' modules in a non-Dojo application. The only reliable way to load ArcGIS API for JavaScript modules is using Dojo's AMD loader. However, when using the ArcGIS API in an application built with another framework, you typically want to use the tools and conventions of that framework rather than the Dojo build system.
+As of version v4.18 of the ArcGIS API for JavaScript you can try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) and _instead_ of using esri-loader. It's also pretty easy to [migrate applications built  with esri-loader](https://developers.arcgis.com/javascript/latest/guide/es-modules/#esri-loader).
 
-There are a few ways to [integrate the ArcGIS API for JavaScript with other frameworks and their tools](https://developers.arcgis.com/javascript/latest/guide/using-frameworks/), but esri-loader is the most versatile since it works in applications that:
+<p id="why-is-this-needed">Unfortunately, prior to version 4.18, you couldn't simply `npm install` the ArcGIS API and `import` its modules. The only reliable way to load ArcGIS API for JavaScript modules was using Dojo's AMD loader. Rather than using Dojo to build your application, esri-loader provides a way to dynamically load modules at runtime from a hosted build of the ArcGIS API into applications built using modern tools and framework conventions. This allows your application to take advantage of the fast cached <a href="https://developers.arcgis.com/javascript/latest/guide/get-api/#cdn">CDN</a>.</p>
+
+esri-loader has been the most versatile way to integrate the ArcGIS API for JavaScript with other frameworks and their tools since it works in applications that:
 - are built with _any_ loader/bundler, such as [webpack](https://webpack.js.org/), [rollup.js](https://rollupjs.org/), or [Parcel](https://parceljs.org)
-- use [framework tools](https://developers.arcgis.com/javascript/latest/guide/using-frameworks/#framework-tools) that discourage or prevent you from manually editing the webpack configuration
+- use framework tools that discourage or prevent you from manually editing their configuration
 - use either version [4.x](https://developers.arcgis.com/javascript/) _or_ [3.x](https://developers.arcgis.com/javascript/3/) of the ArcGIS API for JavaScript
+- make very limited use of the ArcGIS API and don't want to incur the cost of including it in their build
 
-If you are using webpack, you may be able to use the [@arcgis/webpack-plugin](https://github.com/Esri/arcgis-webpack-plugin) instead of esri-loader. Learn more about [which is the right solution for your application](https://developers.arcgis.com/javascript/latest/guide/using-frameworks/#when-to-use-the-webpack-plugin-vs-esri-loader).
+Most developers will prefer the convenience of being able to `import` from `@arcgis/core` directly, especially if their application makes extensive use of the ArcGIS API. However, if `@arcgis/core` doesn't work in your application for whatever reason, esri-loader probably will.
+
+Learn more about [which is the right solution for your application](https://developers.arcgis.com/javascript/latest/guide/tooling-intro/).
 
 ## Examples
 
