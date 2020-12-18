@@ -210,15 +210,15 @@ Of course, you don't need to use esri-loader to load the styles. See the [ArcGIS
 
 As of version v4.18 of the ArcGIS API for JavaScript you can try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) and _instead_ of using esri-loader. It's also pretty easy to [migrate applications built  with esri-loader](https://developers.arcgis.com/javascript/latest/guide/es-modules/#esri-loader).
 
-<p id="why-is-this-needed">Unfortunately, prior to version 4.18, you couldn't simply `npm install` the ArcGIS API and `import` it's modules. The only reliable way to load ArcGIS API for JavaScript modules was using Dojo's AMD loader. Rather than using Dojo to build your applicaiton, esri-loader provides a way to dynamically load modules at runtime from a hosted build of the ArcGIS API (such as the <a href="https://developers.arcgis.com/javascript/latest/guide/get-api/#cdn">CDN</a>) into applications built using modern tools and framework conventions.</p>
+<p id="why-is-this-needed">Unfortunately, prior to version 4.18, you couldn't simply `npm install` the ArcGIS API and `import` its modules. The only reliable way to load ArcGIS API for JavaScript modules was using Dojo's AMD loader. Rather than using Dojo to build your application, esri-loader provides a way to dynamically load modules at runtime from a hosted build of the ArcGIS API into applications built using modern tools and framework conventions. This allows your application to take advantage of the fast cached <a href="https://developers.arcgis.com/javascript/latest/guide/get-api/#cdn">CDN</a>.</p>
 
 esri-loader has been the most versatile way to integrate the ArcGIS API for JavaScript with other frameworks and their tools since it works in applications that:
 - are built with _any_ loader/bundler, such as [webpack](https://webpack.js.org/), [rollup.js](https://rollupjs.org/), or [Parcel](https://parceljs.org)
 - use framework tools that discourage or prevent you from manually editing their configuration
 - use either version [4.x](https://developers.arcgis.com/javascript/) _or_ [3.x](https://developers.arcgis.com/javascript/3/) of the ArcGIS API for JavaScript
-- make very limited use of the ArcGIS API and don't want to incure the cost of including it in their build
+- make very limited use of the ArcGIS API and don't want to incur the cost of including it in their build
 
-Most developers will prefer the convenience of being able to `import` from `@arcgis/core` directly, especially if their applicaion makes extensive use of the ArcGIS API. However, if `@arcgis/core` doesn't work in your application for whatever reason, esri-loader probably will.
+Most developers will prefer the convenience of being able to `import` from `@arcgis/core` directly, especially if their application makes extensive use of the ArcGIS API. However, if `@arcgis/core` doesn't work in your application for whatever reason, esri-loader probably will.
 
 Learn more about [which is the right solution for your application](https://developers.arcgis.com/javascript/latest/guide/tooling-intro/).
 
