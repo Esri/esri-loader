@@ -12,24 +12,9 @@
 */
 
 // re-export the functions that are part of the public API
-import { loadModules } from './modules';
-import { getScript, isLoaded, loadScript, setDefaultOptions } from './script';
-import { loadCss } from './utils/css';
 import utils from './utils/index';
-export { getScript, isLoaded, loadModules, loadScript, loadCss, setDefaultOptions, utils };
+export { loadModules } from './modules';
+export { getScript, isLoaded, loadScript, setDefaultOptions } from './script';
 export { ILoadScriptOptions } from './script';
-
-// NOTE: rollup ignores the default export
-// and builds the UMD namespace out of the above named exports
-// so this is only needed so that consumers of the ESM build
-// can do esriLoader.loadModules(), etc
-// TODO: remove this next breaking change
-export default {
-  getScript,
-  isLoaded,
-  loadModules,
-  loadScript,
-  loadCss,
-  setDefaultOptions,
-  utils
-};
+export { loadCss } from './utils/css';
+export { utils };

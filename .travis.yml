@@ -1,8 +1,7 @@
 dist: trusty
 language: node_js
 node_js:
-- 10
-- 11
+- node
 addons:
   firefox: latest
 before_script:
