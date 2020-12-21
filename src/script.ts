@@ -53,7 +53,8 @@ export interface ILoadScriptOptions {
   version?: string;
   url?: string;
   css?: string | boolean;
-  dojoConfig?: { [propName: string]: any };
+  // NOTE: in the future we could support adding the data-dojo-config attribute via
+  // dojoConfig?: string;
   insertCssBefore?: string;
 }
 
@@ -77,7 +78,7 @@ export function isLoaded() {
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
   // we would have liked to use spread like { ...defaultOptions, ...options }
   // but TS would inject a polyfill that would require use to configure rollup w content: 'window'
-  // if we have another occasion to use spread, let'd do that and replace this for...in
+  // if we have another occasion to use spread, let's do that and replace this for...in
   const opts: ILoadScriptOptions = {};
   [defaultOptions, options].forEach((obj) => {
     for (const prop in obj) {
@@ -121,10 +122,6 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
           const useVersion = css === true;
           // load the css before loading the script
           loadCss(useVersion ? version : (css as string), opts.insertCssBefore);
-        }
-        if (opts.dojoConfig) {
-          // set dojo configuration parameters before loading the script
-          window['dojoConfig'] = opts.dojoConfig;
         }
         // create a script object whose source points to the API
         script = createScript(url);
