@@ -10,8 +10,6 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Breaking
 
 ## [3.0.0] - 2020-12-31
-
-## [3.0.0] - 2020-12-31
 ### Added
 - default to JSAPI 4.18; update docs w/ latest version numbers - @gavinr
 
