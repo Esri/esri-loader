@@ -29,6 +29,7 @@ Want to be inspired? See the [Examples](#examples) section below for links to ap
   - [Vue.js](#vuejs)
 - [Advanced Usage](#advanced-usage)
   - [ArcGIS Types](#arcgis-types)
+    - [esri-loader-typings-helper Plugin](#esri-loader-typings-helper-plugin)
   - [Configuring esri-loader](#configuring-esri-loader)
   - [Configuring Dojo](#configuring-dojo)
   - [Overriding ArcGIS Styles](#overriding-arcgis-styles)
@@ -376,6 +377,20 @@ A more complete 3.x sample can be [seen here](https://codesandbox.io/s/rj6jloy4n
 #### Types in Angular CLI Applications
 
 For Angular CLI applications, you will also need to add "arcgis-js-api" to `compilerOptions.types` in src/tsconfig.app.json and src/tsconfig.spec.json [as shown here](https://gist.github.com/tomwayson/e6260adfd56c2529313936528b8adacd#adding-the-arcgis-api-for-javascript-types).
+
+#### esri-loader-typings-helper Plugin
+
+An easy way to automatically get the typings for the ArcGIS JS API modules is to use the [esri-loader-typings-helper](https://marketplace.visualstudio.com/items?itemName=CalebMackey.esri-loader-typings-helper) plugin for [VS Code](https://code.visualstudio.com/).  This plugin will allow you to simply call out an array of modules to import, and when the text is selected and the plugin is called, it will automatically generate the `loadModules()` code for you in either the `async/await` pattern or using a `Promise`:
+
+async example:
+
+![typings-helper-async](https://github.com/CalebM1987/esri-loader-typings-helper/raw/HEAD/previews/plugin-async.gif)
+
+promise example: 
+
+![typings-helper-async](https://github.com/CalebM1987/esri-loader-typings-helper/raw/HEAD/previews/plugin-promise.gif)
+
+> Note: this plugin is not restricted to just using TypeScript, it will also work in JavaScript to generate the same code, except without the type declarations.
 
 ### Configuring esri-loader
 
