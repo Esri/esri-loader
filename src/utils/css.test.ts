@@ -2,7 +2,7 @@ import { loadCss } from './css';
 
 describe('when loading the css', () => {
   describe('with no arguments', () => {
-    const url = 'https://js.arcgis.com/4.19/esri/themes/light/main.css';
+    const url = 'https://js.arcgis.com/4.20/esri/themes/light/main.css';
     let link;
     beforeAll(() => {
       spyOn(document.head, 'appendChild').and.stub();
@@ -75,7 +75,7 @@ describe('when loading the css', () => {
   });
   describe('when called twice', () => {
     describe('when loading the same url', () => {
-      const url = 'https://js.arcgis.com/4.19/esri/themes/light/main.css';
+      const url = 'https://js.arcgis.com/4.20/esri/themes/light/main.css';
       let link;
       let link2;
       beforeAll(() => {
@@ -93,7 +93,7 @@ describe('when loading the css', () => {
     });
   });
   describe('when inserting before an existing node', () => {
-    const url = 'https://js.arcgis.com/4.19/esri/themes/light/main.css';
+    const url = 'https://js.arcgis.com/4.20/esri/themes/light/main.css';
     // insert before the first <style> tag
     const before = 'style';
     let link;
