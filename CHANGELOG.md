@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- default to JSAPI 4.20; update docs w/ latest version numbers - @gavinr
+
 ### Changed
 ### Fixed
 ### Removed
