@@ -1,4 +1,4 @@
-# This is a basic workflow to help you get started with Actions
+# install dependencies, run build and tests
 
 name: CI
 
@@ -28,10 +28,10 @@ jobs:
       # set up firefox
       - uses: browser-actions/setup-firefox@latest
 
-      # run yarn install
+      # install dependencies and run build
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install # will run `yarn install` command
 
       # run tests
-      - run: env FIREFOX_BIN=`which firefox` node_modules/.bin/karma start --single-run=true --browsers FirefoxHeadless
+      - run: env FIREFOX_BIN=`which firefox` yarn ci

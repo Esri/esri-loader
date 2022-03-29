@@ -15,6 +15,7 @@
     "bundle": "rollup -c",
     "build:release": "npm run build && npm run bundle -- profiles/prod.config.js",
     "compile": "tsc",
+    "ci": "karma start --single-run=true --browsers FirefoxHeadless",
     "clean": "rimraf dist && mkdirp dist",
     "lint": "tslint -c tslint.json 'src/esri-loader.ts'",
     "prebuild:release": "npm run clean",
@@ -22,7 +23,7 @@
     "prepublish": "npm run build:release",
     "preversion": "npm run test && git add README.md CHANGELOG.md",
     "start": "karma start",
-    "test": "karma start --single-run=true --browsers Firefox"
+    "test": "karma start --single-run=true --browsers Chrome,Firefox"
   },
   "repository": {
     "type": "git",
