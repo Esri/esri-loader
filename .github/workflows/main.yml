@@ -27,7 +27,7 @@ jobs:
 
       # set up firefox
       - uses: browser-actions/setup-firefox@latest
-      - run: which firefox
+      - run: FIREFOX_BIN=`which firefox`
 
       # run yarn install, build, and test
       - uses: borales/actions-yarn@v2.3.0
