@@ -27,12 +27,11 @@ jobs:
 
       # set up firefox
       - uses: browser-actions/setup-firefox@latest
-      - run: env FIREFOX_BIN=`which firefox`
 
-      # run yarn install, build, and test
+      # run yarn install
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: test # will run `yarn test` command
+
+      # run tests
+      - run: env FIREFOX_BIN=`which firefox` karma start --single-run=true --browsers Firefox
