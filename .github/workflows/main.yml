@@ -27,15 +27,12 @@ jobs:
 
       # set up firefox
       - uses: browser-actions/setup-firefox@latest
-      - run: firefox --version
+      - run: which firefox
 
       # run yarn install, build, and test
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install # will run `yarn install` command
-      - uses: borales/actions-yarn@v2.3.0
-        with:
-          cmd: build # will run `yarn build` command
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: test # will run `yarn test` command

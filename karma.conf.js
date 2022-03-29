@@ -1,8 +1,6 @@
 // Karma configuration
 // Generated on Wed Mar 08 2017 13:05:58 GMT-0800 (PST)
 
-var isTravis = !!process.env.TRAVIS;
-
 module.exports = function(config) {
   var configuration = {
 
@@ -79,11 +77,6 @@ module.exports = function(config) {
       dir : 'coverage/'
     }
   };
-
-  // run code coverage locally
-  if (!isTravis) {
-    configuration.reporters.push('coverage');
-  }
 
   config.set(configuration);
 };
