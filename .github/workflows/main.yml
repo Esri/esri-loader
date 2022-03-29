@@ -25,6 +25,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
+      # set up firefox
+      - uses: browser-actions/setup-firefox@latest
+      - run: firefox --version
+
+      # run yarn install, build, and test
       - uses: borales/actions-yarn@v2.3.0
         with:
           cmd: install # will run `yarn install` command
