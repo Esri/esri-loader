@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Added
 ### Changed
+- fix build by not compiling @types
 ### Fixed
 ### Removed
 ### Breaking
