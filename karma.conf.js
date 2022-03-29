@@ -75,6 +75,15 @@ module.exports = function(config) {
     coverageReporter: {
       type : 'text',
       dir : 'coverage/'
+    },
+
+    customLaunchers: {
+      'FirefoxHeadless': {
+        base: 'Firefox',
+        flags: [
+          '-headless',
+        ],
+      }
     }
   };
 
