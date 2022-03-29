@@ -34,4 +34,4 @@ jobs:
           cmd: install # will run `yarn install` command
 
       # run tests
-      - run: env FIREFOX_BIN=`which firefox` karma start --single-run=true --browsers Firefox
+      - run: FIREFOX_BIN=`which firefox` karma start --single-run=true --browsers Firefox
