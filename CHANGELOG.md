@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 ### Changed
 - fix build by not compiling @types
+- update TypeScript and karma-typescript dependencies
+- use GitHub Actions instead of travis.yml
+
 ### Fixed
 ### Removed
 ### Breaking
