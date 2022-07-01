@@ -4,6 +4,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+- default to JSAPI 4.24; update docs w/ latest version numbers - @gavinr
+
 ### Changed
 - fix build by not compiling @types
 - update TypeScript and karma-typescript dependencies
