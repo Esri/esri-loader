@@ -4,16 +4,19 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 ### Added
+### Changed
+### Fixed
+### Removed
+### Breaking
+
+## [3.6.0] - 2022-07-07
+### Added
 - default to JSAPI 4.24; update docs w/ latest version numbers - @gavinr
 
 ### Changed
 - fix build by not compiling @types
 - update TypeScript and karma-typescript dependencies
 - use GitHub Actions instead of travis.yml
-
-### Fixed
-### Removed
-### Breaking
 
 ## [3.5.0] - 2022-03-29
 ### Added
@@ -303,7 +306,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v3.5.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v3.6.0...HEAD
+[3.6.0]: https://github.com/Esri/esri-loader/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/Esri/esri-loader/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/Esri/esri-loader/compare/v3.3.0...v3.4.0
 [3.3.0]: https://github.com/Esri/esri-loader/compare/v3.2.0...v3.3.0
