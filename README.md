@@ -2,9 +2,9 @@
 
 [![Travis](https://img.shields.io/travis/Esri/esri-loader.svg)](https://travis-ci.org/Esri/esri-loader/builds/) [![npm](https://img.shields.io/npm/v/esri-loader.svg)](https://github.com/Esri/esri-loader/releases) [![npm](https://img.shields.io/npm/dw/esri-loader.svg)](https://www.npmjs.com/package/esri-loader) [![npm](https://img.shields.io/npm/l/esri-loader.svg)](https://github.com/Esri/esri-loader/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/esri/esri-loader.svg?style=social&label=Stars)](https://github.com/Esri/esri-loader/stargazers)
 
-A tiny library to help you use the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/) in applications built with popular JavaScript frameworks and bundlers.
+A tiny library to help you use the [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/tooling-intro/) AMD modules in applications built with popular JavaScript frameworks and bundlers.
 
-**NOTE: As of version v4.18 of the ArcGIS API for JavaScript you can try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) _instead_ of using esri-loader.** Read more below about [when you might want to use esri-loader](#why-is-this-needed).
+**NOTE: It is recommended to try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) _instead_ of using esri-loader.** Read more below about [when you might want to use esri-loader](#why-is-this-needed).
 
 ![ArcGIS logo, mended broken heart, Angular logo, Ember logo, React logo, Vue logo](https://docs.google.com/drawings/d/e/2PACX-1vSUEfgaupMLz6FXBX65X-nm7cqA0r9ed3rJ_KNISeqzwDDkd8LsubLhQ_hCWwO3zjS41cD5eG7QUBHl/pub?w=888&h=222)
 
@@ -22,6 +22,7 @@ Want to be inspired? See the [Examples](#examples) section below for links to ap
   - [Lazy Loading the ArcGIS API for JavaScript](#lazy-loading-the-arcgis-api-for-javascript)
   - [Loading Styles](#loading-styles)
 - [Do I need esri-loader?](#do-i-need-esri-loader)
+- [Known Limitations](#known-limitations)
 - [Examples](#examples)
   - [Angular](#angular)
   - [Ember](#ember)
@@ -209,27 +210,29 @@ Of course, you don't need to use esri-loader to load the styles. See the [ArcGIS
 
 ## Do I need esri-loader?
 
-As of version v4.18 of the ArcGIS API for JavaScript you can try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) and _instead_ of using esri-loader. It's also pretty easy to [migrate applications built  with esri-loader](https://developers.arcgis.com/javascript/latest/guide/es-modules/#esri-loader).
+It is recommended to try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) and _instead_ of using esri-loader. It's also pretty easy to [migrate applications built  with esri-loader](https://developers.arcgis.com/javascript/latest/guide/es-modules/#esri-loader).
 
-<a id="why-is-this-needed"></a>Unfortunately, prior to version 4.18, you couldn't simply `npm install` the ArcGIS API and `import` its modules. The only reliable way to load ArcGIS API for JavaScript modules was using Dojo's AMD loader. Rather than using Dojo to build your application, esri-loader provides a way to dynamically load modules at runtime from a hosted build of the ArcGIS API into applications built using modern tools and framework conventions. This allows your application to take advantage of the fast cached [CDN](https://developers.arcgis.com/javascript/latest/guide/get-api/#cdn).
+<a id="why-is-this-needed"></a>For versions of the API before 4.18, esri-loader is required when working with frameworks or bundlers. esri-loader provides a way to dynamically load the API's AMD modules at runtime from the [ArcGIS CDN](https://developers.arcgis.com/javascript/latest/install-and-set-up/#amd-modules-via-arcgis-cdn) into applications built using modern tools and framework conventions. This allows your application to take advantage of the fast cached [CDN](https://developers.arcgis.com/javascript/latest/guide/get-api/#cdn).
 
-esri-loader has been the most versatile way to integrate the ArcGIS API for JavaScript with other frameworks and their tools since it works in applications that:
+esri-loader provides a convenient way to lazy load the API in any application, and it has been the most versatile way to integrate the ArcGIS API for JavaScript with other frameworks and their tools since it works in applications that:
 - are built with _any_ loader/bundler, such as [webpack](https://webpack.js.org/), [rollup.js](https://rollupjs.org/), or [Parcel](https://parceljs.org)
 - use framework tools that discourage or prevent you from manually editing their configuration
 - use either version [4.x](https://developers.arcgis.com/javascript/) _or_ [3.x](https://developers.arcgis.com/javascript/3/) of the ArcGIS API for JavaScript
 - make very limited use of the ArcGIS API and don't want to incur the cost of including it in their build
 
-Most developers will prefer the convenience of being able to `import` from `@arcgis/core` directly, especially if their application makes extensive use of the ArcGIS API. However, if `@arcgis/core` doesn't work in your application for whatever reason, esri-loader probably will.
+Most developers will prefer the convenience and native interoperability of being able to `import` modules from `@arcgis/core` directly, especially if their application makes extensive use of the ArcGIS API. However, if `@arcgis/core` doesn't work in your application for whatever reason, esri-loader probably will.
 
 Learn more about [which is the right solution for your application](https://developers.arcgis.com/javascript/latest/guide/tooling-intro/).
+
+## Known Limitations
+
+- <a id="known-limitations"></a>Compatibility with implementations that don't support [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) at runtime, within AMD modules, will be deprecated at version 4.25. In particular, Angular applications using esri-loader will need to migrate from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/). Refer to the [APIs FAQ](https://developers.arcgis.com/javascript/latest/faq/#how-are-breaking-changes-managed) for more information on breaking changes.
 
 ## Examples
 
 Here are some applications and framework-specific wrapper libraries that use this library. We don't guarantee that these examples are current, so check the version of esri-loader and their commit history before using them as a reference. They are presented by framework in alphabetical order - not picking any favorites here :stuck_out_tongue_winking_eye::
 
 ### [Angular](https://angular.io/)
-
-> See the ArcGIS API guides for up to date examples of how to [use the ArcGIS API for JavaScript with Angular](https://developers.arcgis.com/javascript/latest/guide/angular/).
 
 #### Reusable libraries for Angular
 
@@ -238,8 +241,6 @@ Here are some applications and framework-specific wrapper libraries that use thi
 #### Example Angular applications
 
 - [angular-cli-esri-map](https://github.com/Esri/angular-cli-esri-map) - Example of how to build a simple mapping component using Angular CLI.
-
-**NOTE**: If you want to use the ArcGIS API in an [AngularJS (1.x)](https://angularjs.org/) application, see [angular-esri-map](https://github.com/Esri/angular-esri-map), which is actually where the code in this library was originally extracted from.
 
 ### [CanJS](https://canjs.com/)
 
@@ -259,10 +260,6 @@ Here are some applications and framework-specific wrapper libraries that use thi
 
 - [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron
 
-### [Ember](https://www.emberjs.com/)
-
-> See the ArcGIS API guides for up to date examples of how to [use the ArcGIS API for JavaScript with Ember](https://developers.arcgis.com/javascript/latest/guide/ember/).
-
 #### Reusable libraries for Ember
 
 - [ember-esri-loader](https://github.com/Esri/ember-esri-loader) - An Ember addon that wraps this library
@@ -279,17 +276,9 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 - [esri-hyperapp-example](https://github.com/jwasilgeo/esri-hyperapp-example) - An example Hyperapp application that shows how to use esri-loader to create a custom map view and component.
 
-### [Ionic](https://ionicframework.com/)
-
-- [ionic2-esri-map](https://github.com/andygup/ionic2-esri-map) - Prototype app demonstrating how to use Ionic 3+ with the ArcGIS API for JavaScript
-
 ### [Preact](https://github.com/developit/preact)
 
 - [esri-preact-pwa](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS API for JavaScript built with Preact
-
-### [React](https://facebook.github.io/react/)
-
-> See the ArcGIS API guides for up to date examples of how to [use the ArcGIS API for JavaScript with React](https://developers.arcgis.com/javascript/latest/guide/react/).
 
 #### Reusable libraries for React
 
@@ -320,8 +309,6 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ### [Vue.js](https://vuejs.org/)
 
-> See the ArcGIS API guides for up to date examples of how to [use the ArcGIS API for JavaScript with Vue](https://developers.arcgis.com/javascript/latest/guide/vue/).
-
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
 - [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
 - [vue-jsapi4](https://github.com/odoe/vue-jsapi4) - An example of how to use the [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/) in a [NUXT](https://nuxtjs.org/) application ([blog post](https://odoe.net/blog/arcgis-api-4-for-js-with-vue-cli-and-nuxt/), [video](https://youtu.be/hqJzzgM8seo))
@@ -329,9 +316,9 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ## Advanced Usage
 
-### ArcGIS Types
+### ArcGIS TypeScript Types
 
-This library doesn't make any assumptions about which version of the ArcGIS API you are using, so you will have to install the appropriate types. Furthermore, because you don't `import` esri modules directly with esri-loader, you'll have to follow the instructions below to use the types in your application.
+This library doesn't make any assumptions about which version of the ArcGIS API for JavaScript you are using, so you will have to install the appropriate types. Furthermore, because you don't `import` esri modules directly with esri-loader, you'll have to follow the instructions below to use the types in your application.
 
 #### 4.x Types
 
@@ -343,7 +330,7 @@ After installing the 4.x types, you can use the `__esri` namespace for the types
 
 You can use [these instructions](https://github.com/Esri/jsapi-resources/tree/master/3.x/typescript) to install the 3.x types.
 
-The `__esri` namespace is not defined for 3.x types, but you can `import * as esri from 'esri';` to use the types [as shown here](https://github.com/Esri/angular-cli-esri-map/issues/17#issue-360490589).
+Use `import * as esri from 'esri';` to implement the types [as shown here](https://github.com/Esri/angular-cli-esri-map/issues/17#issue-360490589).
 
 #### TypeScript import()
 
@@ -670,7 +657,7 @@ Esri welcomes contributions from anyone and everyone. Please see our [guidelines
 
 ## Licensing
 
-Copyright &copy; 2016-2019 Esri
+Copyright &copy; 2016-2022 Esri
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
