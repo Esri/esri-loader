@@ -2,7 +2,7 @@ import { loadCss } from './css';
 
 describe('when loading the css', () => {
   describe('with no arguments', () => {
-    const url = 'https://js.arcgis.com/4.24/esri/themes/light/main.css';
+    const url = 'https://js.arcgis.com/4.25/esri/themes/light/main.css';
     let link;
     beforeAll(() => {
       spyOn(document.head, 'appendChild').and.stub();
@@ -20,12 +20,12 @@ describe('when loading the css', () => {
     });
   });
   describe('with a version', () => {
-    const url = 'https://js.arcgis.com/4.8/esri/themes/light/main.css';
+    const url = 'https://js.arcgis.com/4.25/esri/themes/light/main.css';
     let link;
     beforeAll(() => {
       spyOn(document.head, 'appendChild').and.stub();
       spyOn(document, 'querySelector');
-      link = loadCss('4.8');
+      link = loadCss('4.25');
     });
     it('should have checked if the link was already appended', () => {
       expect((document.querySelector as jasmine.Spy).calls.argsFor(0)[0]).toEqual(`link[href*="${url}"]`);
@@ -75,7 +75,7 @@ describe('when loading the css', () => {
   });
   describe('when called twice', () => {
     describe('when loading the same url', () => {
-      const url = 'https://js.arcgis.com/4.24/esri/themes/light/main.css';
+      const url = 'https://js.arcgis.com/4.25/esri/themes/light/main.css';
       let link;
       let link2;
       beforeAll(() => {
@@ -93,7 +93,7 @@ describe('when loading the css', () => {
     });
   });
   describe('when inserting before an existing node', () => {
-    const url = 'https://js.arcgis.com/4.24/esri/themes/light/main.css';
+    const url = 'https://js.arcgis.com/4.25/esri/themes/light/main.css';
     // insert before the first <style> tag
     const before = 'style';
     let link;
