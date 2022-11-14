@@ -9,6 +9,12 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 ### Breaking
 
+## [3.7.0] - 2022-11-10
+### Added
+- default to JS API 4.25; update docs w/ latest version numbers - @andygup
+- raise visibility of deprecation notice for frameworks that do not support async/await at runtime, e.g. Angular due to limitations in Zone.js
+- archive framework samples and various 3.x-related sections to archived-examples.md. Most of the samples haven't been updated in years
+
 ## [3.6.0] - 2022-07-07
 ### Added
 - default to JSAPI 4.24; update docs w/ latest version numbers - @gavinr

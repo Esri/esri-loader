@@ -57,7 +57,7 @@ describe('when loading the script', function() {
       });
     });
     it('should default to latest version', function() {
-      expect(scriptEl.src).toEqual('https://js.arcgis.com/4.24/');
+      expect(scriptEl.src).toEqual('https://js.arcgis.com/4.25/');
     });
     it('should not have called loadCss', function() {
       expect((cssUtils.loadCss as jasmine.Spy).calls.any()).toBeFalsy();
@@ -94,12 +94,12 @@ describe('when loading the script', function() {
     });
   });
   describe('with a specific version from the CDN', function() {
-    const expected = 'https://js.arcgis.com/3.41/';
+    const expected = 'https://js.arcgis.com/3.42/';
     let scriptEl;
     beforeAll(function(done) {
       fakeLoading();
       loadScript({
-        version: '3.41'
+        version: '3.42'
       })
       .then((script) => {
         // hold onto script element for assertions below
@@ -145,7 +145,7 @@ describe('when loading the script', function() {
       });
     });
     describe('with a specific version from the CDN', () => {
-      const version = '3.41';
+      const version = '3.42';
       beforeAll(function(done) {
         fakeLoading();
         loadScript({

@@ -1,4 +1,4 @@
-/* Copyright (c) 2017 Environmental Systems Research Institute, Inc.
+/* Copyright (c) 2022 Environmental Systems Research Institute, Inc.
  * Apache-2.0 */
 
 import { loadCss } from './utils/css';

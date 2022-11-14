@@ -4,12 +4,12 @@ describe ('when getting CDN URLs', () => {
   describe('for the script', () => {
     describe('with no arguments', () => {
       it('should default to latest 4.x URL', () => {
-        expect(getCdnUrl()).toEqual('https://js.arcgis.com/4.24/');
+        expect(getCdnUrl()).toEqual('https://js.arcgis.com/4.25/');
       });
     });
     describe('with a valid version', () => {
       it('should return URL for that version', () => {
-        expect(getCdnUrl('3.41')).toEqual('https://js.arcgis.com/3.41/');
+        expect(getCdnUrl('3.42')).toEqual('https://js.arcgis.com/3.42/');
       });
     });
     // TODO: what about an invalid version? should we throw?
@@ -17,12 +17,12 @@ describe ('when getting CDN URLs', () => {
   describe('for the CSS', () => {
     describe('with no arguments', () => {
       it('should default to the latest 4.x CSS URL', () => {
-        expect(getCdnCssUrl()).toEqual('https://js.arcgis.com/4.24/esri/themes/light/main.css');
+        expect(getCdnCssUrl()).toEqual('https://js.arcgis.com/4.25/esri/themes/light/main.css');
       });
     });
     describe('for 3.x version >= 3.11', () => {
       it('should return the CSS URL for that version', () => {
-        expect(getCdnCssUrl('3.41')).toEqual('https://js.arcgis.com/3.41/esri/css/esri.css');
+        expect(getCdnCssUrl('3.42')).toEqual('https://js.arcgis.com/3.42/esri/css/esri.css');
       });
     });
     describe('for version < 3.11', () => {
