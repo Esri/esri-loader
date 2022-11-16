@@ -9,9 +9,10 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Removed
 ### Breaking
 
-## [3.7.0] - 2022-11-10
+## [3.7.0] - 2022-11-16
 ### Added
 - default to JS API 4.25; update docs w/ latest version numbers - @andygup
+### Changed
 - raise visibility of deprecation notice for frameworks that do not support async/await at runtime, e.g. Angular due to limitations in Zone.js
 - archive framework samples and various 3.x-related sections to archived-examples.md. Most of the samples haven't been updated in years
 
@@ -312,7 +313,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - copied over source from angular-cli-esri and set up TS build
 
-[Unreleased]: https://github.com/Esri/esri-loader/compare/v3.6.0...HEAD
+[Unreleased]: https://github.com/Esri/esri-loader/compare/v3.7.0...HEAD
+[3.7.0]: https://github.com/Esri/esri-loader/compare/v3.6.0...v3.7.0
 [3.6.0]: https://github.com/Esri/esri-loader/compare/v3.5.0...v3.6.0
 [3.5.0]: https://github.com/Esri/esri-loader/compare/v3.4.0...v3.5.0
 [3.4.0]: https://github.com/Esri/esri-loader/compare/v3.3.0...v3.4.0
