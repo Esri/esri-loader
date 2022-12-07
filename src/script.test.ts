@@ -12,7 +12,7 @@ declare global {
   /* tslint:enable interface-name */
 }
 
-// allow the mock scripts to emulate that the JSAPI has loaded
+// allow the mock scripts to emulate that the SDK has loaded
 window.stubRequire = stubRequire;
 
 // remove script tags added by esri-loader
@@ -190,7 +190,7 @@ describe('when loading the script', function() {
         done.fail('call to loadScript should have failed');
       })
       .catch((err) => {
-        expect(err.message).toEqual(`The ArcGIS API for JavaScript is already loaded.`);
+        expect(err.message).toEqual(`The ArcGIS Maps SDK for JavaScript is already loaded.`);
         done();
       });
     });
@@ -276,7 +276,7 @@ describe('when loading the script', function() {
           done.fail('second call to loadScript should have failed');
         })
         .catch((err) => {
-          expect(err.message).toEqual(`The ArcGIS API for JavaScript is already loaded (${jaspi3xUrl}).`);
+          expect(err.message).toEqual(`The ArcGIS Maps SDK for JavaScript is already loaded (${jaspi3xUrl}).`);
           done();
         });
       });

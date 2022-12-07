@@ -21,6 +21,6 @@ Please provide:
 
 To help you reproduce issues in an environment that we can't access (e.g. private repository) follow these helpful tips:
 
-- If the problem is related to the ArcGIS API (i.e. behavior of the map, etc), start here https://github.com/Esri/esri-loader#without-a-module-bundler.
+- If the problem is related to the ArcGIS Maps SDK for JavaScript (i.e. behavior of the map, etc), start here https://github.com/Esri/esri-loader#without-a-module-bundler.
 - Otherwise, search for and fork a codesandbox that is similar to your environment (React, etc): https://codesandbox.io/search
   - For sandboxes that depend on esri-loader see: https://codesandbox.io/search?refinementList[npm_dependencies.dependency][0]=esri-loader

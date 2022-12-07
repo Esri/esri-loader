@@ -34,7 +34,7 @@ function getCssUrl(urlOrVersion?: string) {
     : urlOrVersion;
 }
 
-// lazy load the CSS needed for the ArcGIS API
+// lazy load the CSS needed for the ArcGIS Maps SDK for JavaScript
 export function loadCss(urlOrVersion?: string, before?: string) {
   const url = getCssUrl(urlOrVersion);
   let link = getCss(url);
