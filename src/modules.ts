@@ -19,7 +19,7 @@ function requireModules<T extends any[] = any[]>(modules: string[]): Promise<T> 
 }
 
 // returns a promise that resolves with an array of the required modules
-// also will attempt to lazy load the ArcGIS Maps SDK for JavaScript 
+// also will attempt to lazy load the API
 // if it has not already been loaded
 export function loadModules<T extends any[] = any[]>(modules: string[], loadScriptOptions: ILoadScriptOptions = {}): Promise<T> {
   if (!isLoaded()) {

@@ -67,14 +67,14 @@ export function setDefaultOptions(options: ILoadScriptOptions = {}): void {
 export function getScript() {
   return document.querySelector('script[data-esri-loader]') as HTMLScriptElement;
 }
-// has ArcGIS SDK been loaded on the page yet?
+// has ArcGIS API been loaded on the page yet?
 export function isLoaded() {
   const globalRequire = window['require'];
   // .on() ensures that it's Dojo's AMD loader
   return globalRequire && globalRequire.on;
 }
 
-// load the ArcGIS SDK on the page
+// load the ArcGIS API on the page
 export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScriptElement> {
   // we would have liked to use spread like { ...defaultOptions, ...options }
   // but TS would inject a polyfill that would require use to configure rollup w content: 'window'
@@ -94,13 +94,13 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
   return new utils.Promise((resolve, reject) => {
     let script = getScript();
     if (script) {
-      // the SDK is already loaded or in the process of loading...
+      // the API is already loaded or in the process of loading...
       // NOTE: have to test against scr attribute value, not script.src
       // b/c the latter will return the full url for relative paths
       const src = script.getAttribute('src');
       if (src !== url) {
-        // potentially trying to load a different version of the SDK
-        reject(new Error(`The ArcGIS Maps SDK for JavaScript is already loaded (${src}).`));
+        // potentially trying to load a different version of the API
+        reject(new Error(`The ArcGIS API is already loaded (${src}).`));
       } else {
         if (isLoaded()) {
           // the script has already successfully loaded
@@ -112,18 +112,18 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
       }
     } else {
       if (isLoaded()) {
-        // the SDK has been loaded by some other means
-        // potentially trying to load a different version of the SDK
-        reject(new Error(`The ArcGIS Maps SDK for JavaScript is already loaded.`));
+        // the API has been loaded by some other means
+        // potentially trying to load a different version of the API
+        reject(new Error(`The ArcGIS API is already loaded.`));
       } else {
-        // this is the first time attempting to load the SDK
+        // this is the first time attempting to load the API
         const css = opts.css;
         if (css) {
           const useVersion = css === true;
           // load the css before loading the script
           loadCss(useVersion ? version : (css as string), opts.insertCssBefore);
         }
-        // create a script object whose source points to the SDK
+        // create a script object whose source points to the API
         script = createScript(url);
         // _currentUrl = url;
         // once the script is loaded...
