@@ -12,7 +12,7 @@ declare global {
   /* tslint:enable interface-name */
 }
 
-// allow the mock scripts to emulate that the API has loaded
+// allow the mock scripts to emulate that the SDK has loaded
 window.stubRequire = stubRequire;
 
 // remove script tags added by esri-loader
