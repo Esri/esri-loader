@@ -11,14 +11,14 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.7.0] - 2022-11-16
 ### Added
-- default to JS SDK 4.25; update docs w/ latest version numbers - @andygup
+- default to 4.25; update docs w/ latest version numbers - @andygup
 ### Changed
 - raise visibility of deprecation notice for frameworks that do not support async/await at runtime, e.g. Angular due to limitations in Zone.js
 - archive framework samples and various 3.x-related sections to archived-examples.md. Most of the samples haven't been updated in years
 
 ## [3.6.0] - 2022-07-07
 ### Added
-- default to JS SDK 4.24; update docs w/ latest version numbers - @gavinr
+- default to 4.24; update docs w/ latest version numbers - @gavinr
 
 ### Changed
 - fix build by not compiling @types
@@ -27,11 +27,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.5.0] - 2022-03-29
 ### Added
-- default to JS SDK 4.23; update docs w/ latest version numbers - @gavinr
+- default to 4.23; update docs w/ latest version numbers - @gavinr
 
 ## [3.4.0] - 2022-01-14
 ### Added
-- default to JS SDK 4.22; update docs w/ latest version numbers - @gavinr
+- default to 4.22; update docs w/ latest version numbers - @gavinr
 
 ## [3.3.0] - 2021-09-22
 
@@ -41,33 +41,33 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [3.1.0] - 2021-04-23
 ### Added
-- default to JS SDK 4.19; update docs w/ latest version numbers - @vannizhang
+- default to 4.19; update docs w/ latest version numbers - @vannizhang
 
 ## [3.0.0] - 2020-12-31
 ### Added
-- default to JS SDK 4.18; update docs w/ latest version numbers - @gavinr
+- default to 4.18; update docs w/ latest version numbers - @gavinr
 
 ### Breaking
-- default version of JS SDK no longer supports IE
+- 4.18 no longer supports IE
 - remove option to set `dojoConfig`
 - remove esri-loader default export
 
 ## [2.16.0] - 2020-10-13
 ### Added
-- default to JS SDK 4.17; update docs w/ latest version numbers - @tgirgin23
+- default to 4.17; update docs w/ latest version numbers - @tgirgin23
 
 ## [2.15.0] - 2020-07-10
 ### Added
-- default to JS SDK 4.16; update docs w/ latest version numbers - @JoshCrozier
+- default to 4.16; update docs w/ latest version numbers - @JoshCrozier
 
 ## [2.14.0] - 2020-04-09
 ### Added
-- default to JS SDK 4.15; update docs w/ latest version numbers - @JoshCrozier
+- default to 4.15; update docs w/ latest version numbers - @JoshCrozier
 
 ## [2.13.0] - 2019-12-22
 
 ### Added
-- default to JS SDK 4.14; update docs w/ latest version numbers - @gpbmike
+- default to 4.14; update docs w/ latest version numbers - @gpbmike
 
 ## [2.12.0] - 2019-10-24
 
@@ -78,8 +78,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.11.0] - 2019-10-14
 ### Added
-- default to JS SDK 4.13; update docs w/ latest version numbers
-- add support for "next" version of JS SDK
+- default to 4.13; update docs w/ latest version numbers
+- add support for "next" version of
 
 ## [2.10.2] - 2019-10-12
 
@@ -95,7 +95,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.10.0] - 2019-07-03
 ### Added
-- default to JS SDK 4.12; update docs w/ latest version numbers
+- default to 4.12; update docs w/ latest version numbers
 
 ## [2.9.2] - 2019-04-18
 
@@ -109,7 +109,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [2.9.0] - 2019-03-29
 ### Added
-- default to JS SDK 4.11; update docs w/ latest version numbers
+- default to 4.11; update docs w/ latest version numbers
 
 ## [2.8.0] - 2019-03-27
 ### Added
@@ -129,21 +129,21 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [2.6.0] - 2018-12-17
 
 ### Added
-- default to JS SDK 4.10; update docs w/ latest version numbers
+- default to 4.10; update docs w/ latest version numbers
 
 ## [2.5.0] - 2018-09-29
 
 ### Changed
-- default to JS SDK 4.9; update docs w/ latest version numbers
+- default to 4.9; update docs w/ latest version numbers
 
 ## [2.4.0]
 
 ### Changed
-- default to JS SDK 4.8; update docs w/ latest version numbers
+- default to 4.8; update docs w/ latest version numbers
 
 ## [2.3.0]
 ### Added
-- default to JS SDK 4.7; update docs w/ latest version numbers
+- default to 4.7; update docs w/ latest version numbers
 ### Changed
 - added Hyperapp example link to README
 - move CSS functions into own module
@@ -197,7 +197,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [1.6.0] - 2017-12-31
 ### Added
-- default to version 4.6 of the JS SDK [#63](https://github.com/Esri/esri-loader/issues/63)
+- default to version 4.6 [#63](https://github.com/Esri/esri-loader/issues/63)
 ### Changed
 - remove remaining references to angular-esri-loader from README
 - update README w/ info on arcgis types and browser support [#60](https://github.com/Esri/esri-loader/issues/60)
@@ -251,7 +251,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.2.0]
 
 ### Added
-- default to version 4.5 of the JS SDK
+- default to 4.5
 
 ### Fixed
 - don't throw an error when `bootstrap()` is called multiple times w/o a callback
@@ -262,7 +262,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [1.1.0]
 
 ### Added
-- default to version 4.4 of the JS SDK
+- default to 4.4
 
 ## [1.0.0]
 
@@ -289,13 +289,13 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [0.2.0]
 
 ### Added
-- enable pre-loading the JS SDK
-- default to version 4.3 of the JS SDK
+- enable pre-loading
+- default to 4.3
 
 ## [0.1.3]
 
 ### Fixed
-- default to version 4.2 of the JS SDK
+- default to 4.2
 - use HTTPS by default
 
 ## [0.1.2]

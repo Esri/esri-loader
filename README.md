@@ -10,7 +10,7 @@ A tiny library to help you use the [ArcGIS Maps SDK for JavaScript](https://deve
 
 Ready to jump in? Follow the [Install](#install) and [Usage](#usage) instructions below to get started. Then see more in depth instructions on how to [configure esri-loader](#configuring-esri-loader).
 
-Want to learn more? Learn how esri-loader can help [improve application load performance](#lazy-loading-the-arcgis-api-for-javascript) and allow you to [use the API in server side rendered applications](#server-side-rendering).
+Want to learn more? Learn how esri-loader can help [improve application load performance](#lazy-loading-the-arcgis-api-for-javascript) and allow you to [use the Maps SDK in server side rendered applications](#server-side-rendering).
 
 Looking for legacy examples from a variety of frameworks, or 3.x information? Visit the [archive](archived-examples.md) page.
 
@@ -154,13 +154,13 @@ See [Configuring esri-loader](#configuring-esri-loader) for all available config
 
 ### Lazy Loading
 
-Lazy loading the API can dramatically improve the initial load performance of your mapping application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will lazy load the API by injecting a `<script>` tag in the page. That call and any subsequent calls to `loadModules()` will wait for the script to load before resolving with the modules.
+Lazy loading the modules can dramatically improve the initial load performance of your mapping application, especially if your users may never end up visiting any routes that need to show a map or 3D scene. That is why it is the default behavior of esri-loader. In the above snippets, the first time `loadModules()` is called, it will lazy load the modules by injecting a `<script>` tag in the page. That call and any subsequent calls to `loadModules()` will wait for the script to load before resolving with the modules.
 
-If you have some reason why you do not want to lazy load the API, you can [use a static script tag](#using-your-own-script-tag) instead.
+If you have some reason why you do not want to lazy load the modules, you can [use a static script tag](#using-your-own-script-tag) instead.
 
 ### Loading Styles
 
-Before you can use the API in your app, you _must_ load the styles that correspond to the version you are using. Just like the APIs modules, you'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application.
+You _must_ load the styles that correspond to the version you are using. You'll probably want to [lazy load](#lazy-loading-the-arcgis-api-for-javascript) the styles only once they are needed by the application.
 
 #### When you load the script
 
@@ -211,10 +211,10 @@ It is recommended to try installing [@arcgis/core](https://www.npmjs.com/package
 
 <a id="why-is-this-needed"></a>For versions of the SDK before 4.18, esri-loader is required when working with frameworks or bundlers. esri-loader provides a way to dynamically load the SDK's AMD modules at runtime from the [ArcGIS CDN](https://developers.arcgis.com/javascript/latest/install-and-set-up/#amd-modules-via-arcgis-cdn) into applications built using modern tools and framework conventions. This allows your application to take advantage of the fast cached [CDN](https://developers.arcgis.com/javascript/latest/guide/get-api/#cdn).
 
-esri-loader provides a convenient way to lazy load the API in any application, and it has been the most versatile way to integrate the ArcGIS Maps SDK for JavaScript with other frameworks and their tools since it works in applications that:
+esri-loader provides a convenient way to lazy load the modules in any application, and it has been the most versatile way to integrate the ArcGIS Maps SDK for JavaScript with other frameworks and their tools since it works in applications that:
 - are built with _any_ loader/bundler, such as [webpack](https://webpack.js.org/), [rollup.js](https://rollupjs.org/), or [Parcel](https://parceljs.org)
 - use framework tools that discourage or prevent you from manually editing their configuration
-- make very limited use of the API and don't want to incur the cost of including it in their build
+- make very limited use of the Maps SDK and don't want to incur the cost of including it in their build
 
 Most developers will prefer the convenience and native interoperability of being able to `import` modules from `@arcgis/core` directly, especially if their application makes extensive use of the SDK. However, if `@arcgis/core` doesn't work in your application for whatever reason, esri-loader probably will.
 
