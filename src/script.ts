@@ -100,7 +100,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
       const src = script.getAttribute('src');
       if (src !== url) {
         // potentially trying to load a different version of the API
-        reject(new Error(`The ArcGIS API is already loaded (${src}).`));
+        reject(new Error(`The ArcGIS API for JavaScript is already loaded (${src}).`));
       } else {
         if (isLoaded()) {
           // the script has already successfully loaded
@@ -114,7 +114,7 @@ export function loadScript(options: ILoadScriptOptions = {}): Promise<HTMLScript
       if (isLoaded()) {
         // the API has been loaded by some other means
         // potentially trying to load a different version of the API
-        reject(new Error(`The ArcGIS API is already loaded.`));
+        reject(new Error(`The ArcGIS API for JavaScript is already loaded.`));
       } else {
         // this is the first time attempting to load the API
         const css = opts.css;
