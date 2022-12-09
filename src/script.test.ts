@@ -190,7 +190,7 @@ describe('when loading the script', function() {
         done.fail('call to loadScript should have failed');
       })
       .catch((err) => {
-        expect(err.message).toEqual(`The ArcGIS API is already loaded.`);
+        expect(err.message).toEqual(`The ArcGIS API for JavaScript is already loaded.`);
         done();
       });
     });
@@ -276,7 +276,7 @@ describe('when loading the script', function() {
           done.fail('second call to loadScript should have failed');
         })
         .catch((err) => {
-          expect(err.message).toEqual(`The ArcGIS API is already loaded (${jaspi3xUrl}).`);
+          expect(err.message).toEqual(`The ArcGIS API for JavaScript is already loaded (${jaspi3xUrl}).`);
           done();
         });
       });
