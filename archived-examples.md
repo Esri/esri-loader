@@ -1,6 +1,6 @@
 ### 3.x Types
 
-You can use these instructions in the [Legacy samples for ArcGIS JSAPI Resources](https://github.com/Esri/jsapi-resources/releases/tag/legacy) to install the 3.x types. Follow the instructions outlined in the `/3.x/typescript` directory.
+You can use these instructions in the [Legacy samples for ArcGIS Maps SDK for JavaScript Resources](https://github.com/Esri/jsapi-resources/releases/tag/legacy) to install the 3.x types. Follow the instructions outlined in the `/3.x/typescript` directory.
 
 Use `import * as esri from 'esri';` to implement the types [as shown here](https://github.com/Esri/angular-cli-esri-map/issues/17#issue-360490589).
 
@@ -21,7 +21,7 @@ A more complete 4.x sample can be [seen here](https://codesandbox.io/s/xv8mw2890
 
 ### Legacy browsers
 
-Since this library also works with [v3.x of the ArcGIS API](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
+Since this library also works with [v3.x of the ArcGIS Maps SDK](https://developers.arcgis.com/javascript/3/), the community [has made some effort](https://github.com/Esri/esri-loader/pull/67) to get it to work with [some of the older browsers supported by 3.x](https://developers.arcgis.com/javascript/3/jshelp/supported_browsers.html) like IE < 11.
 
 ### Legacy examples
 
@@ -31,7 +31,7 @@ Here is an archive of some applications and framework-specific wrapper libraries
 
 #### Reusable libraries for Angular
 
-- [angular-esri-components](https://github.com/TheKeithStewart/angular-esri-components) - A set of Angular components to work with ArcGIS API for JavaScript v4.3
+- [angular-esri-components](https://github.com/TheKeithStewart/angular-esri-components) - A set of Angular components to work with ArcGIS Maps SDK for JavaScript v4.3
 
 #### Example Angular applications
 
@@ -39,7 +39,7 @@ Here is an archive of some applications and framework-specific wrapper libraries
 
 ### [CanJS](https://canjs.com/)
 
-- [can-arcgis](https://github.com/roemhildtg/can-arcgis) - CanJS configurable mapping app (inspired by [cmv-app](https://github.com/cmv/cmv-app)) and components built for the ArcGIS JS API 4.x, bundled with [StealJS](https://stealjs.com/)
+- [can-arcgis](https://github.com/roemhildtg/can-arcgis) - CanJS configurable mapping app (inspired by [cmv-app](https://github.com/cmv/cmv-app)) and components built for the ArcGIS Maps SDK for JavaScript 4.x, bundled with [StealJS](https://stealjs.com/)
 
 ### [Choo](https://choo.io/)
 
@@ -53,7 +53,7 @@ Here is an archive of some applications and framework-specific wrapper libraries
 
 ### [Electron](https://electron.atom.io/)
 
-- [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS API for JavaScript inside of Electron
+- [ng-cli-electron-esri](https://github.com/TheKeithStewart/ng-cli-electron-esri) - This project is meant to demonstrate how to run a mapping application using the ArcGIS Maps SDK for JavaScript inside of Electron
 
 #### Reusable libraries for Ember
 
@@ -65,7 +65,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ### [Glimmer.js](https://glimmerjs.com/)
 
-- [esri-glimmer-example](https://github.com/tomwayson/esri-glimmer-example) - An example of how to use the ArcGIS API for JavaScript in a https://glimmerjs.com/ application
+- [esri-glimmer-example](https://github.com/tomwayson/esri-glimmer-example) - An example of how to use the ArcGIS Maps SDK for JavaScript in a https://glimmerjs.com/ application
 
 ### [Hyperapp](https://hyperapp.js.org/)
 
@@ -73,11 +73,11 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 
 ### [Preact](https://github.com/developit/preact)
 
-- [esri-preact-pwa](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS API for JavaScript built with Preact
+- [esri-preact-pwa](https://github.com/tomwayson/esri-preact-pwa) - An example progressive web app (PWA) using the ArcGIS Maps SDK for JavaScript built with Preact
 
 #### Reusable libraries for React
 
-- [esri-loader-hooks](https://github.com/tomwayson/esri-loader-hooks) - Custom React hooks for using the ArcGIS API for JavaScript with esri-loader
+- [esri-loader-hooks](https://github.com/tomwayson/esri-loader-hooks) - Custom React hooks for using the ArcGIS Maps SDK for JavaScript with esri-loader
 - [react-arcgis](https://github.com/Esri/react-arcgis) - A few components to help you get started using esri-loader with React
 - [esri-loader-react](https://github.com/davetimmins/esri-loader-react) - A React component wrapper around esri-loader ([blog post](https://davetimmins.github.io/2017/07/19/esri-loader-react/))
 - [arcgis-react-redux-legend](https://github.com/davetimmins/arcgis-react-redux-legend) - Legend control for ArcGIS JS v4 using React and Redux
@@ -86,7 +86,7 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 - [create-arcgis-app](https://github.com/tomwayson/create-arcgis-app/) - An example of how to use the ArcGIS platform in an application created with Create React App and React Router.
 - [next-arcgis-app](https://github.com/tomwayson/next-arcgis-app/) - An example of how to use the ArcGIS platform in an application built with Next.js
 - [esri-loader-react-starter-kit](https://github.com/tomwayson/esri-loader-react-starter-kit) - A fork of the [react-starter-kit](https://github.com/kriasoft/react-starter-kit) showing how to use esri-loader in an isomorphic/universal React application
-- [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS API
+- [create-react-app-esri-loader](https://github.com/davetimmins/create-react-app-esri-loader/) - An example create-react-app application that uses [esri-loader-react](https://github.com/davetimmins/esri-loader-react) to load the ArcGIS Maps SDK for JavaScript
 - [React-Typescript-App-with-ArcGIS-JSAPI](https://github.com/guzhongren/React-Typescript-App-with-ArcGIS-JSAPI) - An example create-react-app application that uses [esri-loader](https://github.com/Esri/esri-loader), [esri-loader-react](https://github.com/davetimmins/esri-loader-react), [Typescript](https://www.typescriptlang.org/), [Webpack3](https://webpack.js.org/) to create MapView
 
 ### [Riot](https://riot.js.org/)
@@ -105,6 +105,6 @@ See the [examples over at ember-esri-loader](https://github.com/Esri/ember-esri-
 ### [Vue.js](https://vuejs.org/)
 
 - [CreateMap](https://github.com/oppoudel/CreateMap) - Create Map: City of Baltimore - https://gis.baltimorecity.gov/createmap/#/
-- [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS API
-- [vue-jsapi4](https://github.com/odoe/vue-jsapi4) - An example of how to use the [ArcGIS API for Javascript](https://developers.arcgis.com/javascript/) in a [NUXT](https://nuxtjs.org/) application ([blog post](https://odoe.net/blog/arcgis-api-4-for-js-with-vue-cli-and-nuxt/), [video](https://youtu.be/hqJzzgM8seo))
-- [esri-vue-cli-example](https://github.com/tomwayson/esri-vue-cli-example) - An example of how to use the [ArcGIS API for JavaScript 3.x](https://developers.arcgis.com/javascript/3/) in a [vue-cli](https://github.com/vuejs/vue-cli) application
+- [City of Baltimore: Map Gallery](https://github.com/oppoudel/MapGallery_Vue) - Map Gallery built with Vue.js that uses this library to load the ArcGIS SDK
+- [vue-jsapi4](https://github.com/odoe/vue-jsapi4) - An example of how to use the [ArcGIS Maps SDK for Javascript](https://developers.arcgis.com/javascript/) in a [NUXT](https://nuxtjs.org/) application ([blog post](https://odoe.net/blog/arcgis-api-4-for-js-with-vue-cli-and-nuxt/), [video](https://youtu.be/hqJzzgM8seo))
+- [esri-vue-cli-example](https://github.com/tomwayson/esri-vue-cli-example) - An example of how to use the [ArcGIS Maps SDK for JavaScript 3.x](https://developers.arcgis.com/javascript/3/) in a [vue-cli](https://github.com/vuejs/vue-cli) application
