@@ -15,7 +15,6 @@ Want to learn more? Learn how esri-loader can help [improve application load per
 Looking for legacy examples from a variety of frameworks, or 3.x information? Visit the [archive](archived-examples.md) page.
 
 ## Table of Contents
-    d
 - [Known Limitations](#known-limitations)
 - [Install](#install)
 - [Usage](#usage)
@@ -50,7 +49,10 @@ Looking for legacy examples from a variety of frameworks, or 3.x information? Vi
 
 ## Known Limitations
 
-- <a id="known-limitations"></a>Compatibility with implementations that don't support [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) at runtime, within AMD modules, is deprecated at version 4.25 (November 2022) - this means the functionality will be removed in a future release. In particular, this affects Angular applications using esri-loader because of [well-known limitations in Zone.js](https://angular.io/guide/roadmap#improve-runtime-performance-and-make-zonejs-optional). Angular users will need to migrate from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/) in order to continue using the latest release of the SDK. Refer to the [FAQ](https://developers.arcgis.com/javascript/latest/faq/#how-are-breaking-changes-managed) for more information on breaking changes.
+<a id="known-limitations"></a> 
+| :warning:  Angular with Zone.js compatibility deprecation |
+| :---------------------------------------------------|
+| Compability with frameworks that don't support native [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) in AMD modules at runtime was deprecated at 4.25 (November 2022) and will be removed at 4.27 (June 2023). In particular, this affects Angular applications using esri-loader because async/await is [not supported in Zone.js](https://angular.io/guide/roadmap#improve-runtime-performance-and-make-zonejs-optional). We are making this change to allow for performance improvements within the Maps SDK. Angular users will need to migrate from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/) in order to continue using the latest release of the SDK. Refer to the [FAQ](https://developers.arcgis.com/javascript/latest/faq/#how-are-breaking-changes-managed) for more information on breaking changes. |
 
 ## Install
 
