@@ -50,9 +50,7 @@ Looking for legacy examples from a variety of frameworks, or 3.x information? Vi
 ## Known Limitations
 
 <a id="known-limitations"></a> 
-| :warning:  Angular with Zone.js compatibility deprecation |
-| :---------------------------------------------------|
-| Compability with frameworks that don't support native [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) in AMD modules at runtime was deprecated at 4.25 (November 2022) and will be removed at 4.27 (June 2023). In particular, this affects Angular applications using esri-loader because async/await is [not supported in Zone.js](https://angular.io/guide/roadmap#improve-runtime-performance-and-make-zonejs-optional). We are making this change to allow for performance improvements within the Maps SDK. Angular users will need to migrate from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/) in order to continue using the latest release of the SDK. Refer to the [FAQ](https://developers.arcgis.com/javascript/latest/faq/#how-are-breaking-changes-managed) for more information on breaking changes. |
+- Compability with frameworks that don't support native [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) in AMD modules at runtime was removed at 4.27 (June 2023). In particular, this affects Angular applications using esri-loader because async/await is [not supported in Zone.js](https://angular.io/guide/roadmap#improve-runtime-performance-and-developer-experience-with-a-new-reactivity-model). Angular users that run into async/await-related issues will need to migrate off Zone.js or move from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/) in order to continue using the latest releases of the SDK. 
 
 ## Install
 
