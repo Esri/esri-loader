@@ -1,12 +1,10 @@
-# esri-loader
+# esri-loader (Deprecated)
 
-[![Travis](https://img.shields.io/travis/Esri/esri-loader.svg)](https://travis-ci.org/Esri/esri-loader/builds/) [![npm](https://img.shields.io/npm/v/esri-loader.svg)](https://github.com/Esri/esri-loader/releases) [![npm](https://img.shields.io/npm/dw/esri-loader.svg)](https://www.npmjs.com/package/esri-loader) [![npm](https://img.shields.io/npm/l/esri-loader.svg)](https://github.com/Esri/esri-loader/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/esri/esri-loader.svg?style=social&label=Stars)](https://github.com/Esri/esri-loader/stargazers)
+[![deprecated](http://badges.github.io/stability-badges/dist/deprecated.svg)](http://github.com/badges/stability-badges) [![npm](https://img.shields.io/npm/v/esri-loader.svg)](https://github.com/Esri/esri-loader/releases) [![npm](https://img.shields.io/npm/dw/esri-loader.svg)](https://www.npmjs.com/package/esri-loader) [![npm](https://img.shields.io/npm/l/esri-loader.svg)](https://github.com/Esri/esri-loader/blob/master/LICENSE) [![GitHub stars](https://img.shields.io/github/stars/esri/esri-loader.svg?style=social&label=Stars)](https://github.com/Esri/esri-loader/stargazers)
 
 A tiny library to help you use the [ArcGIS Maps SDK for JavaScript](https://developers.arcgis.com/javascript/latest/tooling-intro/) AMD modules in applications built with popular JavaScript frameworks and bundlers.
 
-**NOTE: It is recommended to try installing [@arcgis/core](https://www.npmjs.com/package/@arcgis/core) and [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) _instead_ of using esri-loader.** Read more below about [when you might want to use esri-loader](#why-is-this-needed).
-
-![ArcGIS logo, mended broken heart, Angular logo, Ember logo, React logo, Vue logo](https://docs.google.com/drawings/d/e/2PACX-1vSUEfgaupMLz6FXBX65X-nm7cqA0r9ed3rJ_KNISeqzwDDkd8LsubLhQ_hCWwO3zjS41cD5eG7QUBHl/pub?w=888&h=222)
+**Deprecation Notice:** The esri-loader npm package is deprecated at Maps SDK for JavaScript version 4.29 and will be retired at version 4.31. Locally built applications should use the [@arcgis/core](https://developers.arcgis.com/javascript/latest/es-modules/) ES modules npm package. Here are [sample applications](https://github.com/Esri/jsapi-resources/tree/main/esm-samples) for getting started. For more information see the [building with ES Modules](https://developers.arcgis.com/javascript/latest/guide/es-modules) guide topic.
 
 Ready to jump in? Follow the [Install](#install) and [Usage](#usage) instructions below to get started. Then see more in depth instructions on how to [configure esri-loader](#configuring-esri-loader).
 
@@ -50,7 +48,7 @@ Looking for legacy examples from a variety of frameworks, or 3.x information? Vi
 ## Known Limitations
 
 <a id="known-limitations"></a> 
-- Compability with frameworks that don't support native [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) in AMD modules at runtime was removed at 4.27 (June 2023). In particular, this affects Angular applications using esri-loader because async/await is [not supported in Zone.js](https://angular.io/guide/roadmap#improve-runtime-performance-and-developer-experience-with-a-new-reactivity-model). Angular users that run into async/await-related issues will need to migrate off Zone.js or move from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/) in order to continue using the latest releases of the SDK. 
+- Compatibility with frameworks that don't support native [async/await](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Promises#async_and_await) in AMD modules at runtime was removed at 4.27 (June 2023). In particular, this affects Angular applications using esri-loader because async/await is [not supported in Zone.js](https://angular.io/guide/roadmap#improve-runtime-performance-and-developer-experience-with-a-new-reactivity-model). Angular users that run into async/await-related issues will need to migrate off Zone.js or move from AMD modules to using [@arcgis/core ES modules](https://developers.arcgis.com/javascript/latest/es-modules/) in order to continue using the latest releases of the SDK. 
 
 ## Install
 
@@ -530,14 +528,6 @@ init () {
 ```
 
 Otherwise, you should consider using a [Promise polyfill](https://www.google.com/search?q=promise+polyfill), ideally [only when needed](https://philipwalton.com/articles/loading-polyfills-only-when-needed/).
-
-## Issues
-
-Find a bug or want to request a new feature?  Please let us know by [submitting an issue](https://github.com/Esri/esri-loader/issues/).
-
-## Contributing
-
-Esri welcomes contributions from anyone and everyone. Please see our [guidelines for contributing](https://github.com/esri/contributing).
 
 ## Licensing
 
